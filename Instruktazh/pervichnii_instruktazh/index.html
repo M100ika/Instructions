@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Первичный инструктаж - Инженер КИПиА</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --accent: #c9a227;
+            --text: #2d3748;
+            --muted: #718096;
+            --bg: #fafaf9;
+            --card: #ffffff;
+            --border: #e2e8f0;
+            --danger: #c53030;
+        }
+        
+        body {
+            font-family: 'PT Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+        
+        .font-narrow {
+            font-family: 'PT Sans Narrow', sans-serif;
+        }
+        
+        .document {
+            background: var(--card);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .section-number {
+            background: linear-gradient(135deg, var(--primary) 0%, #2c5282 100%);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .header-stripe {
+            background: linear-gradient(90deg, var(--primary) 0%, #2c5282 50%, var(--primary) 100%);
+            height: 4px;
+        }
+        
+        .accent-stripe {
+            background: var(--accent);
+            height: 2px;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+            border-left: 4px solid var(--danger);
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
+            border-left: 4px solid var(--primary);
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .document {
+                box-shadow: none;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        .slide-up {
+            animation: slideUp 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        @keyframes slideUp {
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .signature-line {
+            border-bottom: 1px solid var(--text);
+            min-width: 200px;
+            display: inline-block;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in, .slide-up {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen py-8 px-4">
+    <!-- Download Button -->
+    <div class="no-print fixed top-4 right-4 z-50 flex gap-3">
+        <button onclick="downloadPDF()" class="flex items-center gap-2 bg-[#1a365d] text-white px-6 py-3 rounded-lg font-bold hover:bg-[#2c5282] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Скачать PDF
+        </button>
+    </div>
+
+    <!-- Document -->
+    <div id="document" class="document max-w-4xl mx-auto rounded-lg overflow-hidden">
+        <!-- Header -->
+        <div class="header-stripe"></div>
+        <div class="accent-stripe"></div>
+        
+        <div class="px-10 py-8 border-b border-[var(--border)]">
+            <div class="flex items-start justify-between gap-6">
+                <div class="flex-1">
+                    <div class="text-xs text-[var(--muted)] uppercase tracking-wider mb-2">
+                        Инженерно-техническая служба
+                    </div>
+                    <div class="font-narrow text-2xl font-bold text-[var(--primary)] leading-tight">
+                        НАЗАРБАЕВ УНИВЕРСИТЕТ
+                    </div>
+                </div>
+                <div class="w-20 h-20 flex-shrink-0">
+                    <img src="https://z-cdn-media.chatglm.cn/files/0353fdbc-58ab-4f59-a7fd-85df90be9f4c.png?auth_key=1877374705-48b17b9768224eb4baa8edebe7b70d95-0-ca8685bf276b897f8ce93f00103a1821" 
+                         alt="Логотип" 
+                         class="w-full h-full object-contain">
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <div class="inline-block px-4 py-1 bg-[var(--primary)] text-white text-xs uppercase tracking-widest rounded mb-4">
+                    Документ по охране труда
+                </div>
+                <h1 class="font-narrow text-3xl md:text-4xl font-bold text-[var(--primary)] leading-tight">
+                    ПЕРВИЧНЫЙ ИНСТРУКТАЖ
+                </h1>
+                <h2 class="font-narrow text-xl md:text-2xl text-[var(--muted)] mt-2">
+                    для инженера КИПиА
+                </h2>
+                <p class="text-sm text-[var(--muted)] mt-3 max-w-lg mx-auto">
+                    Приступающего к работе в мастерской и на объектах эксплуатации оборудования
+                </p>
+            </div>
+            
+            <div class="flex justify-between mt-8 text-sm text-[var(--muted)]">
+                <div>Номер документа: <span class="font-bold text-[var(--text)]">ИТ-ОТ-001</span></div>
+                <div>Дата утверждения: <span class="font-bold text-[var(--text)]" id="current-date"></span></div>
+            </div>
+        </div>
+        
+        <!-- Content -->
+        <div class="px-10 py-8 space-y-8">
+            <!-- Section 1 -->
+            <section class="slide-up" style="animation-delay: 0.1s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">1</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                            Общие положения и назначение инструктажа
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)]">
+                            Первичный инструктаж проводится с инженером КИПиА перед допуском к самостоятельной работе в мастерской и на объектах эксплуатации оборудования. Цель инструктажа — сформировать у инженера системное понимание технологических, электрических, механических и скрытых рисков, характерных для обслуживания измерительных, управляющих и холодильных систем.
+                        </p>
+                        <div class="info-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]">
+                                <strong>Внимание:</strong> данный документ ориентирован не на общие правила охраны труда, а на конкретные условия инженерной деятельности: диагностику, разборку, настройку и испытания оборудования. Инженер должен осознавать, что большинство аварий происходит не из‑за незнания правил, а из‑за неверной оценки остаточных энергий и физических процессов в системе.
+                            </p>
+                        </div>
+                        <p class="text-sm leading-relaxed text-[var(--text)] mt-4">
+                            Допуск к работам осуществляется только после усвоения настоящего инструктажа и фиксации в журнале.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 2 -->
+            <section class="slide-up" style="animation-delay: 0.15s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">2</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                            Характер деятельности инженера КИПиА и связанные риски
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)]">
+                            Работа инженера КИПиА связана с оборудованием, в котором одновременно присутствуют электрическая энергия, давление, температура, химические вещества и программно‑логическое управление.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4 mt-4">
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2">Низковольтные цепи (5–24 В DC)</div>
+                                <p class="text-sm">Короткие замыкания, локальный перегрев дорожек, отказ электронных компонентов</p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2">Сети 220 В AC</div>
+                                <p class="text-sm">Прямое поражение током, дуговые разряды при плохом контакте</p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2">Холодильные системы</div>
+                                <p class="text-sm">Остаточное давление, хладагенты, риск травм и воздействия на дыхание</p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2">Пневматика и гидравлика</div>
+                                <p class="text-sm">Накопленная энергия, мгновенное высвобождение давления</p>
+                            </div>
+                        </div>
+                        <div class="warning-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]">
+                                <strong>Важно:</strong> Инженер обязан воспринимать любой прибор как потенциально опасный до момента полной проверки его энергетического состояния.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 3 -->
+            <section class="slide-up" style="animation-delay: 0.2s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">3</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                            Требования к допуску и организации рабочего места
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5">1</div>
+                                <p class="text-sm">Действующий допуск по электробезопасности</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5">2</div>
+                                <p class="text-sm">Пройденный инструктаж по охране труда</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5">3</div>
+                                <p class="text-sm">Ознакомление с локальными инструкциями мастерской</p>
+                            </div>
+                        </div>
+                        <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)] mt-4">
+                            <h4 class="font-bold text-sm mb-2 text-[var(--primary)]">Организация рабочего места:</h4>
+                            <ul class="text-sm space-y-1 list-disc list-inside">
+                                <li>Исключить случайное включение оборудования</li>
+                                <li>Предотвратить падение приборов</li>
+                                <li>Исключить контакт с токоведущими частями</li>
+                                <li>Инструмент размещать в зоне досягаемости, но не на корпусе оборудования</li>
+                                <li>Запрещена работа при недостаточном освещении</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4 -->
+            <section class="slide-up" style="animation-delay: 0.25s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">4</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                            Электробезопасность и принцип LOTO
+                        </h3>
+                        <div class="bg-gradient-to-r from-[var(--primary)] to-[#2c5282] text-white p-4 rounded-lg mb-4">
+                            <div class="flex items-center gap-3">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                                <div>
+                                    <div class="font-bold">Lock Out – Tag Out</div>
+                                    <div class="text-xs opacity-80">Запирание и маркировка</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-sm leading-relaxed text-[var(--text)]">
+                            Перед разборкой или диагностикой любого оборудования обязательно выполняется отключение от источников питания с применением принципа LOTO. Недостаточно просто выключить кнопку или тумблер — необходимо физически разорвать цепь питания (вилка, автомат, клемма) и убедиться в отсутствии напряжения измерительным прибором.
+                        </p>
+                        <div class="warning-box p-4 rounded-r-lg mt-4">
+                            <h4 class="font-bold text-sm mb-2 text-[var(--danger)]">Конденсаторы — скрытая угроза!</h4>
+                            <p class="text-sm">Особое внимание уделяется наличию конденсаторов в блоках питания, частотных преобразователях и пусковых цепях компрессоров — они способны сохранять опасный заряд после отключения.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 5 -->
+            <section class="slide-up" style="animation-delay: 0.3s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">5</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                            Риски, связанные с механическими и термическими узлами
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border-l-4 border-[var(--primary)]">
+                                <h4 class="font-bold text-sm mb-2 flex items-center gap-2">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                                    </svg>
+                                    Механические риски
+                                </h4>
+                                <ul class="text-sm space-y-1">
+                                    <li>Вращающиеся вентиляторы</li>
+                                    <li>Приводы и компрессоры</li>
+                                    <li>Подвижные элементы механизмов</li>
+                                    <li>Самопроизвольный пуск</li>
+                                </ul>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border-l-4 border-[var(--danger)]">
+                                <h4 class="font-bold text-sm mb-2 flex items-center gap-2">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path>
+                                    </svg>
+                                    Термические риски
+                                </h4>
+                                <ul class="text-sm space-y-1">
+                                    <li>Нагреватели</li>
+                                    <li>Силовые резисторы</li>
+                                    <li>Радиаторы</li>
+                                    <li>Нагнетательные трубопроводы</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6 -->
+            <section class="slide-up" style="animation-delay: 0.35s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">6</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                            Холодильные, пневматические и гидравлические системы
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)]">
+                            При работе с холодильными установками инженер должен понимать, что даже неработающая система находится под давлением. Хладагенты могут вытесняться при повреждении трубок или неправильной разборке узлов, что создаёт риск травм и воздействия на органы дыхания.
+                        </p>
+                        <div class="warning-box p-4 rounded-r-lg mt-4">
+                            <h4 class="font-bold text-sm mb-2 text-[var(--danger)]">Запрещено без специального допуска:</h4>
+                            <ul class="text-sm space-y-1 list-disc list-inside">
+                                <li>Самовольное вскрытие холодильного контура</li>
+                                <li>Стравливание хладагента</li>
+                                <li>Дозаправка системы</li>
+                            </ul>
+                        </div>
+                        <p class="text-sm leading-relaxed text-[var(--text)] mt-4">
+                            Аналогичные требования распространяются на пневматические и гидравлические системы, где накопленная энергия может высвободиться мгновенно. Любые работы начинаются только после подтверждения отсутствия давления и температуры.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 7 -->
+            <section class="slide-up" style="animation-delay: 0.4s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">7</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                            Работа с измерительными приборами и инструментом
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)]">
+                            Инженер КИПиА обязан использовать только исправные и поверенные измерительные приборы, соответствующие диапазону измеряемых величин.
+                        </p>
+                        <div class="info-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]">
+                                <strong>Типичная ошибка:</strong> применение мультиметра в неверном режиме является одной из распространённых причин выхода прибора из строя и коротких замыканий. Перед измерениями инженер анализирует схему и ожидаемые значения, а не выполняет измерения «наугад».
+                            </p>
+                        </div>
+                        <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)] mt-4">
+                            <h4 class="font-bold text-sm mb-2">Требования к инструменту:</h4>
+                            <ul class="text-sm space-y-1 list-disc list-inside">
+                                <li>Паяльное оборудование, фены и лабораторные источники питания используются с учётом тепловых и электрических рисков</li>
+                                <li>После работы оборудование обязательно отключается</li>
+                                <li>Инструмент с повреждённой изоляцией или корпусом к применению не допускается</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 8 -->
+            <section class="slide-up" style="animation-delay: 0.45s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">8</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                            Действия при аварийных ситуациях
+                        </h3>
+                        <div class="bg-gradient-to-r from-[#c53030] to-[#9b2c2c] text-white p-4 rounded-lg mb-4">
+                            <div class="font-bold mb-2">При возникновении аварийной ситуации:</div>
+                            <ol class="text-sm space-y-1 list-decimal list-inside">
+                                <li>Немедленно прекратить работу</li>
+                                <li>Обесточить оборудование</li>
+                                <li>Обеспечить собственную безопасность</li>
+                            </ol>
+                        </div>
+                        <p class="text-sm leading-relaxed text-[var(--text)]">
+                            О любых инцидентах, включая искрение, запах гари, утечку хладагента или неконтролируемый нагрев, необходимо сообщить руководителю или ответственному за оборудование.
+                        </p>
+                        <div class="warning-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]">
+                                <strong>Запрещается</strong> скрывать происшествия или пытаться устранить последствия без фиксации факта аварии. Анализ инцидентов является частью инженерной культуры и направлен на предотвращение повторений, а не на поиск виновных.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 9 -->
+            <section class="slide-up" style="animation-delay: 0.5s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">9</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                            Заключительные положения
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)]">
+                            Инженер КИПиА допускается к самостоятельной работе только после подтверждения понимания настоящего инструктажа. Соблюдение изложенных требований является не формальностью, а необходимым условием безопасной и профессиональной инженерной деятельности.
+                        </p>
+                        <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)] mt-4">
+                            <p class="text-sm">
+                                <strong>Нарушение инструктажа</strong> рассматривается как нарушение трудовой дисциплины и требований охраны труда. Инженер обязан регулярно актуализировать свои знания и учитывать изменения в оборудовании и технологиях.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Signatures -->
+        <div class="px-10 py-8 border-t border-[var(--border)] bg-[var(--bg)]">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <div class="text-sm text-[var(--muted)] mb-2">Инструктаж провёл:</div>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <span class="text-sm w-20">Должность:</span>
+                            <span class="signature-line"></span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-sm w-20">Ф.И.О.:</span>
+                            <span class="signature-line"></span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-sm w-20">Подпись:</span>
+                            <span class="signature-line"></span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="text-sm text-[var(--muted)] mb-2">Инструктаж прошёл:</div>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <span class="text-sm w-20">Должность:</span>
+                            <span class="signature-line"></span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-sm w-20">Ф.И.О.:</span>
+                            <span class="signature-line"></span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-sm w-20">Подпись:</span>
+                            <span class="signature-line"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-[var(--border)]">
+                <div class="flex items-center gap-4">
+                    <span class="text-sm">Дата проведения инструктажа:</span>
+                    <span class="signature-line"></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="accent-stripe"></div>
+        <div class="header-stripe"></div>
+    </div>
+    
+    <script>
+        // Set current date
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('ru-RU', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
+        });
+        
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Check for reduced motion preference
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        
+        if (!prefersReducedMotion) {
+            document.querySelectorAll('.slide-up').forEach(el => {
+                el.style.animationPlayState = 'paused';
+                observer.observe(el);
+            });
+        }
+        
+        // PDF Download function
+        function downloadPDF() {
+            const element = document.getElementById('document');
+            const opt = {
+                margin: 0,
+                filename: 'Первичный_инструктаж_КИПиА.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2,
+                    useCORS: true,
+                    letterRendering: true
+                },
+                jsPDF: { 
+                    unit: 'mm', 
+                    format: 'a4', 
+                    orientation: 'portrait' 
+                },
+                pagebreak: { mode: 'avoid-all', before: '.page-break' }
+            };
+            
+            // Show loading state
+            const btn = event.target.closest('button');
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = `
+                <svg class="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+                </svg>
+                Формирование...
+            `;
+            btn.disabled = true;
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>
