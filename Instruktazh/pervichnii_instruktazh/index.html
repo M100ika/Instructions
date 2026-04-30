@@ -6,7 +6,6 @@
     <title>Первичный инструктаж - Инженер КИПиА</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root {
             --primary: #1a365d;
@@ -75,9 +74,6 @@
             .document {
                 box-shadow: none;
             }
-            .no-print {
-                display: none !important;
-            }
         }
         
         .fade-in {
@@ -115,21 +111,28 @@
                 transform: none;
             }
         }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+        }
+        
+        .logo-main {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+        }
+        
+        .logo-jubilee {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+        }
     </style>
 </head>
 <body class="min-h-screen py-8 px-4">
-    <!-- Download Button -->
-    <div class="no-print fixed top-4 right-4 z-50 flex gap-3">
-        <button onclick="downloadPDF()" class="flex items-center gap-2 bg-[#1a365d] text-white px-6 py-3 rounded-lg font-bold hover:bg-[#2c5282] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            Скачать PDF
-        </button>
-    </div>
-
     <!-- Document -->
     <div id="document" class="document max-w-4xl mx-auto rounded-lg overflow-hidden">
         <!-- Header -->
@@ -137,19 +140,22 @@
         <div class="accent-stripe"></div>
         
         <div class="px-10 py-8 border-b border-[var(--border)]">
-            <div class="flex items-start justify-between gap-6">
-                <div class="flex-1">
-                    <div class="text-xs text-[var(--muted)] uppercase tracking-wider mb-2">
-                        Инженерно-техническая служба
-                    </div>
-                    <div class="font-narrow text-2xl font-bold text-[var(--primary)] leading-tight">
-                        НАЗАРБАЕВ УНИВЕРСИТЕТ
-                    </div>
+            <!-- Logos -->
+            <div class="logo-container mb-6">
+                <img src="https://z-cdn-media.chatglm.cn/files/0353fdbc-58ab-4f59-a7fd-85df90be9f4c.png?auth_key=1877374705-48b17b9768224eb4baa8edebe7b70d95-0-ca8685bf276b897f8ce93f00103a1821" 
+                     alt="Логотип Инженерно-технической службы" 
+                     class="logo-main">
+                <img src="https://z-cdn-media.chatglm.cn/files/fb25d888-4762-44e8-9189-ce08374a23f9.png?auth_key=1877540789-73669ef81d984f34b5589dea86900e76-0-aa01884582084149a5c6dbaa54d14073" 
+                     alt="15 лет Назарбаев Университет" 
+                     class="logo-jubilee">
+            </div>
+            
+            <div class="text-center mb-4">
+                <div class="text-xs text-[var(--muted)] uppercase tracking-wider mb-2">
+                    Инженерно-техническая служба
                 </div>
-                <div class="w-20 h-20 flex-shrink-0">
-                    <img src="https://z-cdn-media.chatglm.cn/files/0353fdbc-58ab-4f59-a7fd-85df90be9f4c.png?auth_key=1877374705-48b17b9768224eb4baa8edebe7b70d95-0-ca8685bf276b897f8ce93f00103a1821" 
-                         alt="Логотип" 
-                         class="w-full h-full object-contain">
+                <div class="font-narrow text-2xl font-bold text-[var(--primary)] leading-tight">
+                    НАЗАРБАЕВ УНИВЕРСИТЕТ
                 </div>
             </div>
             
@@ -419,7 +425,7 @@
                         </div>
                         <p class="text-sm leading-relaxed text-[var(--text)]">
                             О любых инцидентах, включая искрение, запах гари, утечку хладагента или неконтролируемый нагрев, необходимо сообщить руководителю или ответственному за оборудование.
-                        </p>
+                        </div>
                         <div class="warning-box p-4 rounded-r-lg mt-4">
                             <p class="text-sm text-[var(--text)]">
                                 <strong>Запрещается</strong> скрывать происшествия или пытаться устранить последствия без фиксации факта аварии. Анализ инцидентов является частью инженерной культуры и направлен на предотвращение повторений, а не на поиск виновных.
@@ -531,43 +537,6 @@
             document.querySelectorAll('.slide-up').forEach(el => {
                 el.style.animationPlayState = 'paused';
                 observer.observe(el);
-            });
-        }
-        
-        // PDF Download function
-        function downloadPDF() {
-            const element = document.getElementById('document');
-            const opt = {
-                margin: 0,
-                filename: 'Первичный_инструктаж_КИПиА.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { 
-                    scale: 2,
-                    useCORS: true,
-                    letterRendering: true
-                },
-                jsPDF: { 
-                    unit: 'mm', 
-                    format: 'a4', 
-                    orientation: 'portrait' 
-                },
-                pagebreak: { mode: 'avoid-all', before: '.page-break' }
-            };
-            
-            // Show loading state
-            const btn = event.target.closest('button');
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = `
-                <svg class="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
-                </svg>
-                Формирование...
-            `;
-            btn.disabled = true;
-            
-            html2pdf().set(opt).from(element).save().then(() => {
-                btn.innerHTML = originalHTML;
-                btn.disabled = false;
             });
         }
     </script>
