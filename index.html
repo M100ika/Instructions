@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инструктажи по охране труда - Инженер КИП</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #2c5282;
+            --accent: #c9a227;
+            --accent-light: #d69e2e;
+            --text: #2d3748;
+            --muted: #718096;
+            --bg: #fafaf9;
+            --card: #ffffff;
+            --border: #e2e8f0;
+            --success: #2f855a;
+            --warning: #d69e2e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'PT Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+        
+        .font-narrow {
+            font-family: 'PT Sans Narrow', sans-serif;
+        }
+        
+        .header-stripe {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 50%, var(--primary) 100%);
+            height: 4px;
+        }
+        
+        .accent-stripe {
+            background: var(--accent);
+            height: 2px;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(180deg, rgba(26, 54, 93, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+        
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .instruction-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        
+        .instruction-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--card-accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .instruction-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .instruction-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            border-color: transparent;
+        }
+        
+        .card-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            transition: all 0.4s ease;
+        }
+        
+        .instruction-card:hover .card-icon-wrapper {
+            transform: scale(1.1);
+        }
+        
+        .card-vvodnii { --card-accent: var(--success); }
+        .card-vvodnii .card-icon-wrapper { background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%); }
+        .card-vvodnii .card-icon-wrapper svg { color: var(--success); }
+        
+        .card-pervichnii { --card-accent: var(--primary); }
+        .card-pervichnii .card-icon-wrapper { background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%); }
+        .card-pervichnii .card-icon-wrapper svg { color: var(--primary); }
+        
+        .card-povtornii { --card-accent: var(--accent); }
+        .card-povtornii .card-icon-wrapper { background: linear-gradient(135deg, #fffff0 0%, #fefcbf 100%); }
+        .card-povtornii .card-icon-wrapper svg { color: var(--accent-light); }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-active {
+            background: #f0fff4;
+            color: var(--success);
+        }
+        
+        .logo-main {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-jubilee {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-main:hover,
+        .logo-jubilee:hover {
+            transform: scale(1.05);
+        }
+        
+        .pattern-bg {
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(26, 54, 93, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(201, 162, 39, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 40% 80%, rgba(26, 54, 93, 0.02) 0%, transparent 40%);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        
+        .pulse-dot::before {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse-ring 1.5s ease-out infinite;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .animate-fade-in {
+                animation: none;
+                opacity: 1;
+            }
+            .instruction-card {
+                transition: none;
+            }
+            .instruction-card:hover {
+                transform: none;
+            }
+            .pulse-dot::before {
+                animation: none;
+            }
+        }
+        
+        .footer-link {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body class="pattern-bg">
+    <!-- Header Stripe -->
+    <div class="header-stripe"></div>
+    <div class="accent-stripe"></div>
+    
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 py-12">
+        
+        <!-- Hero Section -->
+        <section class="hero-bg rounded-2xl p-8 md:p-12 mb-12 animate-fade-in">
+            <!-- Logos -->
+            <div class="flex items-center justify-center gap-8 md:gap-12 mb-8">
+                <img src="https://z-cdn-media.chatglm.cn/files/0353fdbc-58ab-4f59-a7fd-85df90be9f4c.png?auth_key=1877374705-48b17b9768224eb4baa8edebe7b70d95-0-ca8685bf276b897f8ce93f00103a1821" 
+                     alt="Логотип Инженерно-технической службы" 
+                     class="logo-main">
+                <img src="https://z-cdn-media.chatglm.cn/files/fb25d888-4762-44e8-9189-ce08374a23f9.png?auth_key=1877540789-73669ef81d984f34b5589dea86900e76-0-aa01884582084149a5c6dbaa54d14073" 
+                     alt="15 лет Назарбаев Университет" 
+                     class="logo-jubilee">
+            </div>
+            
+            <!-- Title -->
+            <div class="text-center">
+                <div class="text-xs text-[var(--muted)] uppercase tracking-wider mb-2">
+                    Инженерно-техническая служба
+                </div>
+                <h1 class="font-narrow text-3xl md:text-4xl font-bold text-[var(--primary)] leading-tight mb-2">
+                    НАЗАРБАЕВ УНИВЕРСИТЕТ
+                </h1>
+                <div class="w-24 h-1 bg-[var(--accent)] mx-auto my-6 rounded-full"></div>
+                <h2 class="font-narrow text-2xl md:text-3xl font-bold text-[var(--text)] mb-4">
+                    Инструктажи по охране труда
+                </h2>
+                <p class="text-[var(--muted)] text-lg max-w-2xl mx-auto">
+                    Комплект документов для инженера КИП
+                </p>
+            </div>
+        </section>
+        
+        <!-- Cards Section -->
+        <section class="mb-12">
+            <div class="flex items-center justify-between mb-8 animate-fade-in delay-100">
+                <h3 class="font-narrow text-xl font-bold text-[var(--primary)] uppercase">
+                    Документы
+                </h3>
+                <div class="status-active status-badge">
+                    <span class="relative pulse-dot w-2 h-2 bg-[var(--success)] rounded-full"></span>
+                    Актуальная версия
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                
+                <!-- Вводный инструктаж -->
+                <a href="https://m100ika.github.io/Instructions/Instruktazh/Vvodnii_instruktazh/index.html" 
+                   class="card-link animate-fade-in delay-200">
+                    <div class="instruction-card card-vvodnii h-full">
+                        <div class="p-6">
+                            <div class="card-icon-wrapper mb-5">
+                                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                                    <polyline points="10 17 15 12 10 7"></polyline>
+                                    <line x1="15" y1="12" x2="3" y2="12"></line>
+                                </svg>
+                            </div>
+                            <h4 class="font-narrow text-lg font-bold text-[var(--text)] text-center mb-3">
+                                Вводный инструктаж
+                            </h4>
+                            <p class="text-sm text-[var(--muted)] text-center mb-4">
+                                Общие требования безопасности и организации труда
+                            </p>
+                            <div class="flex items-center justify-center gap-2 text-xs text-[var(--muted)]">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                                ИТ-ОТ-003
+                            </div>
+                        </div>
+                        <div class="px-6 py-4 bg-[var(--bg)] border-t border-[var(--border)]">
+                            <div class="flex items-center justify-center gap-2 text-sm font-medium text-[var(--success)]">
+                                <span>Открыть документ</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Первичный инструктаж -->
+                <a href="https://m100ika.github.io/Instructions/Instruktazh/pervichnii_instruktazh/index.html" 
+                   class="card-link animate-fade-in delay-300">
+                    <div class="instruction-card card-pervichnii h-full">
+                        <div class="p-6">
+                            <div class="card-icon-wrapper mb-5">
+                                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                </svg>
+                            </div>
+                            <h4 class="font-narrow text-lg font-bold text-[var(--text)] text-center mb-3">
+                                Первичный инструктаж
+                            </h4>
+                            <p class="text-sm text-[var(--muted)] text-center mb-4">
+                                Перед допуском к работе в мастерской и на объектах
+                            </p>
+                            <div class="flex items-center justify-center gap-2 text-xs text-[var(--muted)]">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                                ИТ-ОТ-001
+                            </div>
+                        </div>
+                        <div class="px-6 py-4 bg-[var(--bg)] border-t border-[var(--border)]">
+                            <div class="flex items-center justify-center gap-2 text-sm font-medium text-[var(--primary)]">
+                                <span>Открыть документ</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Повторный инструктаж -->
+                <a href="https://m100ika.github.io/Instructions/Instruktazh/povtornii_intruktazh/index.html" 
+                   class="card-link animate-fade-in delay-400">
+                    <div class="instruction-card card-povtornii h-full">
+                        <div class="p-6">
+                            <div class="card-icon-wrapper mb-5">
+                                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="23 4 23 10 17 10"></polyline>
+                                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-narrow text-lg font-bold text-[var(--text)] text-center mb-3">
+                                Повторный инструктаж
+                            </h4>
+                            <p class="text-sm text-[var(--muted)] text-center mb-4">
+                                Работа в мастерской и на объектах эксплуатации
+                            </p>
+                            <div class="flex items-center justify-center gap-2 text-xs text-[var(--muted)]">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                                ИТ-ОТ-002
+                            </div>
+                        </div>
+                        <div class="px-6 py-4 bg-[var(--bg)] border-t border-[var(--border)]">
+                            <div class="flex items-center justify-center gap-2 text-sm font-medium text-[var(--accent-light)]">
+                                <span>Открыть документ</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                
+            </div>
+        </section>
+        
+        <!-- Info Section -->
+        <section class="animate-fade-in delay-400">
+            <div class="bg-[var(--card)] rounded-xl border border-[var(--border)] p-6 md:p-8">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-[var(--bg)] flex items-center justify-center flex-shrink-0">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="font-narrow text-lg font-bold text-[var(--primary)] mb-2">
+                            Порядок прохождения инструктажей
+                        </h4>
+                        <ol class="text-sm text-[var(--text)] space-y-2 list-decimal list-inside">
+                            <li><strong>Вводный инструктаж</strong> — проводится при приёме на работу, переводе в другое подразделение</li>
+                            <li><strong>Первичный инструктаж</strong> — перед допуском к самостоятельной работе на рабочем месте</li>
+                            <li><strong>Повторный инструктаж</strong> — периодически в процессе работы, не реже установленной периодичности</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+    
+    <!-- Footer -->
+    <footer class="mt-auto">
+        <div class="max-w-5xl mx-auto px-4 py-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-[var(--muted)]">
+                <div class="flex items-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <span id="current-year"></span>
+                </div>
+                <div>
+                    Инженерно-техническая служба · Назарбаев Университет
+                </div>
+            </div>
+        </div>
+        
+        <div class="accent-stripe"></div>
+        <div class="header-stripe"></div>
+    </footer>
+    
+    <script>
+        // Set current year
+        document.getElementById('current-year').textContent = '© ' + new Date().getFullYear();
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Check for reduced motion preference
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        
+        if (!prefersReducedMotion) {
+            document.querySelectorAll('.animate-fade-in').forEach(el => {
+                el.style.animationPlayState = 'paused';
+                observer.observe(el);
+            });
+        }
+        
+        // Add keyboard navigation for cards
+        document.querySelectorAll('.card-link').forEach(card => {
+            card.setAttribute('tabindex', '0');
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
