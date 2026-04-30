@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вводный инструктаж - Инженер КИП</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --accent: #c9a227;
+            --text: #2d3748;
+            --muted: #718096;
+            --bg: #fafaf9;
+            --card: #ffffff;
+            --border: #e2e8f0;
+            --danger: #c53030;
+            --warning: #d69e2e;
+            --success: #2f855a;
+        }
+        
+        body {
+            font-family: 'PT Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+        
+        .font-narrow {
+            font-family: 'PT Sans Narrow', sans-serif;
+        }
+        
+        .document {
+            background: var(--card);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .section-number {
+            background: linear-gradient(135deg, var(--primary) 0%, #2c5282 100%);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .header-stripe {
+            background: linear-gradient(90deg, var(--primary) 0%, #2c5282 50%, var(--primary) 100%);
+            height: 4px;
+        }
+        
+        .accent-stripe {
+            background: var(--accent);
+            height: 2px;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+            border-left: 4px solid var(--danger);
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .attention-box {
+            background: linear-gradient(135deg, #fffff0 0%, #fefcbf 100%);
+            border-left: 4px solid var(--warning);
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+            border-left: 4px solid var(--success);
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .document {
+                box-shadow: none;
+            }
+        }
+        
+        .slide-up {
+            animation: slideUp 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        @keyframes slideUp {
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .signature-line {
+            border-bottom: 1px solid var(--text);
+            min-width: 200px;
+            display: inline-block;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .slide-up {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+        }
+        
+        .logo-main {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+        }
+        
+        .logo-jubilee {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-8 px-4">
+    <!-- Document -->
+    <div id="document" class="document max-w-4xl mx-auto rounded-lg overflow-hidden">
+        <!-- Header -->
+        <div class="header-stripe"></div>
+        <div class="accent-stripe"></div>
+        
+        <div class="px-10 py-8 border-b border-[var(--border)]">
+            <!-- Logos -->
+            <div class="logo-container mb-6">
+                <img src="https://z-cdn-media.chatglm.cn/files/0353fdbc-58ab-4f59-a7fd-85df90be9f4c.png?auth_key=1877374705-48b17b9768224eb4baa8edebe7b70d95-0-ca8685bf276b897f8ce93f00103a1821" 
+                     alt="Логотип Инженерно-технической службы" 
+                     class="logo-main">
+                <img src="https://z-cdn-media.chatglm.cn/files/fb25d888-4762-44e8-9189-ce08374a23f9.png?auth_key=1877540789-73669ef81d984f34b5589dea86900e76-0-aa01884582084149a5c6dbaa54d14073" 
+                     alt="15 лет Назарбаев Университет" 
+                     class="logo-jubilee">
+            </div>
+            
+            <div class="text-center mb-4">
+                <div class="text-xs text-[var(--muted)] uppercase tracking-wider mb-2">
+                    Инженерно-техническая служба
+                </div>
+                <div class="font-narrow text-2xl font-bold text-[var(--primary)] leading-tight">
+                    НАЗАРБАЕВ УНИВЕРСИТЕТ
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <div class="inline-block px-4 py-1 bg-[var(--success)] text-white text-xs uppercase tracking-widest rounded mb-4">
+                    Документ по охране труда
+                </div>
+                <h1 class="font-narrow text-3xl md:text-4xl font-bold text-[var(--primary)] leading-tight">
+                    ВВОДНЫЙ ИНСТРУКТАЖ
+                </h1>
+                <h2 class="font-narrow text-xl md:text-2xl text-[var(--muted)] mt-2">
+                    для инженера КИП
+                </h2>
+                <p class="text-sm text-[var(--muted)] mt-3 max-w-lg mx-auto">
+                    Общие требования безопасности и организации труда
+                </p>
+            </div>
+            
+            <div class="flex justify-between mt-8 text-sm text-[var(--muted)]">
+                <div>Номер документа: <span class="font-bold text-[var(--text)]">ИТ-ОТ-003</span></div>
+                <div>Дата утверждения: <span class="font-bold text-[var(--text)]" id="current-date"></span></div>
+            </div>
+        </div>
+        
+        <!-- Content -->
+        <div class="px-10 py-8 space-y-8">
+            <!-- Section 1 -->
+            <section class="slide-up" style="animation-delay: 0.1s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">1</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                            Общее назначение вводного инструктажа
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)]">
+                            Вводный инструктаж проводится со всеми инженерами КИП при приёме на работу, переводе в другое подразделение либо перед началом деятельности на объектах организации. Его назначение — сформировать базовое представление об общей системе охраны труда, производственной безопасности и инженерной ответственности, действующей в организации.
+                        </p>
+                        <div class="info-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]">
+                                <strong>Важно:</strong> данный инструктаж не рассматривает конкретные схемы, приборы или методы ремонта, а задаёт рамки безопасного поведения инженера в производственной среде. Инженер должен понимать, что безопасность является частью инженерной профессии, а не внешним административным требованием.
+                            </p>
+                        </div>
+                        <p class="text-sm leading-relaxed text-[var(--text)] mt-4">
+                            Соблюдение вводных требований является обязательным условием допуска к дальнейшим видам инструктажей и работ.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 2 -->
+            <section class="slide-up" style="animation-delay: 0.15s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">2</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                            Характер организации и особенности производственной среды
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)]">
+                            Организация представляет собой совокупность производственных, лабораторных и вспомогательных помещений, в которых эксплуатируется технически сложное оборудование различного назначения. В пределах одной площадки могут одновременно присутствовать источники электрической энергии, давления, повышенных температур, химических веществ и автоматизированных систем управления.
+                        </p>
+                        <div class="attention-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]">
+                                <strong>Ключевое понимание:</strong> инженер КИП должен воспринимать производственную среду как динамичную систему, в которой состояние оборудования, коммуникаций и людей постоянно меняется. Даже нахождение в помещении без выполнения работ требует соблюдения установленных правил перемещения, доступа и поведения.
+                            </p>
+                        </div>
+                        <div class="warning-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]">
+                                <strong>Предупреждение:</strong> незнание или игнорирование этих особенностей является источником системных рисков.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 3 -->
+            <section class="slide-up" style="animation-delay: 0.2s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">3</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                            Основные опасные и вредные производственные факторы
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)]">
+                            В процессе деятельности на территории организации инженер может подвергаться воздействию различных факторов.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4 mt-4">
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2">Видимые факторы</div>
+                                <ul class="text-sm space-y-1 list-disc list-inside">
+                                    <li>Электрический ток</li>
+                                    <li>Повышенные и пониженные температуры</li>
+                                    <li>Шум и вибрация</li>
+                                    <li>Движущиеся механизмы</li>
+                                    <li>Потенциально опасные вещества</li>
+                                </ul>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2">Скрытые факторы</div>
+                                <ul class="text-sm space-y-1 list-disc list-inside">
+                                    <li>Остаточные энергии</li>
+                                    <li>Автоматические пуски оборудования</li>
+                                    <li>Неочевидные маршруты прокладки кабелей</li>
+                                    <li>Скрытые трубопроводы</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="success-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]">
+                                <strong>Принцип безопасности:</strong> инженер обязан исходить из предположения, что любое оборудование и любая зона могут представлять риск до момента их оценки. Формирование этого подхода является ключевой задачей вводного инструктажа.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4 -->
+            <section class="slide-up" style="animation-delay: 0.25s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">4</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                            Общие правила поведения на территории организации
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)]">
+                            На территории организации инженер обязан соблюдать установленные маршруты движения, требования к доступу в помещения и правила пользования служебными и производственными зонами.
+                        </p>
+                        <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)] mt-4">
+                            <h4 class="font-bold text-sm mb-2 text-[var(--primary)]">Обязанности инженера:</h4>
+                            <ul class="text-sm space-y-1 list-disc list-inside">
+                                <li>Соблюдать установленные маршруты движения</li>
+                                <li>Соблюдать требования к доступу в помещения</li>
+                                <li>Соблюдать правила пользования служебными и производственными зонами</li>
+                            </ul>
+                        </div>
+                        <div class="warning-box p-4 rounded-r-lg mt-4">
+                            <h4 class="font-bold text-sm mb-2 text-[var(--danger)]">Запрещается:</h4>
+                            <ul class="text-sm space-y-1 list-disc list-inside">
+                                <li>Находиться в технических помещениях без служебной необходимости или соответствующего допуска</li>
+                                <li>Самостоятельно изменять конфигурацию рабочих мест, ограждений, предупредительных знаков и систем безопасности</li>
+                            </ul>
+                        </div>
+                        <div class="info-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]">
+                                Любые выявленные неисправности, повреждения или потенциально опасные условия подлежат немедленному сообщению руководителю или ответственному лицу. Производственная дисциплина рассматривается как элемент коллективной безопасности.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 5 -->
+            <section class="slide-up" style="animation-delay: 0.3s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">5</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                            Основы охраны труда и инженерной ответственности
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)]">
+                            Охрана труда в инженерной деятельности основана на принципе приоритета безопасности над производственной целесообразностью. Инженер КИП несёт персональную ответственность за соблюдение требований охраны труда при выполнении своих обязанностей и обязан отказываться от выполнения работ при отсутствии безопасных условий.
+                        </p>
+                        <div class="bg-gradient-to-r from-[var(--primary)] to-[#2c5282] text-white p-4 rounded-lg mt-4">
+                            <div class="flex items-center gap-3">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                </svg>
+                                <div>
+                                    <div class="font-bold">Принцип приоритета безопасности</div>
+                                    <div class="text-xs opacity-80">Безопасность выше производственной целесообразности</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="warning-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]">
+                                <strong>Недопустимо:</strong> выполнение задач «по привычке» или под давлением сроков в ущерб безопасности.
+                            </p>
+                        </div>
+                        <div class="success-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]">
+                                <strong>Профессиональная компетентность</strong> включает в себя умение вовремя остановить процесс при выявлении риска. Инженер должен осознавать, что его действия могут влиять не только на его собственную безопасность, но и на безопасность коллег и сохранность оборудования.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6 -->
+            <section class="slide-up" style="animation-delay: 0.35s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">6</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                            Средства индивидуальной защиты и общие требования
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)]">
+                            В зависимости от характера зоны и выполняемых работ инженер обязан применять предусмотренные средства индивидуальной защиты.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4 mt-4">
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border-l-4 border-[var(--primary)]">
+                                <h4 class="font-bold text-sm mb-2">Виды СИЗ:</h4>
+                                <ul class="text-sm space-y-1 list-disc list-inside">
+                                    <li>Защитная одежда</li>
+                                    <li>Защитная обувь</li>
+                                    <li>Средства защиты органов зрения</li>
+                                    <li>Средства защиты слуха</li>
+                                    <li>Средства защиты рук</li>
+                                </ul>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border-l-4 border-[var(--danger)]">
+                                <h4 class="font-bold text-sm mb-2">Запрещается:</h4>
+                                <ul class="text-sm space-y-1 list-disc list-inside">
+                                    <li>Использование неисправных СИЗ</li>
+                                    <li>Использование нештатных средств защиты</li>
+                                    <li>Самовольная модификация СИЗ</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="attention-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]">
+                                <strong>Важно:</strong> использование СИЗ является обязательным требованием и не зависит от субъективной оценки риска инженером. Ответственность за правильное применение СИЗ несёт сам инженер, независимо от наличия контроля со стороны.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 7 -->
+            <section class="slide-up" style="animation-delay: 0.4s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">7</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                            Действия при нештатных и аварийных ситуациях
+                        </h3>
+                        <div class="bg-gradient-to-r from-[#c53030] to-[#9b2c2c] text-white p-4 rounded-lg mb-4">
+                            <div class="font-bold mb-2">При возникновении аварийной ситуации:</div>
+                            <ol class="text-sm space-y-1 list-decimal list-inside">
+                                <li>Немедленно прекратить работу</li>
+                                <li>Принять меры по обеспечению личной безопасности</li>
+                                <li>Следовать порядку оповещения и эвакуации</li>
+                                <li>Взаимодействовать с ответственными службами</li>
+                            </ol>
+                        </div>
+                        <div class="warning-box p-4 rounded-r-lg mt-4">
+                            <h4 class="font-bold text-sm mb-2 text-[var(--danger)]">Запрещается:</h4>
+                            <p class="text-sm">Предпринимать самостоятельные действия, выходящие за пределы компетенции, особенно при угрозе пожара, поражения электрическим током или выброса опасных веществ.</p>
+                        </div>
+                        <div class="info-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]">
+                                <strong>Важно:</strong> сообщение о происшествии является обязанностью инженера и не рассматривается как нарушение дисциплины. Своевременное информирование позволяет минимизировать последствия и предотвратить развитие аварии.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 8 -->
+            <section class="slide-up" style="animation-delay: 0.45s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">8</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                            Взаимодействие с руководством и коллегами
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)]">
+                            Инженер КИП в своей деятельности обязан соблюдать принципы производственного взаимодействия и субординации. Все работы выполняются в рамках поставленных задач и согласованных полномочий.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4 mt-4">
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border-l-4 border-[var(--success)]">
+                                <h4 class="font-bold text-sm mb-2 flex items-center gap-2">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                    </svg>
+                                    Обязанности
+                                </h4>
+                                <ul class="text-sm space-y-1 list-disc list-inside">
+                                    <li>Соблюдать принципы производственного взаимодействия</li>
+                                    <li>Соблюдать субординацию</li>
+                                    <li>Координировать операции при коллективных работах</li>
+                                    <li>Учитывать действия других участников</li>
+                                </ul>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border-l-4 border-[var(--danger)]">
+                                <h4 class="font-bold text-sm mb-2 flex items-center gap-2">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="15" y1="9" x2="9" y2="15"></line>
+                                        <line x1="9" y1="9" x2="15" y2="15"></line>
+                                    </svg>
+                                    Запрещается
+                                </h4>
+                                <ul class="text-sm space-y-1 list-disc list-inside">
+                                    <li>Самовольное изменение объёма работ</li>
+                                    <li>Вмешательство в чужие зоны ответственности</li>
+                                    <li>Игнорирование указаний ответственных лиц</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="success-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]">
+                                <strong>Принцип:</strong> производственная безопасность невозможна без корректного командного взаимодействия.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 9 -->
+            <section class="slide-up" style="animation-delay: 0.5s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">9</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                            Заключительные положения
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)]">
+                            Вводный инструктаж является обязательным этапом допуска инженера КИП к профессиональной деятельности в организации. Он формирует базовое понимание производственной среды, общих рисков и принципов безопасного поведения.
+                        </p>
+                        <div class="info-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]">
+                                Прохождение вводного инструктажа подтверждается записью в журнале установленного образца. Подпись инженера свидетельствует о том, что он ознакомлен с основными требованиями охраны труда и принимает на себя ответственность за их соблюдение.
+                            </p>
+                        </div>
+                        <div class="success-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]">
+                                <strong>Допуск к работе:</strong> на основе вводного инструктажа инженер допускается к последующим видам инструктажей и практической работе.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Signatures -->
+        <div class="px-10 py-8 border-t border-[var(--border)] bg-[var(--bg)]">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <div class="text-sm text-[var(--muted)] mb-2">Инструктаж провёл:</div>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <span class="text-sm w-20">Должность:</span>
+                            <span class="signature-line"></span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-sm w-20">Ф.И.О.:</span>
+                            <span class="signature-line"></span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-sm w-20">Подпись:</span>
+                            <span class="signature-line"></span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="text-sm text-[var(--muted)] mb-2">Инструктаж прошёл:</div>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <span class="text-sm w-20">Должность:</span>
+                            <span class="signature-line"></span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-sm w-20">Ф.И.О.:</span>
+                            <span class="signature-line"></span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-sm w-20">Подпись:</span>
+                            <span class="signature-line"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-[var(--border)]">
+                <div class="flex items-center gap-4">
+                    <span class="text-sm">Дата проведения инструктажа:</span>
+                    <span class="signature-line"></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="accent-stripe"></div>
+        <div class="header-stripe"></div>
+    </div>
+    
+    <script>
+        // Set current date
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('ru-RU', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
+        });
+        
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Check for reduced motion preference
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        
+        if (!prefersReducedMotion) {
+            document.querySelectorAll('.slide-up').forEach(el => {
+                el.style.animationPlayState = 'paused';
+                observer.observe(el);
+            });
+        }
+    </script>
+</body>
+</html>
