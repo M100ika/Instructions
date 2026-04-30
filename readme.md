@@ -1,0 +1,1 @@
+1. Первичный инструктаж https://m100ika.github.io/Instructions/Instruktazh/pervichnii_instruktazh/index.html
