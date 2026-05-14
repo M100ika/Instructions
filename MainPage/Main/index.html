@@ -696,7 +696,8 @@
                 <li><a onclick="showPage('about')" id="nav-about">О службе</a></li>
                 <li><a onclick="showPage('services')" id="nav-services">Услуги</a></li>
                 <li><a onclick="showPage('team')" id="nav-team">Структура</a></li>
-                <li><a href="https://m100ika.github.io/Instructions" target="_blank">Инструкции ↗</a></li>
+                <li><a href="https://m100ika.github.io/Instructions/Instruktazh/Instruktazh_main/index.html"
+                        target="_blank">Инструкции ↗</a></li>
             </ul>
             <button class="mobile-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
         </div>
@@ -970,17 +971,21 @@
                     <ul style="list-style-type: none; padding: 0;">
                         <li
                             style="margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
-                            <strong>Оперативность</strong> — минимальное время реакции на технические неисправности</li>
+                            <strong>Оперативность</strong> — минимальное время реакции на технические неисправности
+                        </li>
                         <li
                             style="margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
-                            <strong>Профессионализм</strong> — глубокая экспертиза в каждой технической области</li>
+                            <strong>Профессионализм</strong> — глубокая экспертиза в каждой технической области
+                        </li>
                         <li
                             style="margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
-                            <strong>Надёжность</strong> — превентивное обслуживание для предотвращения поломок</li>
+                            <strong>Надёжность</strong> — превентивное обслуживание для предотвращения поломок
+                        </li>
                         <li
                             style="margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
                             <strong>Безопасность</strong> — строгое соблюдение норм технической и лабораторной
-                            безопасности</li>
+                            безопасности
+                        </li>
                         <li style="margin-bottom: 10px; padding-bottom: 10px;"><strong>Инновационность</strong> —
                             применение современных методов и технологий в работе</li>
                     </ul>
@@ -1001,75 +1006,243 @@
         </div>
     </div>
     <div id="page-services" class="page">
-        <div class="container placeholder-page">
-            <h2>Услуги</h2>
-            <p>Полное описание раздела будет здесь.</p>
+        <style>
+            .services-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 50px 40px;
+                margin-top: 50px;
+            }
+            .service-item {
+                border-top: 4px solid var(--construct-black);
+                padding-top: 25px;
+                transition: transform 0.2s;
+            }
+            .service-item:hover {
+                transform: translateY(-5px);
+            }
+            .service-num {
+                font-size: 4rem;
+                font-weight: 900;
+                color: var(--construct-red);
+                line-height: 1;
+                margin-bottom: 20px;
+                display: block;
+                letter-spacing: -2px;
+            }
+            .service-item h3 {
+                font-size: 1.4rem;
+                margin-bottom: 15px;
+                border-left: none;
+                padding-left: 0;
+                min-height: 3.5rem;
+            }
+            .service-item p {
+                font-size: 1rem;
+                color: var(--text-secondary);
+                line-height: 1.6;
+                margin: 0;
+            }
+            @media (max-width: 768px) {
+                .service-item h3 { min-height: auto; }
+            }
+        </style>
+        <div class="container">
+            <h1 data-aos="fade-right">Наши Услуги</h1>
+            <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 800px; margin-bottom: 60px;" data-aos="fade-up">
+                Инженерно-техническая служба предоставляет полный спектр услуг по техническому сопровождению лабораторий, научных установок и исследовательской инфраструктуры.
+            </p>
+
+            <div class="services-grid">
+                
+                <div class="service-item" data-aos="fade-up" data-aos-delay="0">
+                    <span class="service-num">01</span>
+                    <h3>Ремонт лабораторного оборудования</h3>
+                    <p>Диагностика и ремонт измерительных приборов, источников питания, осциллографов и другой лабораторной техники. Помогаем восстановить оборудование в короткие сроки, чтобы не прерывать исследовательский процесс.</p>
+                </div>
+
+                <div class="service-item" data-aos="fade-up" data-aos-delay="100">
+                    <span class="service-num">02</span>
+                    <h3>Прототипирование печатных плат</h3>
+                    <p>Разработка и изготовление печатных плат для нужд лабораторий и научных проектов. Инженеры помогут реализовать нестандартные технические решения, которые невозможно приобрести серийно.</p>
+                </div>
+
+                <div class="service-item" data-aos="fade-up" data-aos-delay="200">
+                    <span class="service-num">03</span>
+                    <h3>Механические работы</h3>
+                    <p>Изготовление деталей и конструкций из металла и пластика на заказ — токарные, фрезерные работы и сварка. Выполняем как типовые задачи, так и нестандартные заказы для научных установок.</p>
+                </div>
+
+                <div class="service-item" data-aos="fade-up" data-aos-delay="0">
+                    <span class="service-num">04</span>
+                    <h3>Газовые системы</h3>
+                    <p>Обслуживание газовых линий, подключение и замена баллонов, проверка герметичности систем. Работаем со специальными газами — азотом, аргоном, гелием, водородом и кислородом.</p>
+                </div>
+
+                <div class="service-item" data-aos="fade-up" data-aos-delay="100">
+                    <span class="service-num">05</span>
+                    <h3>Вентиляция и климат-контроль</h3>
+                    <p>Техническое обслуживание вентиляционных установок, вытяжных шкафов и систем кондиционирования. Обеспечиваем поддержание необходимого микроклимата в лабораториях с особыми требованиями.</p>
+                </div>
+
+                <div class="service-item" data-aos="fade-up" data-aos-delay="200">
+                    <span class="service-num">06</span>
+                    <h3>Электрика</h3>
+                    <p>Монтаж, обслуживание и ремонт электрических систем в лабораторных и научных помещениях. Контролируем соответствие электроустановок нормам безопасности.</p>
+                </div>
+
+                <div class="service-item" data-aos="fade-up" data-aos-delay="0">
+                    <span class="service-num">07</span>
+                    <h3>АСУ (Автоматизированные системы)</h3>
+                    <p>Настройка и эксплуатация систем диспетчеризации и мониторинга инженерных сетей. Обеспечиваем непрерывный контроль технических параметров в режиме реального времени.</p>
+                </div>
+
+                <div class="service-item" data-aos="fade-up" data-aos-delay="100">
+                    <span class="service-num">08</span>
+                    <h3>Криогенные системы</h3>
+                    <p>Обслуживание жидкоазотных и жидкогелиевых систем, контроль уровня и заправка криогенных ёмкостей. Поддерживаем бесперебойную работу оборудования для низкотемпературных исследований.</p>
+                </div>
+
+                <div class="service-item" data-aos="fade-up" data-aos-delay="200">
+                    <span class="service-num">09</span>
+                    <h3>Эксплуатация зданий и помещений</h3>
+                    <p>Техническое сопровождение ремонтных работ, адаптация и переоборудование лабораторных пространств под новые задачи. Помогаем реализовать изменения в планировке быстро и в соответствии с нормами безопасности.</p>
+                </div>
+
+            </div>
+            
+            <!-- Call to action -->
+            <div style="margin-top: 80px; padding: 50px; background: var(--construct-black); color: var(--bg-main); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 30px;" data-aos="zoom-in">
+                <div style="flex: 1; min-width: 300px;">
+                    <h2 style="color: var(--bg-main); border-left-color: var(--construct-red); margin-bottom: 15px;">Нужна наша помощь?</h2>
+                    <p style="margin: 0; color: #ccc; font-size: 1.1rem; max-width: 600px;">Оформите заявку на любую из предоставляемых услуг, и профильный специалист свяжется с вами для уточнения деталей.</p>
+                </div>
+                <button class="btn-primary" onclick="openModal()">Подать заявку <i class="fas fa-arrow-right" style="margin-left: 10px;"></i></button>
+            </div>
+
         </div>
     </div>
     <div id="page-team" class="page">
         <style>
             .team-grid {
-                display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0;
                 border: 1px solid var(--construct-black);
             }
+
             .team-card {
-                padding: 40px; border-right: 1px solid var(--construct-black);
-                border-bottom: 1px solid var(--construct-black); transition: background 0.2s;
+                padding: 40px;
+                border-right: 1px solid var(--construct-black);
+                border-bottom: 1px solid var(--construct-black);
+                transition: background 0.2s;
             }
-            .team-card:nth-child(3n) { border-right: none; }
-            .team-card:nth-child(n+7) { border-bottom: none; }
-            .team-card:hover { background-color: #f9fafb; }
-            .team-card i { font-size: 2rem; margin-bottom: 20px; color: var(--construct-black); transition: color 0.2s; }
-            .team-card:hover i { color: var(--construct-red); }
+
+            .team-card:nth-child(3n) {
+                border-right: none;
+            }
+
+            .team-card:nth-child(n+7) {
+                border-bottom: none;
+            }
+
+            .team-card:hover {
+                background-color: #f9fafb;
+            }
+
+            .team-card i {
+                font-size: 2rem;
+                margin-bottom: 20px;
+                color: var(--construct-black);
+                transition: color 0.2s;
+            }
+
+            .team-card:hover i {
+                color: var(--construct-red);
+            }
+
             @media (max-width: 768px) {
-                .team-grid { grid-template-columns: 1fr; border-bottom: none; }
-                .team-card { border-right: none !important; border-bottom: 1px solid var(--construct-black) !important; }
-                .team-card:last-child { border-bottom: none !important; }
-                .mgmt-left { border-right: none !important; border-bottom: 1px solid var(--construct-black); }
+                .team-grid {
+                    grid-template-columns: 1fr;
+                    border-bottom: none;
+                }
+
+                .team-card {
+                    border-right: none !important;
+                    border-bottom: 1px solid var(--construct-black) !important;
+                }
+
+                .team-card:last-child {
+                    border-bottom: none !important;
+                }
+
+                .mgmt-left {
+                    border-right: none !important;
+                    border-bottom: 1px solid var(--construct-black);
+                }
             }
         </style>
         <div class="container">
             <h1 data-aos="fade-right">Структура службы</h1>
-            
-            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 50px; display: flex; gap: 40px; align-items: center; flex-wrap: wrap;" data-aos="fade-up">
+
+            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 50px; display: flex; gap: 40px; align-items: center; flex-wrap: wrap;"
+                data-aos="fade-up">
                 <div style="font-size: 6rem; font-weight: 900; color: var(--construct-red); line-height: 1;">15</div>
                 <div style="flex: 1;">
                     <h2 style="border-left: none; padding-left: 0; margin-bottom: 10px;">Специалистов</h2>
                     <p style="font-size: 1.1rem; color: var(--text-primary); max-width: 800px; margin: 0;">
-                        ИТС насчитывает 15 квалифицированных специалистов, охватывающих все ключевые технические направления. Каждое подразделение службы возглавляется старшим специалистом, обеспечивающим координацию работ и профессиональное наставничество.
+                        ИТС насчитывает 15 квалифицированных специалистов, охватывающих все ключевые технические
+                        направления. Каждое подразделение службы возглавляется старшим специалистом, обеспечивающим
+                        координацию работ и профессиональное наставничество.
                     </p>
                 </div>
             </div>
 
             <!-- Руководство -->
             <h2 data-aos="fade-right">Руководство службы</h2>
-            <div style="border: 1px solid var(--construct-black); margin-bottom: 60px; background: #f9fafb; padding: 40px;" data-aos="fade-up">
-                <i class="fas fa-user-tie" style="font-size: 2rem; color: var(--construct-red); margin-bottom: 20px;"></i>
+            <div style="border: 1px solid var(--construct-black); margin-bottom: 60px; background: #f9fafb; padding: 40px;"
+                data-aos="fade-up">
+                <i class="fas fa-user-tie"
+                    style="font-size: 2rem; color: var(--construct-red); margin-bottom: 20px;"></i>
                 <h3 style="text-transform: uppercase;">Главный инженер</h3>
-                <p style="font-size: 0.95rem; margin-bottom: 0;">Осуществляет стратегическое и техническое руководство всей службой. Отвечает за техническую политику, стандарты обслуживания, взаимодействие с руководством университета и партнёрами. Координирует работу всех подразделений, принимает решения по сложным техническим вопросам, участвует в планировании бюджета и закупок оборудования.</p>
+                <p style="font-size: 0.95rem; margin-bottom: 0;">Осуществляет стратегическое и техническое руководство
+                    всей службой. Отвечает за техническую политику, стандарты обслуживания, взаимодействие с
+                    руководством университета и партнёрами. Координирует работу всех подразделений, принимает решения по
+                    сложным техническим вопросам, участвует в планировании бюджета и закупок оборудования.</p>
             </div>
 
             <!-- Административный персонал -->
             <h2 data-aos="fade-right">Административный персонал</h2>
-            <div style="border: 1px solid var(--construct-black); margin-bottom: 60px; background: #f9fafb; padding: 40px;" data-aos="fade-up">
-                <i class="fas fa-file-invoice-dollar" style="font-size: 2rem; color: var(--construct-red); margin-bottom: 20px;"></i>
+            <div style="border: 1px solid var(--construct-black); margin-bottom: 60px; background: #f9fafb; padding: 40px;"
+                data-aos="fade-up">
+                <i class="fas fa-file-invoice-dollar"
+                    style="font-size: 2rem; color: var(--construct-red); margin-bottom: 20px;"></i>
                 <h3 style="text-transform: uppercase;">Менеджер службы</h3>
-                <p style="font-size: 0.95rem;">Менеджер службы отвечает за бюджет ИТС и финансовое планирование. Он формирует план расходов на предстоящий период, контролирует закупки оборудования, инструментов и расходных материалов, необходимых для работы службы, а также следит за тем, чтобы все траты соответствовали утверждённому бюджету.</p>
-                <p style="font-size: 0.95rem;">Помимо этого, менеджер ведёт финансовую отчётность перед руководством университета — готовит необходимые документы, обосновывает расходы и при необходимости инициирует запросы на дополнительное финансирование.</p>
-                <p style="font-size: 0.95rem; margin-bottom: 0;">Наличие выделенного менеджера позволяет главному инженеру и специалистам службы сосредоточиться на технических задачах, не отвлекаясь на административные и финансовые вопросы.</p>
+                <p style="font-size: 0.95rem;">Менеджер службы отвечает за бюджет ИТС и финансовое планирование. Он
+                    формирует план расходов на предстоящий период, контролирует закупки оборудования, инструментов и
+                    расходных материалов, необходимых для работы службы, а также следит за тем, чтобы все траты
+                    соответствовали утверждённому бюджету.</p>
+                <p style="font-size: 0.95rem;">Помимо этого, менеджер ведёт финансовую отчётность перед руководством
+                    университета — готовит необходимые документы, обосновывает расходы и при необходимости инициирует
+                    запросы на дополнительное финансирование.</p>
+                <p style="font-size: 0.95rem; margin-bottom: 0;">Наличие выделенного менеджера позволяет главному
+                    инженеру и специалистам службы сосредоточиться на технических задачах, не отвлекаясь на
+                    административные и финансовые вопросы.</p>
             </div>
 
             <!-- Отделы -->
             <h2 data-aos="fade-right">Технические подразделения</h2>
             <div class="team-grid" data-aos="fade-up">
-                
+
                 <div class="team-card">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                         <i class="fas fa-microchip"></i>
                         <span style="font-weight: 800; color: var(--construct-red); font-size: 1.2rem;">4 чел.</span>
                     </div>
                     <h3>КИП и электроника</h3>
-                    <p style="font-size: 0.95rem; margin-bottom: 0;">Диагностика, ремонт и калибровка оборудования. Прототипирование печатных плат. Работа с микроконтроллерами.<br><br><strong>Состав:</strong> Старший инженер и 3 инженера КИП.</p>
+                    <p style="font-size: 0.95rem; margin-bottom: 0;">Диагностика, ремонт и калибровка оборудования.
+                        Прототипирование печатных плат. Работа с микроконтроллерами.<br><br><strong>Состав:</strong>
+                        Старший инженер и 3 инженера КИП.</p>
                 </div>
 
                 <div class="team-card">
@@ -1078,7 +1251,9 @@
                         <span style="font-weight: 800; color: var(--construct-red); font-size: 1.2rem;">4 чел.</span>
                     </div>
                     <h3>Механический отдел</h3>
-                    <p style="font-size: 0.95rem; margin-bottom: 0;">Обработка металлов и полимеров. Изготовление нестандартных деталей для научных установок.<br><br><strong>Состав:</strong> Старший механик, 2 механика, мастер-механик по металлу.</p>
+                    <p style="font-size: 0.95rem; margin-bottom: 0;">Обработка металлов и полимеров. Изготовление
+                        нестандартных деталей для научных установок.<br><br><strong>Состав:</strong> Старший механик, 2
+                        механика, мастер-механик по металлу.</p>
                 </div>
 
                 <div class="team-card">
@@ -1087,7 +1262,8 @@
                         <span style="font-weight: 800; color: var(--construct-red); font-size: 1.2rem;">3 чел.</span>
                     </div>
                     <h3>Газовые системы</h3>
-                    <p style="font-size: 0.95rem; margin-bottom: 0;">Техническое обслуживание газопроводов, панелей. Контроль давления спецгазов.<br><br><strong>Состав:</strong> Старший инженер и 2 инженера.</p>
+                    <p style="font-size: 0.95rem; margin-bottom: 0;">Техническое обслуживание газопроводов, панелей.
+                        Контроль давления спецгазов.<br><br><strong>Состав:</strong> Старший инженер и 2 инженера.</p>
                 </div>
 
                 <div class="team-card">
@@ -1096,7 +1272,8 @@
                         <span style="font-weight: 800; color: var(--construct-red); font-size: 1.2rem;">2 чел.</span>
                     </div>
                     <h3>Вентиляция и климат</h3>
-                    <p style="font-size: 0.95rem; margin-bottom: 0;">Обслуживание вентиляционных установок, чистых комнат, боксов безопасности.<br><br><strong>Состав:</strong> Старший инженер и инженер.</p>
+                    <p style="font-size: 0.95rem; margin-bottom: 0;">Обслуживание вентиляционных установок, чистых
+                        комнат, боксов безопасности.<br><br><strong>Состав:</strong> Старший инженер и инженер.</p>
                 </div>
 
                 <div class="team-card">
@@ -1105,7 +1282,9 @@
                         <span style="font-weight: 800; color: var(--construct-red); font-size: 1.2rem;">2 чел.</span>
                     </div>
                     <h3>АСУ (Автоматизация)</h3>
-                    <p style="font-size: 0.95rem; margin-bottom: 0;">Эксплуатация систем диспетчеризации (SCADA/BMS). Программирование контроллеров.<br><br><strong>Состав:</strong> Старший инженер и инженер АСУ.</p>
+                    <p style="font-size: 0.95rem; margin-bottom: 0;">Эксплуатация систем диспетчеризации (SCADA/BMS).
+                        Программирование контроллеров.<br><br><strong>Состав:</strong> Старший инженер и инженер АСУ.
+                    </p>
                 </div>
 
                 <div class="team-card">
@@ -1114,7 +1293,9 @@
                         <span style="font-weight: 800; color: var(--construct-red); font-size: 1.2rem;">2 чел.</span>
                     </div>
                     <h3>Электрический отдел</h3>
-                    <p style="font-size: 0.95rem; margin-bottom: 0;">Обслуживание силовых цепей и щитов. Мелкий ремонт и хозяйственно-технические задачи.<br><br><strong>Состав:</strong> Инженер-электрик и мастер-универсал.</p>
+                    <p style="font-size: 0.95rem; margin-bottom: 0;">Обслуживание силовых цепей и щитов. Мелкий ремонт и
+                        хозяйственно-технические задачи.<br><br><strong>Состав:</strong> Инженер-электрик и
+                        мастер-универсал.</p>
                 </div>
 
                 <div class="team-card">
@@ -1123,7 +1304,9 @@
                         <span style="font-weight: 800; color: var(--construct-red); font-size: 1.2rem;">1 чел.</span>
                     </div>
                     <h3>Криогенные системы</h3>
-                    <p style="font-size: 0.95rem; margin-bottom: 0;">Обслуживание и заправка жидким азотом и гелием. Контроль уровня и техническое сопровождение.<br><br><strong>Состав:</strong> Инженер криогенных систем.</p>
+                    <p style="font-size: 0.95rem; margin-bottom: 0;">Обслуживание и заправка жидким азотом и гелием.
+                        Контроль уровня и техническое сопровождение.<br><br><strong>Состав:</strong> Инженер криогенных
+                        систем.</p>
                 </div>
 
                 <div class="team-card">
@@ -1132,111 +1315,189 @@
                         <span style="font-weight: 800; color: var(--construct-red); font-size: 1.2rem;">1 чел.</span>
                     </div>
                     <h3>Эксплуатация зданий</h3>
-                    <p style="font-size: 0.95rem; margin-bottom: 0;">Сопровождение ремонтных работ, переоборудование лабораторий, контроль норм безопасности.<br><br><strong>Состав:</strong> Инженер по эксплуатации.</p>
+                    <p style="font-size: 0.95rem; margin-bottom: 0;">Сопровождение ремонтных работ, переоборудование
+                        лабораторий, контроль норм безопасности.<br><br><strong>Состав:</strong> Инженер по
+                        эксплуатации.</p>
                 </div>
-                
+
                 <div class="team-card" style="background: var(--bg-main);"></div>
 
             </div>
 
             <!-- Детальное описание подразделений -->
             <h2 data-aos="fade-right" style="margin-top: 80px;">Деятельность подразделений</h2>
-            
+
             <!-- КИП -->
-            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;" data-aos="fade-up">
-                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-microchip" style="color: var(--construct-red); margin-right: 15px;"></i>Отдел КИП и электроники</h3>
-                <p>Контрольно-измерительные приборы и автоматика — одно из ключевых направлений работы ИТС, напрямую влияющее на качество научных исследований.</p>
-                <p>Старший инженер КИП (1 специалист) — руководит отделом, распределяет задачи, обеспечивает методологическую поддержку и контроль качества выполненных работ. Участвует в сложных диагностических работах и принимает технические решения по ремонту особо ценного оборудования.</p>
+            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;"
+                data-aos="fade-up">
+                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-microchip"
+                        style="color: var(--construct-red); margin-right: 15px;"></i>Отдел КИП и электроники</h3>
+                <p>Контрольно-измерительные приборы и автоматика — одно из ключевых направлений работы ИТС, напрямую
+                    влияющее на качество научных исследований.</p>
+                <p>Старший инженер КИП (1 специалист) — руководит отделом, распределяет задачи, обеспечивает
+                    методологическую поддержку и контроль качества выполненных работ. Участвует в сложных
+                    диагностических работах и принимает технические решения по ремонту особо ценного оборудования.</p>
                 <p>Инженеры КИП (3 специалиста) выполняют широкий спектр задач:</p>
                 <ul style="margin-left: 20px; margin-bottom: 20px; font-size: 1.1rem; color: var(--text-secondary);">
-                    <li style="margin-bottom: 10px;">Диагностика, ремонт и калибровка лабораторного и научного оборудования — спектрометров, осциллографов, измерительных стендов, источников питания и другой аппаратуры</li>
-                    <li style="margin-bottom: 10px;">Прототипирование и разработка печатных плат для нужд лабораторий и научных проектов</li>
-                    <li style="margin-bottom: 10px;">Монтаж и пайка электронных компонентов, работа с микроконтроллерами и встраиваемыми системами</li>
-                    <li style="margin-bottom: 10px;">Поддержка исследовательских проектов с технической точки зрения — инженеры КИП становятся техническими партнёрами учёных</li>
+                    <li style="margin-bottom: 10px;">Диагностика, ремонт и калибровка лабораторного и научного
+                        оборудования — спектрометров, осциллографов, измерительных стендов, источников питания и другой
+                        аппаратуры</li>
+                    <li style="margin-bottom: 10px;">Прототипирование и разработка печатных плат для нужд лабораторий и
+                        научных проектов</li>
+                    <li style="margin-bottom: 10px;">Монтаж и пайка электронных компонентов, работа с микроконтроллерами
+                        и встраиваемыми системами</li>
+                    <li style="margin-bottom: 10px;">Поддержка исследовательских проектов с технической точки зрения —
+                        инженеры КИП становятся техническими партнёрами учёных</li>
                 </ul>
-                <p>Наличие компетенций по прототипированию печатных плат делает ИТС уникальным ресурсом для университета: исследовательские группы могут разрабатывать собственные измерительные устройства и экспериментальные установки, не прибегая к внешним подрядчикам.</p>
+                <p>Наличие компетенций по прототипированию печатных плат делает ИТС уникальным ресурсом для
+                    университета: исследовательские группы могут разрабатывать собственные измерительные устройства и
+                    экспериментальные установки, не прибегая к внешним подрядчикам.</p>
             </div>
 
             <!-- Механики -->
-            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;" data-aos="fade-up">
-                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-cogs" style="color: var(--construct-red); margin-right: 15px;"></i>Механический отдел</h3>
-                <p>Механический отдел обеспечивает изготовление, ремонт и обслуживание механических компонентов для лабораторий и научных установок.</p>
-                <p>Старший механик (1 специалист) — руководит механическим отделом, контролирует качество изготавливаемых деталей, отвечает за техническое состояние станочного парка и соблюдение норм промышленной безопасности.</p>
+            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;"
+                data-aos="fade-up">
+                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-cogs"
+                        style="color: var(--construct-red); margin-right: 15px;"></i>Механический отдел</h3>
+                <p>Механический отдел обеспечивает изготовление, ремонт и обслуживание механических компонентов для
+                    лабораторий и научных установок.</p>
+                <p>Старший механик (1 специалист) — руководит механическим отделом, контролирует качество
+                    изготавливаемых деталей, отвечает за техническое состояние станочного парка и соблюдение норм
+                    промышленной безопасности.</p>
                 <p>Механики (2 специалиста) специализируются на:</p>
                 <ul style="margin-left: 20px; margin-bottom: 20px; font-size: 1.1rem; color: var(--text-secondary);">
-                    <li style="margin-bottom: 10px;">Обработке металлов: фрезерование, токарные работы, сварка, слесарные работы, изготовление конструкций из стали, алюминия и других металлов</li>
-                    <li style="margin-bottom: 10px;">Работе с пластиком и полимерными материалами: изготовление корпусов, кронштейнов, лабораторной оснастки из пластиковых материалов</li>
+                    <li style="margin-bottom: 10px;">Обработке металлов: фрезерование, токарные работы, сварка,
+                        слесарные работы, изготовление конструкций из стали, алюминия и других металлов</li>
+                    <li style="margin-bottom: 10px;">Работе с пластиком и полимерными материалами: изготовление
+                        корпусов, кронштейнов, лабораторной оснастки из пластиковых материалов</li>
                 </ul>
-                <p>Мастер-механик по металлу (1 специалист) — специализируется на высокоточной металлообработке. Выполняет сложные заказы по изготовлению нестандартных деталей и узлов для научных установок, которые невозможно приобрести серийно.</p>
-                <p>Благодаря механическому отделу учёные и инженеры университета имеют возможность в короткие сроки получить уникальные детали и конструкции, необходимые для реализации исследовательских проектов.</p>
+                <p>Мастер-механик по металлу (1 специалист) — специализируется на высокоточной металлообработке.
+                    Выполняет сложные заказы по изготовлению нестандартных деталей и узлов для научных установок,
+                    которые невозможно приобрести серийно.</p>
+                <p>Благодаря механическому отделу учёные и инженеры университета имеют возможность в короткие сроки
+                    получить уникальные детали и конструкции, необходимые для реализации исследовательских проектов.</p>
             </div>
 
             <!-- Криогенные системы -->
-            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;" data-aos="fade-up">
-                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-snowflake" style="color: var(--construct-red); margin-right: 15px;"></i>Отдел криогенных систем</h3>
-                <p>Инженер криогенных систем (1 специалист) — отвечает за обслуживание, заправку и техническое сопровождение криогенного оборудования. Это одно из наиболее узкоспециализированных направлений службы, требующее особых знаний и строгого соблюдения регламентов безопасности.</p>
-                <p>Криогенные системы широко применяются в физических, химических и биологических лабораториях для хранения биоматериалов, охлаждения сверхпроводящих установок, проведения низкотемпературных экспериментов. Инженер по криогенике обеспечивает непрерывность этих процессов, контролирует уровень жидкого азота и гелия, проводит плановое техническое обслуживание ёмкостей и трубопроводов.</p>
+            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;"
+                data-aos="fade-up">
+                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-snowflake"
+                        style="color: var(--construct-red); margin-right: 15px;"></i>Отдел криогенных систем</h3>
+                <p>Инженер криогенных систем (1 специалист) — отвечает за обслуживание, заправку и техническое
+                    сопровождение криогенного оборудования. Это одно из наиболее узкоспециализированных направлений
+                    службы, требующее особых знаний и строгого соблюдения регламентов безопасности.</p>
+                <p>Криогенные системы широко применяются в физических, химических и биологических лабораториях для
+                    хранения биоматериалов, охлаждения сверхпроводящих установок, проведения низкотемпературных
+                    экспериментов. Инженер по криогенике обеспечивает непрерывность этих процессов, контролирует уровень
+                    жидкого азота и гелия, проводит плановое техническое обслуживание ёмкостей и трубопроводов.</p>
             </div>
 
             <!-- Эксплуатация зданий -->
-            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;" data-aos="fade-up">
-                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-building" style="color: var(--construct-red); margin-right: 15px;"></i>Инженер по эксплуатации зданий</h3>
-                <p>Инженер по эксплуатации зданий отвечает за техническое состояние всех лабораторных и научных помещений университета. В зону его ответственности входит контроль за соответствием помещений действующим нормам безопасности и технической документации, а также своевременное выявление и устранение нарушений.</p>
-                <p>Специалист сопровождает все ремонтные и строительные работы — от составления чертежей и схем до контроля за их выполнением на месте. При переоборудовании лабораторий он разрабатывает технические решения и согласовывает их с заинтересованными сторонами.</p>
-                <p>Важная часть работы — взаимодействие с кафедрами и исследовательскими группами. Когда научному подразделению требуется изменить планировку, расширить рабочее пространство или адаптировать помещение под новое оборудование, именно этот специалист берёт задачу в работу и доводит её до результата.</p>
+            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;"
+                data-aos="fade-up">
+                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-building"
+                        style="color: var(--construct-red); margin-right: 15px;"></i>Инженер по эксплуатации зданий</h3>
+                <p>Инженер по эксплуатации зданий отвечает за техническое состояние всех лабораторных и научных
+                    помещений университета. В зону его ответственности входит контроль за соответствием помещений
+                    действующим нормам безопасности и технической документации, а также своевременное выявление и
+                    устранение нарушений.</p>
+                <p>Специалист сопровождает все ремонтные и строительные работы — от составления чертежей и схем до
+                    контроля за их выполнением на месте. При переоборудовании лабораторий он разрабатывает технические
+                    решения и согласовывает их с заинтересованными сторонами.</p>
+                <p>Важная часть работы — взаимодействие с кафедрами и исследовательскими группами. Когда научному
+                    подразделению требуется изменить планировку, расширить рабочее пространство или адаптировать
+                    помещение под новое оборудование, именно этот специалист берёт задачу в работу и доводит её до
+                    результата.</p>
             </div>
 
             <!-- Газовые системы -->
-            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;" data-aos="fade-up">
-                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-fire-flame-simple" style="color: var(--construct-red); margin-right: 15px;"></i>Отдел газовых систем</h3>
-                <p>Безопасная и бесперебойная работа газовых систем является одним из обязательных условий функционирования химических, физических и биологических лабораторий.</p>
-                <p>Старший инженер газовых систем (1 специалист) — несёт ответственность за общее состояние газовой инфраструктуры университета, разрабатывает регламенты обслуживания и обеспечивает соответствие всех систем требованиям безопасности.</p>
+            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;"
+                data-aos="fade-up">
+                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-fire-flame-simple"
+                        style="color: var(--construct-red); margin-right: 15px;"></i>Отдел газовых систем</h3>
+                <p>Безопасная и бесперебойная работа газовых систем является одним из обязательных условий
+                    функционирования химических, физических и биологических лабораторий.</p>
+                <p>Старший инженер газовых систем (1 специалист) — несёт ответственность за общее состояние газовой
+                    инфраструктуры университета, разрабатывает регламенты обслуживания и обеспечивает соответствие всех
+                    систем требованиям безопасности.</p>
                 <p>Инженеры газовых систем (2 специалиста) выполняют:</p>
                 <ul style="margin-left: 20px; margin-bottom: 20px; font-size: 1.1rem; color: var(--text-secondary);">
-                    <li style="margin-bottom: 10px;">Плановое и аварийное техническое обслуживание газопроводов, вентилей, редукторов и газовых панелей</li>
-                    <li style="margin-bottom: 10px;">Проверку герметичности и технического состояния всей газовой инфраструктуры</li>
-                    <li style="margin-bottom: 10px;">Подключение и отключение баллонов и централизованных газовых систем</li>
-                    <li style="margin-bottom: 10px;">Контроль давления и качества подачи специальных газов (азот, аргон, гелий, водород, кислород и другие)</li>
+                    <li style="margin-bottom: 10px;">Плановое и аварийное техническое обслуживание газопроводов,
+                        вентилей, редукторов и газовых панелей</li>
+                    <li style="margin-bottom: 10px;">Проверку герметичности и технического состояния всей газовой
+                        инфраструктуры</li>
+                    <li style="margin-bottom: 10px;">Подключение и отключение баллонов и централизованных газовых систем
+                    </li>
+                    <li style="margin-bottom: 10px;">Контроль давления и качества подачи специальных газов (азот, аргон,
+                        гелий, водород, кислород и другие)</li>
                     <li style="margin-bottom: 10px;">Оперативное реагирование на нештатные ситуации и утечки</li>
                 </ul>
             </div>
 
             <!-- АСУ -->
-            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;" data-aos="fade-up">
-                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-network-wired" style="color: var(--construct-red); margin-right: 15px;"></i>Отдел АСУ (Автоматизированные системы управления)</h3>
-                <p>Старший инженер АСУ (1 специалист) — руководит внедрением и эксплуатацией автоматизированных систем управления в лабораторной и инженерной инфраструктуре университета.</p>
+            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;"
+                data-aos="fade-up">
+                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-network-wired"
+                        style="color: var(--construct-red); margin-right: 15px;"></i>Отдел АСУ (Автоматизированные
+                    системы управления)</h3>
+                <p>Старший инженер АСУ (1 специалист) — руководит внедрением и эксплуатацией автоматизированных систем
+                    управления в лабораторной и инженерной инфраструктуре университета.</p>
                 <p>Инженер АСУ (1 специалист) обеспечивает:</p>
                 <ul style="margin-left: 20px; margin-bottom: 20px; font-size: 1.1rem; color: var(--text-secondary);">
-                    <li style="margin-bottom: 10px;">Эксплуатацию и настройку систем диспетчеризации инженерных сетей (SCADA, BMS)</li>
-                    <li style="margin-bottom: 10px;">Программирование и обслуживание контроллеров, датчиков и исполнительных устройств</li>
-                    <li style="margin-bottom: 10px;">Мониторинг технических параметров инженерных систем в режиме реального времени</li>
-                    <li style="margin-bottom: 10px;">Интеграцию нового оборудования в существующую автоматизированную инфраструктуру</li>
-                    <li style="margin-bottom: 10px;">Обеспечение удалённого контроля и управления инженерными системами</li>
+                    <li style="margin-bottom: 10px;">Эксплуатацию и настройку систем диспетчеризации инженерных сетей
+                        (SCADA, BMS)</li>
+                    <li style="margin-bottom: 10px;">Программирование и обслуживание контроллеров, датчиков и
+                        исполнительных устройств</li>
+                    <li style="margin-bottom: 10px;">Мониторинг технических параметров инженерных систем в режиме
+                        реального времени</li>
+                    <li style="margin-bottom: 10px;">Интеграцию нового оборудования в существующую автоматизированную
+                        инфраструктуру</li>
+                    <li style="margin-bottom: 10px;">Обеспечение удалённого контроля и управления инженерными системами
+                    </li>
                 </ul>
-                <p>Автоматизация позволяет ИТС вести непрерывный мониторинг всех критических параметров и реагировать на отклонения ещё до того, как они превратятся в серьёзные неисправности.</p>
+                <p>Автоматизация позволяет ИТС вести непрерывный мониторинг всех критических параметров и реагировать на
+                    отклонения ещё до того, как они превратятся в серьёзные неисправности.</p>
             </div>
 
             <!-- Вентиляция -->
-            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;" data-aos="fade-up">
-                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-wind" style="color: var(--construct-red); margin-right: 15px;"></i>Отдел вентиляции и климат-контроля</h3>
-                <p>Для многих лабораторий — химических, биологических, фармацевтических — точный контроль воздушной среды является не просто комфортом, а обязательным условием для работы.</p>
-                <p>Старший инженер вентиляции (1 специалист) — отвечает за состояние всей системы вентиляции, кондиционирования и воздухоподготовки в лабораторных и научных корпусах.</p>
+            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;"
+                data-aos="fade-up">
+                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-wind"
+                        style="color: var(--construct-red); margin-right: 15px;"></i>Отдел вентиляции и климат-контроля
+                </h3>
+                <p>Для многих лабораторий — химических, биологических, фармацевтических — точный контроль воздушной
+                    среды является не просто комфортом, а обязательным условием для работы.</p>
+                <p>Старший инженер вентиляции (1 специалист) — отвечает за состояние всей системы вентиляции,
+                    кондиционирования и воздухоподготовки в лабораторных и научных корпусах.</p>
                 <p>Инженер вентиляции (1 специалист) выполняет:</p>
                 <ul style="margin-left: 20px; margin-bottom: 20px; font-size: 1.1rem; color: var(--text-secondary);">
-                    <li style="margin-bottom: 10px;">Плановое обслуживание вентиляционных установок, воздуховодов, фильтров и клапанов</li>
-                    <li style="margin-bottom: 10px;">Проверку и регулировку воздушных балансов в помещениях с особыми требованиями (чистые комнаты, вытяжные шкафы, боксы биологической безопасности)</li>
-                    <li style="margin-bottom: 10px;">Техническое обслуживание систем кондиционирования и поддержания микроклимата</li>
-                    <li style="margin-bottom: 10px;">Устранение неисправностей и аварийное реагирование при сбоях в системах воздухообмена</li>
+                    <li style="margin-bottom: 10px;">Плановое обслуживание вентиляционных установок, воздуховодов,
+                        фильтров и клапанов</li>
+                    <li style="margin-bottom: 10px;">Проверку и регулировку воздушных балансов в помещениях с особыми
+                        требованиями (чистые комнаты, вытяжные шкафы, боксы биологической безопасности)</li>
+                    <li style="margin-bottom: 10px;">Техническое обслуживание систем кондиционирования и поддержания
+                        микроклимата</li>
+                    <li style="margin-bottom: 10px;">Устранение неисправностей и аварийное реагирование при сбоях в
+                        системах воздухообмена</li>
                 </ul>
             </div>
 
             <!-- Электрика -->
-            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;" data-aos="fade-up">
-                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-bolt" style="color: var(--construct-red); margin-right: 15px;"></i>Электрический отдел и техническое обслуживание</h3>
-                <p>Инженер-электрик (1 специалист) — обеспечивает надёжную работу электрических систем лабораторий и научных помещений. Проводит монтаж, техническое обслуживание и ремонт электрооборудования, распределительных щитов, освещения и силовых цепей. Контролирует соответствие электрических установок требованиям безопасности и нормативной документации.</p>
-                <p>Мастер (1 специалист) — универсальный технический специалист, обеспечивающий оперативное реагирование на текущие заявки и мелкий ремонт. Выполняет широкий спектр хозяйственно-технических задач: устранение бытовых неисправностей, мелкий монтаж, помощь другим специалистам в выполнении комплексных работ.</p>
+            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;"
+                data-aos="fade-up">
+                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-bolt"
+                        style="color: var(--construct-red); margin-right: 15px;"></i>Электрический отдел и техническое
+                    обслуживание</h3>
+                <p>Инженер-электрик (1 специалист) — обеспечивает надёжную работу электрических систем лабораторий и
+                    научных помещений. Проводит монтаж, техническое обслуживание и ремонт электрооборудования,
+                    распределительных щитов, освещения и силовых цепей. Контролирует соответствие электрических
+                    установок требованиям безопасности и нормативной документации.</p>
+                <p>Мастер (1 специалист) — универсальный технический специалист, обеспечивающий оперативное реагирование
+                    на текущие заявки и мелкий ремонт. Выполняет широкий спектр хозяйственно-технических задач:
+                    устранение бытовых неисправностей, мелкий монтаж, помощь другим специалистам в выполнении
+                    комплексных работ.</p>
             </div>
-            
+
         </div>
     </div>
 
