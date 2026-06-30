@@ -1,0 +1,70 @@
+Please read the following instructions carefully and provide your contact information to indicate your agreement.
+STANDARD OPERATING PROCEDURE: ROOM DECONTAMINATION VIA VAPORIZED HYDROGEN PEROXIDE (VHP)
+
+PROCESS OVERVIEW 
+
+The Vaporized Hydrogen Peroxide (VHP) decontamination procedure is an automated process used to sterilize laboratory spaces and equipment.
+
+Agent: A 35% aqueous Hydrogen Peroxide (H2O2) solution is vaporized and introduced into the targeted area.
+
+Parameters: VHP is injected until the relative humidity reaches approximately 80%. This peak concentration is maintained for a 3-hour dwell period, followed by an aeration/catalytic reduction cycle to safely break down the gas.
+
+Scope Variation: Depending on the trigger, this procedure will either target the entire laboratory volume (Full Room Decontamination) or be focused strictly on containment equipment (Targeted Maintenance Decontamination).
+
+Hazard Rating: VHP is highly toxic and lethal to all living organisms. Strict adherence to safety precautions is mandatory regardless of the cycle scope.
+
+MANDATORY PRE-DECONTAMINATION CHECKLIST
+
+[Engineering & Technical Services (ETS) Responsibilities]
+
+HVAC Isolation: Disable the room’s ventilation system.
+
+Sealing: Completely seal all ventilation grilles, supply/exhaust ducts, and windows to prevent gas migration.
+
+Containment: Seal all entrance doors with airtight tape.
+
+Signage: Post highly visible "DO NOT ENTER - VHP DECONTAMINATION IN PROGRESS" warning signs and danger tape on all access doors.
+
+[Laboratory Personnel Responsibilities]
+
+Equipment Protection: Move sensitive equipment out of the room or seal it in airtight plastic bags. High concentrations of H2O2 will corrode exposed copper wiring, degrade microscope lens coatings, and damage unsealed electronics.
+
+Sample Preservation: Remove all live cell cultures, biological samples, and reagents that must not be destroyed or compromised.
+
+Waste Removal: Ensure no open biohazard waste containers remain in the room.
+
+ACCESS CONTROL & SAFETY PROTOCOLS
+
+Strict No-Entry Policy: No personnel are permitted to enter the room for 48 hours from the start of the procedure.
+
+Emergency Entry Only: During the active cycle, only authorized ETS personnel equipped with full-face respirators (supplied air or H2O2-rated cartridges) and appropriate protective gear may enter to monitor equipment.
+
+Final Clearance: Before the room is turned back over to lab personnel, ETS must verify that the concentration of H2O2 has dropped to a safe occupational exposure level (less than or equal to 1 ppm) using a calibrated handheld gas detector.
+
+OPERATIONAL TRIGGERS & SCOPE
+
+The decontamination procedure is performed under two distinct operational scopes:
+
+CASE A: Full-Room Decontamination (Ad-Hoc Request)
+
+Trigger: Requested by laboratory personnel in the event of persistent, widespread, or severe biological contamination of laboratory infrastructure (e.g., fungal, bacterial, or spore contamination affecting cell incubators or laboratory refrigeration units).
+
+Scope: The entire volume of the laboratory room is flooded to guarantee total space sterilization.
+
+CASE B: Targeted Equipment Decontamination (Preventative Maintenance)
+
+Trigger: Performed by ETS as a mandatory safety step prior to a HEPA filter replacement inside Class II Biological Safety Cabinets (BSCs).
+
+Scope & Method: During this procedure, the BSC is actively turned on, and the VHP equipment is specifically configured to loop through and clear the cabinet's internal plenums. This protects field technicians from pathogenic accumulation trapped within the internal components or filter media.
+
+*** CRITICAL NOTE FOR LAB PERSONNEL *** 
+
+Because the VHP equipment is focused on clearing the cabinet during preventative maintenance, COMPREHENSIVE DECONTAMINATION OF THE SURROUNDING LABORATORY ROOM IS NOT GUARANTEED. This cycle should not be relied upon to sanitize the wider lab environment.
+
+VALIDATION AND DOCUMENTATION
+
+To verify the efficacy of the cycle, chemical and/or biological indicators are placed in the targeted areas prior to starting.
+
+Chemical Indicators: Change color to confirm that the minimum required concentration of H2O2 vapor was successfully reached.
+
+Post-Procedure Delivery: Upon successful completion, ETS will provide laboratory management with the processed indicators as proof of decontamination. If a HEPA filter replacement was performed, a certified HEPA Filter Test & Integrity Report will be issued alongside the decontamination log.
