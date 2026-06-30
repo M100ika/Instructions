@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Инструктаж по дезинфекции VHP - Инженер КИП</title>
+    <title>Инструктаж по дезинфекции VHP — Инженер КИП</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -18,22 +18,22 @@
             --danger: #c53030;
             --warning: #d69e2e;
         }
-        
+
         body {
             font-family: 'PT Sans', sans-serif;
             background: var(--bg);
             color: var(--text);
         }
-        
+
         .font-narrow {
             font-family: 'PT Sans Narrow', sans-serif;
         }
-        
+
         .document {
             background: var(--card);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
-        
+
         .section-number {
             background: linear-gradient(135deg, var(--danger) 0%, #9b2c2c 100%);
             color: white;
@@ -47,69 +47,61 @@
             font-size: 14px;
             flex-shrink: 0;
         }
-        
+
         .header-stripe {
             background: linear-gradient(90deg, var(--primary) 0%, #2c5282 50%, var(--primary) 100%);
             height: 4px;
         }
-        
+
         .accent-stripe {
             background: var(--accent);
             height: 2px;
         }
-        
+
         .danger-box {
             background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
             border-left: 4px solid var(--danger);
         }
-        
+
         .warning-box {
             background: linear-gradient(135deg, #fffaf0 0%, #feebc8 100%);
             border-left: 4px solid var(--warning);
         }
-        
+
         .info-box {
             background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
             border-left: 4px solid var(--primary);
         }
-        
+
         @media print {
-            body {
-                background: white;
-            }
-            .document {
-                box-shadow: none;
-            }
+            body { background: white; }
+            .document { box-shadow: none; }
+            .lang-switcher { display: none; }
+            #ack-form-section { display: none; }
         }
-        
+
         .fade-in {
             animation: fadeIn 0.6s ease-out forwards;
             opacity: 0;
         }
-        
+
         @keyframes fadeIn {
             to { opacity: 1; }
         }
-        
+
         .slide-up {
             animation: slideUp 0.5s ease-out forwards;
             opacity: 0;
             transform: translateY(20px);
         }
-        
+
         @keyframes slideUp {
-            to { 
+            to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
-        .signature-line {
-            border-bottom: 1px solid var(--text);
-            min-width: 200px;
-            display: inline-block;
-        }
-        
+
         @media (prefers-reduced-motion: reduce) {
             .fade-in, .slide-up {
                 animation: none;
@@ -117,159 +109,276 @@
                 transform: none;
             }
         }
-        
+
         .logo-container {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 3rem;
         }
-        
+
         .logo-main {
             width: 120px;
             height: 120px;
             object-fit: contain;
         }
-        
+
         .logo-jubilee {
             width: 100px;
             height: 100px;
             object-fit: contain;
         }
+
+        /* Language switcher */
+        .lang-switcher {
+            display: flex;
+            gap: 4px;
+        }
+
+        .lang-btn {
+            padding: 4px 12px;
+            font-size: 12px;
+            font-family: 'PT Sans Narrow', sans-serif;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.15s;
+            letter-spacing: 0.05em;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* Form */
+        .form-input {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 9px 13px;
+            font-family: 'PT Sans', sans-serif;
+            font-size: 14px;
+            color: var(--text);
+            background: white;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+        }
+
+        .form-submit {
+            background: var(--primary);
+            color: white;
+            font-family: 'PT Sans Narrow', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            padding: 11px 28px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .form-submit:disabled {
+            background: var(--muted);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .form-submit:not(:disabled):hover {
+            background: #2c5282;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 54, 93, 0.3);
+        }
+
+        .status-box {
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+
+        .status-sending {
+            background: #ebf8ff;
+            border: 1px solid #bee3f8;
+            color: #2b6cb0;
+        }
+
+        .status-success {
+            background: #f0fff4;
+            border: 1px solid #9ae6b4;
+            color: #276749;
+        }
+
+        .status-error {
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            color: var(--danger);
+        }
     </style>
 </head>
 <body class="min-h-screen py-8 px-4">
-    <!-- Document -->
     <div id="document" class="document max-w-4xl mx-auto rounded-lg overflow-hidden">
+
         <!-- Header -->
         <div class="header-stripe"></div>
         <div class="accent-stripe"></div>
-        
+
         <div class="px-10 py-8 border-b border-[var(--border)]">
+
+            <!-- Language switcher -->
+            <div class="flex justify-end mb-3">
+                <div class="lang-switcher" role="group">
+                    <button class="lang-btn" data-lang="ru" onclick="setLanguage('ru')">РУС</button>
+                    <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">ENG</button>
+                    <button class="lang-btn" data-lang="kk" onclick="setLanguage('kk')">ҚАЗ</button>
+                </div>
+            </div>
+
             <!-- Logos -->
             <div class="logo-container mb-6">
-                <img src="https://z-cdn-media.chatglm.cn/files/0353fdbc-58ab-4f59-a7fd-85df90be9f4c.png?auth_key=1877374705-48b17b9768224eb4baa8edebe7b70d95-0-ca8685bf276b897f8ce93f00103a1821" 
-                     alt="Логотип Инженерно-технической службы" 
+                <img src="https://z-cdn-media.chatglm.cn/files/0353fdbc-58ab-4f59-a7fd-85df90be9f4c.png?auth_key=1877374705-48b17b9768224eb4baa8edebe7b70d95-0-ca8685bf276b897f8ce93f00103a1821"
+                     alt="Логотип Инженерно-технической службы"
                      class="logo-main">
-                <img src="https://z-cdn-media.chatglm.cn/files/fb25d888-4762-44e8-9189-ce08374a23f9.png?auth_key=1877540789-73669ef81d984f34b5589dea86900e76-0-aa01884582084149a5c6dbaa54d14073" 
-                     alt="15 лет Назарбаев Университет" 
+                <img src="https://z-cdn-media.chatglm.cn/files/fb25d888-4762-44e8-9189-ce08374a23f9.png?auth_key=1877540789-73669ef81d984f34b5589dea86900e76-0-aa01884582084149a5c6dbaa54d14073"
+                     alt="15 лет Назарбаев Университет"
                      class="logo-jubilee">
             </div>
-            
+
             <div class="text-center mb-4">
-                <div class="text-xs text-[var(--muted)] uppercase tracking-wider mb-2">
+                <div class="text-xs text-[var(--muted)] uppercase tracking-wider mb-2" data-i18n="deptLabel">
                     Инженерно-техническая служба
                 </div>
-                <div class="font-narrow text-2xl font-bold text-[var(--primary)] leading-tight">
+                <div class="font-narrow text-2xl font-bold text-[var(--primary)] leading-tight" data-i18n="universityName">
                     НАЗАРБАЕВ УНИВЕРСИТЕТ
                 </div>
             </div>
-            
+
             <div class="mt-8 text-center">
-                <div class="inline-block px-4 py-1 bg-[var(--danger)] text-white text-xs uppercase tracking-widest rounded mb-4">
+                <div class="inline-block px-4 py-1 bg-[var(--danger)] text-white text-xs uppercase tracking-widest rounded mb-4" data-i18n="safetyBadge">
                     Инструкция по технике безопасности
                 </div>
-                <h1 class="font-narrow text-3xl md:text-4xl font-bold text-[var(--primary)] leading-tight">
+                <h1 class="font-narrow text-3xl md:text-4xl font-bold text-[var(--primary)] leading-tight" data-i18n="mainTitle">
                     ДЕЗИНФЕКЦИЯ ПОМЕЩЕНИЙ И БОКСОВ БИОБЕЗОПАСНОСТИ ПАРАМИ ПЕРЕКИСИ ВОДОРОДА (VHP)
                 </h1>
-                <h2 class="font-narrow text-xl md:text-2xl text-[var(--muted)] mt-2">
+                <h2 class="font-narrow text-xl md:text-2xl text-[var(--muted)] mt-2" data-i18n="mainSubtitle">
                     Стандартная рабочая процедура (SOP)
                 </h2>
-                <p class="text-sm text-[var(--muted)] mt-3 max-w-xl mx-auto">
+                <p class="text-sm text-[var(--muted)] mt-3 max-w-xl mx-auto" data-i18n="introText">
                     Пожалуйста, внимательно прочтите следующие инструкции и предоставьте свою контактную информацию в подтверждение вашего согласия.
                 </p>
             </div>
-            
+
             <div class="flex justify-between mt-8 text-sm text-[var(--muted)]">
-                <div>Номер документа: <span class="font-bold text-[var(--text)]">ИТ-ОТ-004</span></div>
-                <div>Дата утверждения: <span class="font-bold text-[var(--text)]" id="current-date"></span></div>
+                <div>
+                    <span data-i18n="docNumberLabel">Номер документа:</span>
+                    <span class="font-bold text-[var(--text)]"> ИТ-ОТ-004</span>
+                </div>
+                <div>
+                    <span data-i18n="docDateLabel">Дата утверждения:</span>
+                    <span class="font-bold text-[var(--text)]" id="current-date"></span>
+                </div>
             </div>
         </div>
-        
+
         <!-- Content -->
         <div class="px-10 py-8 space-y-8">
+
             <!-- Section 1 -->
             <section class="slide-up" style="animation-delay: 0.1s;">
                 <div class="flex items-start gap-4">
                     <div class="section-number">1</div>
                     <div class="flex-1">
-                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s1Title">
                             Обзор процесса дезинфекции
                         </h3>
-                        <p class="text-sm leading-relaxed text-[var(--text)]">
+                        <p class="text-sm leading-relaxed text-[var(--text)]" data-i18n="s1Body">
                             Процедура дезинфекции парами перекиси водорода (VHP — Vaporized Hydrogen Peroxide) представляет собой автоматизированный процесс, применяемый для стерилизации лабораторных помещений и расположенного в них оборудования.
                         </p>
                         <div class="grid md:grid-cols-2 gap-4 mt-4">
                             <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
-                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2">Действующий агент</div>
-                                <p class="text-sm">Используется 35%-ный водный раствор перекиси водорода (H2O2), который испаряется и подается в целевую зону.</p>
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s1AgentLabel">Действующий агент</div>
+                                <p class="text-sm" data-i18n="s1AgentText">Используется 35%-ный водный раствор перекиси водорода (H₂O₂), который испаряется и подается в целевую зону.</p>
                             </div>
                             <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
-                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2">Рабочие параметры</div>
-                                <p class="text-sm">VHP нагнетается до достижения относительной влажности около 80%. Пиковая концентрация поддерживается в течение 3 часов экспозиции, после чего запускается цикл аэрации и каталитического восстановления для безопасного разложения газа.</p>
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s1ParamsLabel">Рабочие параметры</div>
+                                <p class="text-sm" data-i18n="s1ParamsText">VHP нагнетается до достижения относительной влажности около 80%. Пиковая концентрация поддерживается в течение 3 часов экспозиции, после чего запускается цикл аэрации и каталитического восстановления для безопасного разложения газа.</p>
                             </div>
                         </div>
                         <div class="danger-box p-4 rounded-r-lg mt-4">
-                            <p class="text-sm text-[var(--text)]">
+                            <p class="text-sm text-[var(--text)]" data-i18n-html="s1Danger">
                                 <strong>Класс опасности:</strong> Пары перекиси водорода (VHP) крайне токсичны и смертельны для всех живых организмов. Строгое соблюдение мер безопасности обязательно независимо от масштаба проводимых работ.
                             </p>
                         </div>
                     </div>
                 </div>
             </section>
-            
+
             <!-- Section 2 -->
             <section class="slide-up" style="animation-delay: 0.15s;">
                 <div class="flex items-start gap-4">
                     <div class="section-number">2</div>
                     <div class="flex-1">
-                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s2Title">
                             Обязательный список действий перед дезинфекцией
                         </h3>
-                        
+
                         <div class="space-y-4">
-                            <!-- ETS Responsibilities -->
                             <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
-                                <h4 class="font-bold text-sm mb-3 text-[var(--primary)] uppercase tracking-wider">
+                                <h4 class="font-bold text-sm mb-3 text-[var(--primary)] uppercase tracking-wider" data-i18n="s2EtsTitle">
                                     [Обязанности Инженерно-технической службы (ETS)]
                                 </h4>
                                 <ul class="space-y-2 text-sm">
                                     <li class="flex items-start gap-2">
                                         <span class="text-[var(--danger)] font-bold">•</span>
-                                        <span><strong>Изоляция ОВКВ:</strong> Полное отключение системы вентиляции и кондиционирования целевого помещения.</span>
+                                        <span data-i18n-html="s2EtsItem1"><strong>Изоляция ОВКВ:</strong> Полное отключение системы вентиляции и кондиционирования целевого помещения.</span>
                                     </li>
                                     <li class="flex items-start gap-2">
                                         <span class="text-[var(--danger)] font-bold">•</span>
-                                        <span><strong>Герметизация:</strong> Тщательное заклеивание всех вентиляционных решеток, каналов притока и вытяжки, а также окон для исключения утечки газа в соседние зоны.</span>
+                                        <span data-i18n-html="s2EtsItem2"><strong>Герметизация:</strong> Тщательное заклеивание всех вентиляционных решеток, каналов притока и вытяжки, а также окон для исключения утечки газа в соседние зоны.</span>
                                     </li>
                                     <li class="flex items-start gap-2">
                                         <span class="text-[var(--danger)] font-bold">•</span>
-                                        <span><strong>Локализация:</strong> Герметичное уплотнение входных дверей с помощью специальной воздухонепроницаемой ленты.</span>
+                                        <span data-i18n-html="s2EtsItem3"><strong>Локализация:</strong> Герметичное уплотнение входных дверей с помощью специальной воздухонепроницаемой ленты.</span>
                                     </li>
                                     <li class="flex items-start gap-2">
                                         <span class="text-[var(--danger)] font-bold">•</span>
-                                        <span><strong>Предупреждающие знаки:</strong> Размещение хорошо заметных знаков «НЕ ВХОДИТЬ — ИДЕТ ДЕЗИНФЕКЦИЯ VHP» и натягивание сигнальной ленты на всех дверях доступа.</span>
+                                        <span data-i18n-html="s2EtsItem4"><strong>Предупреждающие знаки:</strong> Размещение хорошо заметных знаков «НЕ ВХОДИТЬ — ИДЕТ ДЕЗИНФЕКЦИЯ VHP» и натягивание сигнальной ленты на всех дверях доступа.</span>
                                     </li>
                                 </ul>
                             </div>
 
-                            <!-- Lab Personnel Responsibilities -->
                             <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
-                                <h4 class="font-bold text-sm mb-3 text-[var(--primary)] uppercase tracking-wider">
+                                <h4 class="font-bold text-sm mb-3 text-[var(--primary)] uppercase tracking-wider" data-i18n="s2LabTitle">
                                     [Обязанности лабораторного персонала]
                                 </h4>
                                 <ul class="space-y-2 text-sm">
                                     <li class="flex items-start gap-2">
                                         <span class="text-[var(--primary)] font-bold">•</span>
-                                        <span><strong>Защита оборудования:</strong> Вынос чувствительного оборудования из помещения или его упаковка в герметичные пластиковые пакеты. Высокая концентрация H2O2 вызывает коррозию открытой медной проводки, разрушает оптические покрытия линз микроскопов и выводит из строя негерметичную электронику.</span>
+                                        <span data-i18n-html="s2LabItem1"><strong>Защита оборудования:</strong> Вынос чувствительного оборудования из помещения или его упаковка в герметичные пластиковые пакеты. Высокая концентрация H₂O₂ вызывает коррозию открытой медной проводки, разрушает оптические покрытия линз микроскопов и выводит из строя негерметичную электронику.</span>
                                     </li>
                                     <li class="flex items-start gap-2">
                                         <span class="text-[var(--primary)] font-bold">•</span>
-                                        <span><strong>Сохранение образцов:</strong> Обязательный перенос всех культур живых клеток, биологических образцов и реагентов, которые могут быть уничтожены или испорчены под воздействием VHP.</span>
+                                        <span data-i18n-html="s2LabItem2"><strong>Сохранение образцов:</strong> Обязательный перенос всех культур живых клеток, биологических образцов и реагентов, которые могут быть уничтожены или испорчены под воздействием VHP.</span>
                                     </li>
                                     <li class="flex items-start gap-2">
                                         <span class="text-[var(--primary)] font-bold">•</span>
-                                        <span><strong>Удаление отходов:</strong> Контроль отсутствия открытых контейнеров с биологически опасными отходами в помещении перед началом цикла.</span>
+                                        <span data-i18n-html="s2LabItem3"><strong>Удаление отходов:</strong> Контроль отсутствия открытых контейнеров с биологически опасными отходами в помещении перед началом цикла.</span>
                                     </li>
                                 </ul>
                             </div>
@@ -277,68 +386,66 @@
                     </div>
                 </div>
             </section>
-            
+
             <!-- Section 3 -->
             <section class="slide-up" style="animation-delay: 0.2s;">
                 <div class="flex items-start gap-4">
                     <div class="section-number">3</div>
                     <div class="flex-1">
-                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s3Title">
                             Контроль доступа и протоколы безопасности
                         </h3>
                         <div class="space-y-3">
                             <div class="flex items-start gap-3">
                                 <div class="w-6 h-6 rounded-full bg-[var(--danger)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">1</div>
-                                <p class="text-sm"><strong>Строгий запрет на вход:</strong> Вход любого персонала в дезинфицируемое помещение запрещен в течение 48 часов с момента начала процедуры.</p>
+                                <p class="text-sm" data-i18n-html="s3Item1"><strong>Строгий запрет на вход:</strong> Вход любого персонала в дезинфицируемое помещение запрещен в течение 48 часов с момента начала процедуры.</p>
                             </div>
                             <div class="flex items-start gap-3">
                                 <div class="w-6 h-6 rounded-full bg-[var(--danger)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">2</div>
-                                <p class="text-sm"><strong>Вход в экстренных случаях:</strong> Во время активного цикла вход разрешен только обученному персоналу ETS. Вход осуществляется исключительно в средствах индивидуальной защиты и полнолицевых масках-респираторах (с принудительной подачей воздуха или со специальными картриджами, защищающими от H2O2).</p>
+                                <p class="text-sm" data-i18n-html="s3Item2"><strong>Вход в экстренных случаях:</strong> Во время активного цикла вход разрешен только обученному персоналу ETS. Вход осуществляется исключительно в средствах индивидуальной защиты и полнолицевых масках-респираторах (с принудительной подачей воздуха или со специальными картриджами, защищающими от H₂O₂).</p>
                             </div>
                             <div class="flex items-start gap-3">
                                 <div class="w-6 h-6 rounded-full bg-[var(--danger)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">3</div>
-                                <p class="text-sm"><strong>Окончательный допуск:</strong> Перед тем как вернуть доступ в лабораторию персоналу, специалисты ETS обязаны провести замеры концентрации паров H2O2 с помощью калиброванного газоанализатора и подтвердить ее снижение до безопасного уровня (менее или равно 1 ppm).</p>
+                                <p class="text-sm" data-i18n-html="s3Item3"><strong>Окончательный допуск:</strong> Перед тем как вернуть доступ в лабораторию персоналу, специалисты ETS обязаны провести замеры концентрации паров H₂O₂ с помощью калиброванного газоанализатора и подтвердить ее снижение до безопасного уровня (менее или равно 1 ppm).</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            
+
             <!-- Section 4 -->
             <section class="slide-up" style="animation-delay: 0.25s;">
                 <div class="flex items-start gap-4">
                     <div class="section-number">4</div>
                     <div class="flex-1">
-                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s4Title">
                             Операционные триггеры и область применения
                         </h3>
-                        <p class="text-sm leading-relaxed text-[var(--text)] mb-4">
+                        <p class="text-sm leading-relaxed text-[var(--text)] mb-4" data-i18n="s4Intro">
                             Процедура дезинфекции проводится в рамках двух различных операционных сценариев в зависимости от поставленных задач:
                         </p>
-                        
+
                         <div class="space-y-4">
-                            <!-- Case A -->
                             <div class="bg-[var(--bg)] p-4 rounded-lg border-l-4 border-[var(--primary)]">
-                                <h4 class="font-bold text-sm mb-2 text-[var(--primary)] uppercase">
+                                <h4 class="font-bold text-sm mb-2 text-[var(--primary)] uppercase" data-i18n="s4ATitle">
                                     Сценарий А: Полная дезинфекция помещения (Внеплановый запрос)
                                 </h4>
-                                <p class="text-sm mb-2">
+                                <p class="text-sm mb-2" data-i18n-html="s4ATrigger">
                                     <strong>Триггер:</strong> Запрос от сотрудников лаборатории в случае стойкого, масштабного или критического биологического загрязнения лабораторных зон (например, поражение грибками, бактериями или спорами инкубаторов, холодильников или рабочих поверхностей).
                                 </p>
-                                <p class="text-sm">
+                                <p class="text-sm" data-i18n-html="s4ACoverage">
                                     <strong>Область покрытия:</strong> Газом заполняется весь объем помещения лаборатории для обеспечения полной стерильности поверхностей и воздуха.
                                 </p>
                             </div>
 
-                            <!-- Case B -->
                             <div class="bg-[var(--bg)] p-4 rounded-lg border-l-4 border-[var(--accent)]">
-                                <h4 class="font-bold text-sm mb-2 text-[var(--accent)] uppercase">
+                                <h4 class="font-bold text-sm mb-2 text-[var(--accent)] uppercase" data-i18n="s4BTitle">
                                     Сценарий Б: Целевая дезинфекция оборудования (Профилактическое обслуживание)
                                 </h4>
-                                <p class="text-sm mb-2">
+                                <p class="text-sm mb-2" data-i18n-html="s4BTrigger">
                                     <strong>Триггер:</strong> Обязательный этап обеспечения безопасности, проводимый службой ETS непосредственно перед заменой HEPA-фильтра внутри боксов биологической безопасности (БББ) II класса.
                                 </p>
-                                <p class="text-sm">
+                                <p class="text-sm" data-i18n-html="s4BMethod">
                                     <strong>Метод и область покрытия:</strong> Бокс биологической безопасности активно включается, а контур системы VHP настраивается на рециркуляцию газа исключительно через внутренние каналы и фильтрующие отсеки бокса. Это защищает сервисных инженеров от контакта с накопленными на фильтре патогенами.
                                 </p>
                             </div>
@@ -351,114 +458,434 @@
                                     <line x1="12" y1="9" x2="12" y2="13"></line>
                                     <line x1="12" y1="17" x2="12.01" y2="17"></line>
                                 </svg>
-                                ВАЖНОЕ ПРИМЕЧАНИЕ ДЛЯ ЛАБОРАТОРНОГО ПЕРСОНАЛА:
+                                <span data-i18n="s4WarningTitle">ВАЖНОЕ ПРИМЕЧАНИЕ ДЛЯ ЛАБОРАТОРНОГО ПЕРСОНАЛА:</span>
                             </h4>
-                            <p class="text-sm">
+                            <p class="text-sm" data-i18n-html="s4Warning">
                                 Поскольку при профилактическом обслуживании цикл VHP направлен исключительно на очистку внутренних каналов бокса, <strong>ПОЛНАЯ СТЕРЕЛИЗАЦИЯ ОКРУЖАЮЩЕГО ЛАБОРАТОРНОГО ПОМЕЩЕНИЯ НЕ ГАРАНТИРУЕТСЯ</strong>. Запрещается использовать данный сервисный цикл как метод дезинфекции всей лаборатории.
                             </p>
                         </div>
                     </div>
                 </div>
             </section>
-            
+
             <!-- Section 5 -->
             <section class="slide-up" style="animation-delay: 0.3s;">
                 <div class="flex items-start gap-4">
                     <div class="section-number">5</div>
                     <div class="flex-1">
-                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s5Title">
                             Валидация и документирование результатов
                         </h3>
-                        <p class="text-sm leading-relaxed text-[var(--text)] mb-3">
+                        <p class="text-sm leading-relaxed text-[var(--text)] mb-3" data-i18n="s5Body">
                             Для подтверждения эффективности дезинфекции перед запуском установки в критических зонах размещаются химические и/или биологические индикаторы.
                         </p>
                         <ul class="text-sm space-y-2 mb-4 list-disc list-inside">
-                            <li><strong>Химические индикаторы:</strong> Меняют свой цвет, подтверждая, что в данной точке была успешно достигнута минимально требуемая концентрация паров H2O2.</li>
-                            <li><strong>Предоставление отчетов:</strong> После успешного завершения процедуры ETS передает руководству лаборатории отработанные индикаторы в качестве подтверждения эффективности цикла. При замене HEPA-фильтров дополнительно выдается официальный сертифицированный отчет об испытаниях и целостности фильтров совместно с журналом дезинфекции.</li>
+                            <li data-i18n-html="s5Item1"><strong>Химические индикаторы:</strong> Меняют свой цвет, подтверждая, что в данной точке была успешно достигнута минимально требуемая концентрация паров H₂O₂.</li>
+                            <li data-i18n-html="s5Item2"><strong>Предоставление отчетов:</strong> После успешного завершения процедуры ETS передает руководству лаборатории отработанные индикаторы в качестве подтверждения эффективности цикла. При замене HEPA-фильтров дополнительно выдается официальный сертифицированный отчет об испытаниях и целостности фильтров совместно с журналом дезинфекции.</li>
                         </ul>
                     </div>
                 </div>
             </section>
         </div>
-        
-        <!-- Signatures -->
-        <div class="px-10 py-8 border-t border-[var(--border)] bg-[var(--bg)]">
-            <div class="grid md:grid-cols-2 gap-8">
-                <div>
-                    <div class="text-sm text-[var(--muted)] mb-2">Инструктаж провёл (ETS):</div>
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-4">
-                            <span class="text-sm w-20">Должность:</span>
-                            <span class="signature-line"></span>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="text-sm w-20">Ф.И.О.:</span>
-                            <span class="signature-line"></span>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="text-sm w-20">Подпись:</span>
-                            <span class="signature-line"></span>
-                        </div>
-                    </div>
+
+        <!-- Digital Acknowledgement Form -->
+        <div id="ack-form-section" class="px-10 py-8 border-t border-[var(--border)] bg-[var(--bg)]">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-8 h-8 rounded-full bg-[var(--primary)] text-white flex items-center justify-center flex-shrink-0">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M20 6L9 17l-5-5"/>
+                    </svg>
                 </div>
-                <div>
-                    <div class="text-sm text-[var(--muted)] mb-2">Ознакомлен (Лаборатория):</div>
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-4">
-                            <span class="text-sm w-20">Должность:</span>
-                            <span class="signature-line"></span>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="text-sm w-20">Ф.И.О.:</span>
-                            <span class="signature-line"></span>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="text-sm w-20">Подпись:</span>
-                            <span class="signature-line"></span>
-                        </div>
-                    </div>
-                </div>
+                <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase" data-i18n="formTitle">
+                    Цифровое подтверждение ознакомления
+                </h3>
             </div>
-            <div class="mt-6 pt-6 border-t border-[var(--border)]">
-                <div class="flex items-center gap-4">
-                    <span class="text-sm">Дата проведения инструктажа:</span>
-                    <span class="signature-line"></span>
+
+            <form id="ack-form" class="space-y-5 max-w-2xl" onsubmit="return false;">
+
+                <!-- Full Name -->
+                <div>
+                    <label for="form-fullname" class="block text-sm font-bold text-[var(--text)] mb-1" data-i18n="formNameLabel">ФИО</label>
+                    <input type="text" id="form-fullname" class="form-input" required
+                           data-i18n-placeholder="formNamePlaceholder"
+                           placeholder="Фамилия Имя Отчество"
+                           oninput="checkFormValidity()">
                 </div>
-            </div>
+
+                <!-- Position / Department -->
+                <div>
+                    <label for="form-position" class="block text-sm font-bold text-[var(--text)] mb-1" data-i18n="formPositionLabel">Должность / отдел</label>
+                    <input type="text" id="form-position" class="form-input" required
+                           data-i18n-placeholder="formPositionPlaceholder"
+                           placeholder="Напр.: Научный сотрудник, Лаборатория биологии"
+                           oninput="checkFormValidity()">
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label for="form-email" class="block text-sm font-bold text-[var(--text)] mb-1" data-i18n="formEmailLabel">Электронная почта</label>
+                    <input type="email" id="form-email" class="form-input" required
+                           data-i18n-placeholder="formEmailPlaceholder"
+                           placeholder="email@nu.edu.kz"
+                           oninput="checkFormValidity()">
+                </div>
+
+                <!-- Consent checkbox -->
+                <div class="flex items-start gap-3 p-4 bg-white rounded-lg border border-[var(--border)]">
+                    <input type="checkbox" id="form-consent"
+                           style="margin-top:2px; width:16px; height:16px; flex-shrink:0; accent-color: var(--primary);"
+                           onchange="checkFormValidity()">
+                    <label for="form-consent" class="text-sm text-[var(--text)] cursor-pointer" data-i18n="formConsentLabel">
+                        Я ознакомился(лась) с инструкцией и обязуюсь её соблюдать
+                    </label>
+                </div>
+
+                <!-- Submit button -->
+                <button type="button" id="form-submit" class="form-submit" disabled onclick="submitForm()">
+                    <span data-i18n="formSubmitBtn">ОТПРАВИТЬ ПОДТВЕРЖДЕНИЕ</span>
+                </button>
+            </form>
+
+            <!-- Status messages -->
+            <div id="status-sending" class="status-box status-sending" style="display:none;" data-i18n="formSending">Отправка…</div>
+            <div id="status-success" class="status-box status-success" style="display:none;" data-i18n="formSuccess">Подтверждение записано ✓</div>
+            <div id="status-error"   class="status-box status-error"   style="display:none;" data-i18n="formError">Ошибка отправки — попробуйте ещё раз</div>
         </div>
-        
+
         <!-- Footer -->
         <div class="accent-stripe"></div>
         <div class="header-stripe"></div>
     </div>
-    
+
     <script>
-        // Set current date
-        document.getElementById('current-date').textContent = new Date().toLocaleDateString('ru-RU', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric'
-        });
-        
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+        // ─── CONFIG ──────────────────────────────────────────────────────────────
+        const WEB_APP_URL = "ВСТАВЬТЕ_СЮДА_URL_ВЕБ_ПРИЛОЖЕНИЯ"; // https://script.google.com/macros/s/.../exec
+
+        // ─── TRANSLATIONS ────────────────────────────────────────────────────────
+        const translations = {
+            ru: {
+                pageTitle:        "Инструктаж по дезинфекции VHP — Инженер КИП",
+                deptLabel:        "Инженерно-техническая служба",
+                universityName:   "НАЗАРБАЕВ УНИВЕРСИТЕТ",
+                safetyBadge:      "Инструкция по технике безопасности",
+                mainTitle:        "ДЕЗИНФЕКЦИЯ ПОМЕЩЕНИЙ И БОКСОВ БИОБЕЗОПАСНОСТИ ПАРАМИ ПЕРЕКИСИ ВОДОРОДА (VHP)",
+                mainSubtitle:     "Стандартная рабочая процедура (SOP)",
+                introText:        "Пожалуйста, внимательно прочтите следующие инструкции и предоставьте свою контактную информацию в подтверждение вашего согласия.",
+                docNumberLabel:   "Номер документа:",
+                docDateLabel:     "Дата утверждения:",
+
+                s1Title:          "Обзор процесса дезинфекции",
+                s1Body:           "Процедура дезинфекции парами перекиси водорода (VHP — Vaporized Hydrogen Peroxide) представляет собой автоматизированный процесс, применяемый для стерилизации лабораторных помещений и расположенного в них оборудования.",
+                s1AgentLabel:     "Действующий агент",
+                s1AgentText:      "Используется 35%-ный водный раствор перекиси водорода (H₂O₂), который испаряется и подается в целевую зону.",
+                s1ParamsLabel:    "Рабочие параметры",
+                s1ParamsText:     "VHP нагнетается до достижения относительной влажности около 80%. Пиковая концентрация поддерживается в течение 3 часов экспозиции, после чего запускается цикл аэрации и каталитического восстановления для безопасного разложения газа.",
+                s1Danger:         "<strong>Класс опасности:</strong> Пары перекиси водорода (VHP) крайне токсичны и смертельны для всех живых организмов. Строгое соблюдение мер безопасности обязательно независимо от масштаба проводимых работ.",
+
+                s2Title:          "Обязательный список действий перед дезинфекцией",
+                s2EtsTitle:       "[Обязанности Инженерно-технической службы (ETS)]",
+                s2EtsItem1:       "<strong>Изоляция ОВКВ:</strong> Полное отключение системы вентиляции и кондиционирования целевого помещения.",
+                s2EtsItem2:       "<strong>Герметизация:</strong> Тщательное заклеивание всех вентиляционных решеток, каналов притока и вытяжки, а также окон для исключения утечки газа в соседние зоны.",
+                s2EtsItem3:       "<strong>Локализация:</strong> Герметичное уплотнение входных дверей с помощью специальной воздухонепроницаемой ленты.",
+                s2EtsItem4:       "<strong>Предупреждающие знаки:</strong> Размещение хорошо заметных знаков «НЕ ВХОДИТЬ — ИДЕТ ДЕЗИНФЕКЦИЯ VHP» и натягивание сигнальной ленты на всех дверях доступа.",
+                s2LabTitle:       "[Обязанности лабораторного персонала]",
+                s2LabItem1:       "<strong>Защита оборудования:</strong> Вынос чувствительного оборудования из помещения или его упаковка в герметичные пластиковые пакеты. Высокая концентрация H₂O₂ вызывает коррозию открытой медной проводки, разрушает оптические покрытия линз микроскопов и выводит из строя негерметичную электронику.",
+                s2LabItem2:       "<strong>Сохранение образцов:</strong> Обязательный перенос всех культур живых клеток, биологических образцов и реагентов, которые могут быть уничтожены или испорчены под воздействием VHP.",
+                s2LabItem3:       "<strong>Удаление отходов:</strong> Контроль отсутствия открытых контейнеров с биологически опасными отходами в помещении перед началом цикла.",
+
+                s3Title:          "Контроль доступа и протоколы безопасности",
+                s3Item1:          "<strong>Строгий запрет на вход:</strong> Вход любого персонала в дезинфицируемое помещение запрещен в течение 48 часов с момента начала процедуры.",
+                s3Item2:          "<strong>Вход в экстренных случаях:</strong> Во время активного цикла вход разрешен только обученному персоналу ETS. Вход осуществляется исключительно в средствах индивидуальной защиты и полнолицевых масках-респираторах (с принудительной подачей воздуха или со специальными картриджами, защищающими от H₂O₂).",
+                s3Item3:          "<strong>Окончательный допуск:</strong> Перед тем как вернуть доступ в лабораторию персоналу, специалисты ETS обязаны провести замеры концентрации паров H₂O₂ с помощью калиброванного газоанализатора и подтвердить ее снижение до безопасного уровня (менее или равно 1 ppm).",
+
+                s4Title:          "Операционные триггеры и область применения",
+                s4Intro:          "Процедура дезинфекции проводится в рамках двух различных операционных сценариев в зависимости от поставленных задач:",
+                s4ATitle:         "Сценарий А: Полная дезинфекция помещения (Внеплановый запрос)",
+                s4ATrigger:       "<strong>Триггер:</strong> Запрос от сотрудников лаборатории в случае стойкого, масштабного или критического биологического загрязнения лабораторных зон (например, поражение грибками, бактериями или спорами инкубаторов, холодильников или рабочих поверхностей).",
+                s4ACoverage:      "<strong>Область покрытия:</strong> Газом заполняется весь объем помещения лаборатории для обеспечения полной стерильности поверхностей и воздуха.",
+                s4BTitle:         "Сценарий Б: Целевая дезинфекция оборудования (Профилактическое обслуживание)",
+                s4BTrigger:       "<strong>Триггер:</strong> Обязательный этап обеспечения безопасности, проводимый службой ETS непосредственно перед заменой HEPA-фильтра внутри боксов биологической безопасности (БББ) II класса.",
+                s4BMethod:        "<strong>Метод и область покрытия:</strong> Бокс биологической безопасности активно включается, а контур системы VHP настраивается на рециркуляцию газа исключительно через внутренние каналы и фильтрующие отсеки бокса. Это защищает сервисных инженеров от контакта с накопленными на фильтре патогенами.",
+                s4WarningTitle:   "ВАЖНОЕ ПРИМЕЧАНИЕ ДЛЯ ЛАБОРАТОРНОГО ПЕРСОНАЛА:",
+                s4Warning:        "Поскольку при профилактическом обслуживании цикл VHP направлен исключительно на очистку внутренних каналов бокса, <strong>ПОЛНАЯ СТЕРЕЛИЗАЦИЯ ОКРУЖАЮЩЕГО ЛАБОРАТОРНОГО ПОМЕЩЕНИЯ НЕ ГАРАНТИРУЕТСЯ</strong>. Запрещается использовать данный сервисный цикл как метод дезинфекции всей лаборатории.",
+
+                s5Title:          "Валидация и документирование результатов",
+                s5Body:           "Для подтверждения эффективности дезинфекции перед запуском установки в критических зонах размещаются химические и/или биологические индикаторы.",
+                s5Item1:          "<strong>Химические индикаторы:</strong> Меняют свой цвет, подтверждая, что в данной точке была успешно достигнута минимально требуемая концентрация паров H₂O₂.",
+                s5Item2:          "<strong>Предоставление отчетов:</strong> После успешного завершения процедуры ETS передает руководству лаборатории отработанные индикаторы в качестве подтверждения эффективности цикла. При замене HEPA-фильтров дополнительно выдается официальный сертифицированный отчет об испытаниях и целостности фильтров совместно с журналом дезинфекции.",
+
+                formTitle:              "Цифровое подтверждение ознакомления",
+                formNameLabel:          "ФИО",
+                formNamePlaceholder:    "Фамилия Имя Отчество",
+                formPositionLabel:      "Должность / отдел",
+                formPositionPlaceholder:"Напр.: Научный сотрудник, Лаборатория биологии",
+                formEmailLabel:         "Электронная почта",
+                formEmailPlaceholder:   "email@nu.edu.kz",
+                formConsentLabel:       "Я ознакомился(лась) с инструкцией и обязуюсь её соблюдать",
+                formSubmitBtn:          "ОТПРАВИТЬ ПОДТВЕРЖДЕНИЕ",
+                formSending:            "Отправка…",
+                formSuccess:            "Подтверждение записано ✓",
+                formError:              "Ошибка отправки — попробуйте ещё раз",
+            },
+
+            en: {
+                pageTitle:        "VHP Decontamination Briefing — ETS",
+                deptLabel:        "Engineering and Technical Services",
+                universityName:   "NAZARBAYEV UNIVERSITY",
+                safetyBadge:      "Safety Instruction",
+                mainTitle:        "DECONTAMINATION OF ROOMS AND BIOSAFETY CABINETS WITH VAPORIZED HYDROGEN PEROXIDE (VHP)",
+                mainSubtitle:     "Standard Operating Procedure (SOP)",
+                introText:        "Please read the following instructions carefully and provide your contact information to confirm your acknowledgement.",
+                docNumberLabel:   "Document number:",
+                docDateLabel:     "Approval date:",
+
+                s1Title:          "Decontamination Process Overview",
+                s1Body:           "Vaporized Hydrogen Peroxide (VHP) decontamination is an automated process used to sterilize laboratory rooms and the equipment contained within them.",
+                s1AgentLabel:     "Active Agent",
+                s1AgentText:      "A 35% aqueous hydrogen peroxide (H₂O₂) solution is used, which is vaporized and delivered to the target area.",
+                s1ParamsLabel:    "Operating Parameters",
+                s1ParamsText:     "VHP is introduced until relative humidity reaches approximately 80%. Peak concentration is maintained for a 3-hour exposure period, after which an aeration and catalytic decomposition cycle is initiated to safely break down the gas.",
+                s1Danger:         "<strong>Hazard Class:</strong> Vaporized Hydrogen Peroxide (VHP) is extremely toxic and lethal to all living organisms. Strict adherence to safety measures is mandatory regardless of the scale of operations.",
+
+                s2Title:          "Mandatory Pre-Decontamination Checklist",
+                s2EtsTitle:       "[Engineering and Technical Services (ETS) Responsibilities]",
+                s2EtsItem1:       "<strong>HVAC Isolation:</strong> Complete shutdown of the heating, ventilation and air conditioning system of the target room.",
+                s2EtsItem2:       "<strong>Sealing:</strong> Thorough taping of all ventilation grilles, supply and exhaust ducts, and windows to prevent gas leakage into adjacent areas.",
+                s2EtsItem3:       "<strong>Containment:</strong> Airtight sealing of entrance doors using specialized gas-proof tape.",
+                s2EtsItem4:       '<strong>Warning Signs:</strong> Placement of clearly visible "DO NOT ENTER — VHP DECONTAMINATION IN PROGRESS" signs and barrier tape across all access doors.',
+                s2LabTitle:       "[Laboratory Personnel Responsibilities]",
+                s2LabItem1:       "<strong>Equipment Protection:</strong> Remove sensitive equipment from the room or seal it in airtight plastic bags. High H₂O₂ concentration causes corrosion of exposed copper wiring, damages optical coatings on microscope lenses, and disables non-sealed electronics.",
+                s2LabItem2:       "<strong>Sample Preservation:</strong> Mandatory transfer of all live cell cultures, biological samples, and reagents that may be destroyed or damaged by VHP exposure.",
+                s2LabItem3:       "<strong>Waste Removal:</strong> Ensure no open containers of biohazardous waste are present in the room before the cycle begins.",
+
+                s3Title:          "Access Control and Safety Protocols",
+                s3Item1:          "<strong>Strict No-Entry Policy:</strong> Entry of any personnel into the room undergoing decontamination is prohibited for 48 hours from the start of the procedure.",
+                s3Item2:          "<strong>Emergency Entry:</strong> During an active cycle, entry is permitted only for trained ETS personnel. Entry must be performed exclusively in personal protective equipment and full-face respirators (powered air-purifying or with H₂O₂-specific cartridges).",
+                s3Item3:          "<strong>Final Clearance:</strong> Before returning laboratory access to staff, ETS specialists must measure H₂O₂ vapor concentration using a calibrated gas detector and confirm it has dropped to a safe level (≤ 1 ppm).",
+
+                s4Title:          "Operational Triggers and Scope",
+                s4Intro:          "The decontamination procedure is carried out under two distinct operational scenarios depending on the objectives:",
+                s4ATitle:         "Scenario A: Full Room Decontamination (Unscheduled Request)",
+                s4ATrigger:       "<strong>Trigger:</strong> Request from laboratory staff in cases of persistent, large-scale, or critical biological contamination of laboratory areas (e.g., fungal, bacterial, or spore contamination of incubators, refrigerators, or work surfaces).",
+                s4ACoverage:      "<strong>Coverage Area:</strong> Gas fills the entire volume of the laboratory room to ensure complete surface and air sterility.",
+                s4BTitle:         "Scenario B: Targeted Equipment Decontamination (Preventive Maintenance)",
+                s4BTrigger:       "<strong>Trigger:</strong> A mandatory safety step performed by ETS immediately before replacing the HEPA filter inside Class II Biosafety Cabinets (BSC).",
+                s4BMethod:        "<strong>Method and Coverage:</strong> The Biosafety Cabinet is activated, and the VHP system circuit is configured to circulate gas exclusively through the internal channels and filter compartments of the cabinet. This protects service engineers from exposure to pathogens accumulated on the filter.",
+                s4WarningTitle:   "IMPORTANT NOTE FOR LABORATORY PERSONNEL:",
+                s4Warning:        "Since the VHP cycle during preventive maintenance is directed exclusively at cleaning the internal channels of the cabinet, <strong>COMPLETE STERILIZATION OF THE SURROUNDING LABORATORY ROOM IS NOT GUARANTEED</strong>. It is prohibited to use this service cycle as a method of decontaminating the entire laboratory.",
+
+                s5Title:          "Validation and Documentation of Results",
+                s5Body:           "To confirm the effectiveness of decontamination, chemical and/or biological indicators are placed in critical areas before starting the equipment.",
+                s5Item1:          "<strong>Chemical Indicators:</strong> Change color to confirm that the minimum required H₂O₂ vapor concentration was successfully achieved at that point.",
+                s5Item2:          "<strong>Report Provision:</strong> After successful completion, ETS provides laboratory management with used indicators as proof of cycle efficacy. For HEPA filter replacements, an official certified test and filter integrity report is additionally issued together with the decontamination log.",
+
+                formTitle:              "Digital Acknowledgement",
+                formNameLabel:          "Full Name",
+                formNamePlaceholder:    "First name Last name",
+                formPositionLabel:      "Position / Department",
+                formPositionPlaceholder:"e.g., Researcher, Biology Lab",
+                formEmailLabel:         "Email",
+                formEmailPlaceholder:   "email@nu.edu.kz",
+                formConsentLabel:       "I have read the instruction and commit to following it",
+                formSubmitBtn:          "SUBMIT ACKNOWLEDGEMENT",
+                formSending:            "Sending…",
+                formSuccess:            "Acknowledgement recorded ✓",
+                formError:              "Submission error — please try again",
+            },
+
+            kk: {
+                pageTitle:        "VHP зарарсыздандыру нұсқаулығы — ETS", // CHECK
+                deptLabel:        "Инженерлік-техникалық қызмет",
+                universityName:   "НАЗАРБАЕВ УНИВЕРСИТЕТІ",
+                safetyBadge:      "Қауіпсіздік техникасы нұсқаулығы",
+                mainTitle:        "ҮЙЖАЙЛАР МЕН БИОЛОГИЯЛЫҚ ҚАУІПСІЗДІК БОКСЫН СУТЕГІ АСҚЫН ТОТЫҒЫНЫҢ БУЫМЕН (VHP) ЗАРАРСЫЗДАНДЫРУ", // CHECK
+                mainSubtitle:     "Стандартты жұмыс процедурасы (SOP)", // CHECK
+                introText:        "Төмендегі нұсқауларды мұқият оқып шығыңыз және танысуыңызды растау үшін байланыс ақпаратыңызды көрсетіңіз.", // CHECK
+                docNumberLabel:   "Құжат нөмірі:",
+                docDateLabel:     "Бекіту күні:",
+
+                s1Title:          "Зарарсыздандыру процесінің шолуы", // CHECK
+                s1Body:           "Сутегі асқын тотығының буымен (VHP — Vaporized Hydrogen Peroxide) зарарсыздандыру процедурасы — зертханалық үй-жайлар мен олардағы жабдықты стерилдеуге арналған автоматтандырылған процесс.", // CHECK
+                s1AgentLabel:     "Әрекет ететін агент", // CHECK
+                s1AgentText:      "35%-тік сулы сутегі асқын тотығы (H₂O₂) ерітіндісі қолданылады, ол буланып, мақсатты аймаққа беріледі.", // CHECK
+                s1ParamsLabel:    "Жұмыс параметрлері", // CHECK
+                s1ParamsText:     "VHP салыстырмалы ылғалдылық шамамен 80%-ға жеткенше беріледі. Шыңдық концентрация 3 сағаттық экспозиция кезінде сақталады, одан кейін газды қауіпсіз ыдырату үшін аэрация және каталитикалық бейтараптандыру циклі іске қосылады.", // CHECK
+                s1Danger:         "<strong>Қауіп класы:</strong> Сутегі асқын тотығының буы (VHP) барлық тірі организмдер үшін өте улы және өлімге әкеледі. Жүргізілетін жұмыстардың ауқымына қарамастан қауіпсіздік шараларын қатаң сақтау міндетті.", // CHECK
+
+                s2Title:          "Зарарсыздандырудан бұрын міндетті іс-шаралар тізімі", // CHECK
+                s2EtsTitle:       "[Инженерлік-техникалық қызметтің (ETS) міндеттері]", // CHECK
+                s2EtsItem1:       "<strong>HVAC оқшаулау:</strong> Мақсатты үй-жайдың жылыту, желдету және ауаны кондициялау жүйесін толығымен өшіру.", // CHECK
+                s2EtsItem2:       "<strong>Герметизациялау:</strong> Іргелес аймақтарға газ өтпеуі үшін барлық желдеткіш торларды, ауа жеткізу және сору арналарын, сондай-ақ терезелерді мұқият жабыстырып тастау.", // CHECK
+                s2EtsItem3:       "<strong>Оқшаулау:</strong> Кіреберіс есіктерді арнайы ауа өткізбейтін лентамен герметикалы бекіту.", // CHECK
+                s2EtsItem4:       "<strong>Ескерту белгілері:</strong> Барлық кіру есіктеріне «КІРМЕУ — VHP ЗАРАРСЫЗДАНДЫРУ ЖҮРЕДІ» деген жақсы көрінетін белгілер мен сигналды лентаны орналастыру.", // CHECK
+                s2LabTitle:       "[Зертхана персоналының міндеттері]", // CHECK
+                s2LabItem1:       "<strong>Жабдықты қорғау:</strong> Сезімтал жабдықты үй-жайдан шығару немесе герметикалы полиэтилен қалталарға орау. Жоғары H₂O₂ концентрациясы ашық мыс сымдардың тотығуын тудырады, микроскоп линзаларының оптикалық жабындарын бүлдіреді және герметикаланбаған электрониканы жарамсыз етеді.", // CHECK
+                s2LabItem2:       "<strong>Үлгілерді сақтау:</strong> VHP әсерінен жойылуы немесе бүлінуі мүмкін барлық тірі жасуша мәдениеттерін, биологиялық үлгілер мен реагенттерді міндетті түрде тасымалдау.", // CHECK
+                s2LabItem3:       "<strong>Қалдықтарды жою:</strong> Цикл басталмас бұрын үй-жайда биологиялық қауіпті қалдықтары бар ашық контейнерлердің жоқтығын тексеру.", // CHECK
+
+                s3Title:          "Қолжетімділікті бақылау және қауіпсіздік хаттамалары", // CHECK
+                s3Item1:          "<strong>Кіруге қатаң тыйым:</strong> Процедура басталғаннан бастап 48 сағат ішінде зарарсыздандырылатын үй-жайға кез келген персоналдың кіруіне тыйым салынады.", // CHECK
+                s3Item2:          "<strong>Апаттық жағдайда кіру:</strong> Белсенді цикл кезінде кіруге тек ETS оқытылған персоналына ғана рұқсат етіледі. Кіру тек жеке қорғаныш құралдарында және толық бет маскалы респираторларда (күштеп ауа берумен немесе H₂O₂-тен қорғайтын арнайы картридждермен) жүзеге асырылуы тиіс.", // CHECK
+                s3Item3:          "<strong>Соңғы рұқсат:</strong> Зертханаға персонал үшін рұқсатты қайтармастан бұрын, ETS мамандары калибрленген газ анализаторымен H₂O₂ буының концентрациясын өлшеп, оның қауіпсіз деңгейге (1 ppm-ге тең немесе одан аз) дейін төмендегенін растауы тиіс.", // CHECK
+
+                s4Title:          "Операциялық триггерлер мен қолдану саласы", // CHECK
+                s4Intro:          "Зарарсыздандыру процедурасы қойылған міндеттерге байланысты екі түрлі операциялық сценарий шеңберінде жүргізіледі:", // CHECK
+                s4ATitle:         "А сценарийі: Үй-жайды толық зарарсыздандыру (жоспарланбаған сұраныс)", // CHECK
+                s4ATrigger:       "<strong>Триггер:</strong> Зертхана қызметкерлерінің зертхана аймақтарының тұрақты, ауқымды немесе маңызды биологиялық ластануы жағдайларындағы (мысалы, инкубаторлардың, тоңазытқыштардың немесе жұмыс беттерінің саңырауқұлақтармен, бактериялармен немесе споралармен ластануы) сұранысы.", // CHECK
+                s4ACoverage:      "<strong>Қамту аймағы:</strong> Беттер мен ауаның толық стерильдігін қамтамасыз ету үшін зертхана үй-жайының бүкіл көлемі газбен толтырылады.", // CHECK
+                s4BTitle:         "Б сценарийі: Жабдықты мақсатты зарарсыздандыру (алдын алу техникалық қызмет)", // CHECK
+                s4BTrigger:       "<strong>Триггер:</strong> ETS қызметі II класстағы биологиялық қауіпсіздік боксының (БҚБ) ішіндегі HEPA-фильтрін ауыстырмас бұрын жүргізетін міндетті қауіпсіздік кезеңі.", // CHECK
+                s4BMethod:        "<strong>Әдіс пен қамту аймағы:</strong> Биологиялық қауіпсіздік бокс белсендіріледі, ал VHP жүйесінің контуры газды тек боксың ішкі арналары мен сүзгі бөлімдері арқылы айналдыратын етіп теңшеледі. Бұл сервис инженерлерін фильтрде жиналған патогендермен байланыстан қорғайды.", // CHECK
+                s4WarningTitle:   "ЗЕРТХАНА ПЕРСОНАЛЫНА МАҢЫЗДЫ ЕСКЕРТПЕ:", // CHECK
+                s4Warning:        "Алдын алу техникалық қызмет кезінде VHP циклі тек боксың ішкі арналарын тазалауға бағытталғандықтан, <strong>АЙНАЛАДАҒЫ ЗЕРТХАНА ҮЙ-ЖАЙЫН ТОЛЫҚ СТЕРИЛДЕУ КЕПІЛДЕНДІРІЛМЕЙДІ</strong>. Осы сервистік циклді бүкіл зертхананы зарарсыздандыру әдісі ретінде қолдануға тыйым салынады.", // CHECK
+
+                s5Title:          "Нәтижелерді тексеру және құжаттау", // CHECK
+                s5Body:           "Зарарсыздандыру тиімділігін растау үшін қондырғыны іске қоспас бұрын маңызды аймақтарға химиялық және/немесе биологиялық индикаторлар орналастырылады.", // CHECK
+                s5Item1:          "<strong>Химиялық индикаторлар:</strong> Түсін өзгертіп, осы нүктеде H₂O₂ буының қажетті минималды концентрациясына сәтті жеткенін растайды.", // CHECK
+                s5Item2:          "<strong>Есептер беру:</strong> Процедура сәтті аяқталғаннан кейін ETS зертхана басшылығына циклдің тиімділігін растайтын пайдаланылған индикаторларды тапсырады. HEPA-фильтрлерін ауыстыру кезінде зарарсыздандыру журналымен бірге қосымша ресми сертификатталған сынақ және фильтрдің тұтастығы туралы есеп беріледі.", // CHECK
+
+                formTitle:              "Электрондық растау", // CHECK
+                formNameLabel:          "Тегі, аты, әкесінің аты",
+                formNamePlaceholder:    "Тегіңіз Атыңыз",
+                formPositionLabel:      "Лауазымы / бөлімше",
+                formPositionPlaceholder:"Мысалы: Зерттеуші, Биология зертханасы",
+                formEmailLabel:         "Электрондық пошта",
+                formEmailPlaceholder:   "email@nu.edu.kz",
+                formConsentLabel:       "Мен нұсқаулықпен танысып, оны сақтауға міндеттенемін", // CHECK
+                formSubmitBtn:          "РАСТАУДЫ ЖІБЕРУ",
+                formSending:            "Жіберілуде…", // CHECK
+                formSuccess:            "Растау тіркелді ✓", // CHECK
+                formError:              "Жіберу қатесі — қайталап көріңіз", // CHECK
+            },
         };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationPlayState = 'running';
-                    observer.unobserve(entry.target);
-                }
+
+        // ─── STATE ───────────────────────────────────────────────────────────────
+        let currentLang = localStorage.getItem('lang') || 'ru';
+        let currentStatus = null; // 'sending' | 'success' | 'error' | null
+
+        // ─── LANGUAGE ────────────────────────────────────────────────────────────
+        function applyLanguage(lang) {
+            const t = translations[lang];
+
+            document.documentElement.lang = lang;
+            document.title = t.pageTitle;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (t[key] !== undefined) el.textContent = t[key];
             });
-        }, observerOptions);
-        
-        // Check for reduced motion preference
+
+            document.querySelectorAll('[data-i18n-html]').forEach(el => {
+                const key = el.dataset.i18nHtml;
+                if (t[key] !== undefined) el.innerHTML = t[key];
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.dataset.i18nPlaceholder;
+                if (t[key] !== undefined) el.placeholder = t[key];
+            });
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            updateDate(lang);
+
+            // Re-apply current status text after language switch
+            if (currentStatus) showStatus(currentStatus);
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            applyLanguage(lang);
+        }
+
+        function updateDate(lang) {
+            const locales = { ru: 'ru-RU', en: 'en-GB', kk: 'kk-KZ' };
+            const el = document.getElementById('current-date');
+            if (!el) return;
+            try {
+                el.textContent = ' ' + new Date().toLocaleDateString(locales[lang] || 'ru-RU', {
+                    day: '2-digit', month: 'long', year: 'numeric'
+                });
+            } catch (e) {
+                el.textContent = ' ' + new Date().toLocaleDateString('ru-RU', {
+                    day: '2-digit', month: 'long', year: 'numeric'
+                });
+            }
+        }
+
+        // ─── FORM ────────────────────────────────────────────────────────────────
+        function checkFormValidity() {
+            const name     = document.getElementById('form-fullname').value.trim();
+            const position = document.getElementById('form-position').value.trim();
+            const email    = document.getElementById('form-email').value.trim();
+            const consent  = document.getElementById('form-consent').checked;
+            const emailOk  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+            const btn = document.getElementById('form-submit');
+            btn.disabled = !(name && position && email && emailOk && consent);
+        }
+
+        function showStatus(id) {
+            ['sending', 'success', 'error'].forEach(s => {
+                document.getElementById('status-' + s).style.display = (s === id) ? 'block' : 'none';
+            });
+            currentStatus = id;
+        }
+
+        function hideStatus() {
+            ['sending', 'success', 'error'].forEach(s => {
+                document.getElementById('status-' + s).style.display = 'none';
+            });
+            currentStatus = null;
+        }
+
+        async function submitForm() {
+            const fullName   = document.getElementById('form-fullname').value.trim();
+            const position   = document.getElementById('form-position').value.trim();
+            const email      = document.getElementById('form-email').value.trim();
+            const lang       = currentLang;
+            const clientTime = new Date().toISOString();
+
+            const btn = document.getElementById('form-submit');
+            btn.disabled = true;
+            showStatus('sending');
+
+            const body = new URLSearchParams({ fullName, position, email, lang, clientTime });
+
+            try {
+                await fetch(WEB_APP_URL, {
+                    method:  'POST',
+                    mode:    'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body:    body.toString(),
+                });
+                showStatus('success');
+                // Lock form after success to prevent duplicates
+                document.getElementById('ack-form').querySelectorAll('input').forEach(el => el.disabled = true);
+            } catch (err) {
+                showStatus('error');
+                btn.disabled = false;
+            }
+        }
+
+        // ─── INIT ────────────────────────────────────────────────────────────────
+        applyLanguage(currentLang);
+
+        // Intersection Observer for scroll animations
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        
         if (!prefersReducedMotion) {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
             document.querySelectorAll('.slide-up').forEach(el => {
                 el.style.animationPlayState = 'paused';
                 observer.observe(el);

@@ -1,48 +1,51 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import requests
+import configparser
+import os
 
 app = Flask(__name__)
 CORS(app)
 
-# ─── НАСТРОЙКИ ───────────────────────────────────────────
-ZNUNY_URL = "https://support.nu.edu.kz/znuny/nph-genericinterface.pl/Webservice/GenericTicketConnectorREST"
-ZNUNY_USER = "api_readonly"
-ZNUNY_PASS = "Qwerty123!"
+# ─── КОНФИГ ──────────────────────────────────────────────
+_cfg = configparser.ConfigParser()
+_cfg.read(os.path.join(os.path.dirname(__file__), 'config.ini'), encoding='utf-8')
 
-TELEGRAM_TOKEN = "8637132565:AAGWlesTF2vmQeSmbx8qEtmchMprqj57r70"
+ZNUNY_URL      = _cfg['znuny']['url']
+ZNUNY_USER     = _cfg['znuny']['user']
+ZNUNY_PASS     = _cfg['znuny']['password']
+TELEGRAM_TOKEN = _cfg['telegram']['token']
 
-# Старшие инженеры и их подчинённые
-SENIORS = [
-    {
-        "name": "Maxat Suieubayev",
-        "owner_id": 17,
-        "chat_id": 431943952,
-        "subordinates": [
-            {"name": "Марат",  "chat_id": 486489083},
-            {"name": "Адиль",  "chat_id": None},
-            {"name": "Архат",  "chat_id": 7393445229},
-        ]
-    },
-    {
-        "name": "Askar Sharipov",
-        "owner_id": 16,
-        "chat_id": None,
-        "subordinates": []
-    },
-    {
-        "name": "Ramazan Abdrakhmanov",
-        "owner_id": 18,
-        "chat_id": None,
-        "subordinates": []
-    },
-    {
-        "name": "Temirbek Sarsembekov",
-        "owner_id": 19,
-        "chat_id": None,
-        "subordinates": []
-    },
-]
+
+def _int_or_none(val):
+    val = val.strip()
+    return int(val) if val else None
+
+
+def _load_seniors():
+    seniors = []
+    for section in _cfg.sections():
+        if not section.startswith('senior.'):
+            continue
+        s = _cfg[section]
+        subs = []
+        i = 1
+        while s.get(f'sub.{i}.name'):
+            subs.append({
+                'name':    s[f'sub.{i}.name'],
+                'chat_id': _int_or_none(s.get(f'sub.{i}.chat', '')),
+            })
+            i += 1
+        seniors.append({
+            'name':         s['name'],
+            'owner_id':     int(s['owner_id']),
+            'chat_id':      _int_or_none(s.get('chat_id', '')),
+            'subordinates': subs,
+        })
+    return seniors
+
+
+SENIORS = _load_seniors()
 # ─────────────────────────────────────────────────────────
 
 
@@ -153,5 +156,7 @@ def seniors():
 
 
 if __name__ == "__main__":
-    print("ITS сервер запущен: http://localhost:5000")
-    app.run(debug=True, port=5000)
+    port  = _cfg.getint('server', 'port', fallback=5000)
+    debug = _cfg.getboolean('server', 'debug', fallback=True)
+    print(f"ITS сервер запущен: http://localhost:{port}")
+    app.run(debug=debug, port=port)
