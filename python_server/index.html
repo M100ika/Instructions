@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ИТС — Распределение заявок</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #222; }
+
+  .header { background: #1a3a6b; color: white; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+  .header h1 { font-size: 16px; font-weight: 500; }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .conn-badge { font-size: 11px; padding: 3px 10px; border-radius: 10px; background: rgba(255,255,255,0.15); }
+  .conn-badge.ok { background: rgba(58,156,95,0.4); }
+
+  .toolbar { background: white; border-bottom: 1px solid #e0e0e0; padding: 0.75rem 1.5rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .toolbar label { font-size: 13px; color: #555; }
+  .toolbar select { font-size: 13px; padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; background: white; }
+  .btn { border: none; padding: 7px 16px; border-radius: 6px; font-size: 13px; cursor: pointer; font-weight: 500; }
+  .btn-primary { background: #1a3a6b; color: white; }
+  .btn-primary:hover { background: #2255a4; }
+  .status-text { font-size: 12px; color: #888; margin-left: auto; }
+
+  .container { padding: 1.5rem; max-width: 1200px; margin: 0 auto; }
+
+  .summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+  .summary-card { background: white; border-radius: 8px; padding: 1rem 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.07); }
+  .summary-card .num { font-size: 26px; font-weight: 500; color: #1a3a6b; }
+  .summary-card .lbl { font-size: 11px; color: #888; margin-top: 3px; }
+
+  .loading { text-align: center; padding: 3rem; color: #888; font-size: 14px; }
+
+  table { width: 100%; background: white; border-radius: 8px; border-collapse: collapse; box-shadow: 0 1px 3px rgba(0,0,0,0.07); font-size: 13px; }
+  thead { background: #f0f4fa; }
+  th { padding: 10px 12px; text-align: left; font-weight: 600; color: #1a3a6b; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid #e0e0e0; white-space: nowrap; }
+  td { padding: 9px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafbff; }
+
+  .ticket-num { font-weight: 600; color: #1a3a6b; font-size: 12px; white-space: nowrap; }
+  .ticket-title { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ticket-service { font-size: 11px; color: #666; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .owner-badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 500; background: #e6f1fb; color: #185fa5; white-space: nowrap; }
+  .date { font-size: 11px; color: #999; white-space: nowrap; }
+  .phone { font-size: 11px; color: #444; }
+
+  /* Блок назначения */
+  .assign-wrap { display: flex; align-items: center; gap: 6px; }
+  .assign-select { font-size: 12px; padding: 4px 8px; border: 1px solid #ddd; border-radius: 5px; background: white; min-width: 110px; }
+  .btn-send { border: none; padding: 5px 10px; border-radius: 5px; font-size: 12px; cursor: pointer; font-weight: 500; background: #2AABEE; color: white; white-space: nowrap; transition: opacity 0.15s; }
+  .btn-send:hover { opacity: 0.85; }
+  .btn-send:disabled { background: #ccc; cursor: not-allowed; }
+  .btn-sent { background: #3a9c5f !important; }
+  .btn-no-tg { background: #e0e0e0; color: #888; cursor: not-allowed; }
+
+  .toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: #1a3a6b; color: white; padding: 10px 18px; border-radius: 8px; font-size: 13px; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; max-width: 300px; }
+  .toast.show { opacity: 1; }
+  .toast.error { background: #c0392b; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>ИТС НУ — Распределение заявок</h1>
+  <div class="header-right">
+    <span class="conn-badge" id="conn-badge">Не подключено</span>
+  </div>
+</div>
+
+<div class="toolbar">
+  <label>Старший инженер:</label>
+  <select id="senior-filter">
+    <option value="">Все заявки</option>
+    <option value="17">Maxat Suieubayev</option>
+    <option value="16">Askar Sharipov</option>
+    <option value="18">Ramazan Abdrakhmanov</option>
+    <option value="19">Temirbek Sarsembekov</option>
+  </select>
+  <button class="btn btn-primary" onclick="loadTickets()">Обновить</button>
+  <span class="status-text" id="status-text">Нажмите «Обновить»</span>
+</div>
+
+<div class="container">
+  <div class="summary">
+    <div class="summary-card"><div class="num" id="total-count">—</div><div class="lbl">Всего открытых в очереди</div></div>
+    <div class="summary-card"><div class="num" id="shown-count">—</div><div class="lbl">Показано заявок</div></div>
+    <div class="summary-card"><div class="num" id="sent-count">0</div><div class="lbl">Отправлено сегодня</div></div>
+  </div>
+  <div id="content" class="loading">Нажмите «Обновить» для загрузки заявок из Znuny</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// Адрес локального Flask-сервера по умолчанию. 
+// После развертывания бэкенда на выделенной виртуальной машине (VM) укажите здесь её адрес, например: "https://its-api.nu.edu.kz"
+const API = "http://localhost:5000";
+
+let allTickets = [];
+let seniors = [];
+let sentCount = 0;
+
+// Загружаем список старших при старте
+async function loadSeniors() {
+  try {
+    const r = await fetch(`${API}/seniors`);
+    const data = await r.json();
+    seniors = data.seniors;
+  } catch(e) {
+    console.error("Не удалось загрузить список инженеров", e);
+  }
+}
+
+async function loadTickets() {
+  const status = document.getElementById("status-text");
+  const content = document.getElementById("content");
+  status.textContent = "Загрузка...";
+  content.innerHTML = '<div class="loading">Загружаем заявки из Znuny...</div>';
+
+  try {
+    const r = await fetch(`${API}/tickets`);
+    const data = await r.json();
+    if (data.error) throw new Error(data.error);
+
+    allTickets = data.tickets;
+    document.getElementById("total-count").textContent = data.total;
+    document.getElementById("conn-badge").textContent = "✓ Подключено";
+    document.getElementById("conn-badge").classList.add("ok");
+    status.textContent = `Загружено ${allTickets.length} заявок`;
+    renderTable();
+  } catch(e) {
+    content.innerHTML = `<div class="loading" style="color:#c0392b">Ошибка: ${e.message}<br><small>Убедитесь что сервер запущен: python its_server.py</small></div>`;
+    status.textContent = "Ошибка подключения";
+  }
+}
+
+function getSubordinates(ownerID) {
+  const senior = seniors.find(s => s.owner_id === ownerID);
+  return senior ? senior.subordinates : [];
+}
+
+function renderTable() {
+  const filterOwner = document.getElementById("senior-filter").value;
+  let tickets = allTickets;
+  if (filterOwner) tickets = tickets.filter(t => String(t.owner_id) === filterOwner);
+
+  document.getElementById("shown-count").textContent = tickets.length;
+
+  if (!tickets.length) {
+    document.getElementById("content").innerHTML = '<div class="loading">Заявок не найдено</div>';
+    return;
+  }
+
+  const rows = tickets.map(t => {
+    const subs = getSubordinates(t.owner_id);
+    let assignBlock = "";
+
+    if (subs.length > 0) {
+      const options = subs.map(s => {
+        const disabled = !s.chat_id ? 'data-no-tg="true"' : '';
+        const label = s.chat_id ? s.name : `${s.name} (нет TG)`;
+        return `<option value='${JSON.stringify(s).replace(/'/g, "&apos;")}' ${disabled}>${label}</option>`;
+      }).join("");
+
+      assignBlock = `
+        <div class="assign-wrap">
+          <select class="assign-select" id="sel-${t.ticket_id}">${options}</select>
+          <button class="btn-send" id="btn-${t.ticket_id}" onclick="sendTicket(${t.ticket_id})">
+            📤 Назначить
+          </button>
+        </div>`;
+    } else {
+      assignBlock = `<span style="font-size:11px;color:#aaa">Нет подчинённых</span>`;
+    }
+
+    return `
+      <tr>
+        <td><span class="ticket-num">#${t.ticket_number}</span></td>
+        <td><div class="ticket-title" title="${escHtml(t.title)}">${escHtml(t.title)}</div></td>
+        <td><div class="ticket-service" title="${escHtml(t.service||'')}">${escHtml(t.service||'—')}</div></td>
+        <td style="font-size:12px">${t.customer || '—'}</td>
+        <td class="phone">${t.phone || '—'}</td>
+        <td><span class="owner-badge">${ownerShort(t.owner_id)}</span></td>
+        <td class="date">${formatDate(t.created)}</td>
+        <td>${assignBlock}</td>
+      </tr>`;
+  }).join("");
+
+  document.getElementById("content").innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>№</th><th>Тема</th><th>Услуга</th><th>Заявитель</th><th>Телефон</th><th>Старший</th><th>Дата</th><th>Назначить</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+async function sendTicket(ticketId) {
+  const ticket = allTickets.find(t => t.ticket_id === ticketId);
+  const sel = document.getElementById(`sel-${ticketId}`);
+  const btn = document.getElementById(`btn-${ticketId}`);
+
+  let engineer;
+  try {
+    engineer = JSON.parse(sel.value.replace(/&apos;/g, "'"));
+  } catch(e) {
+    showToast("Ошибка выбора инженера", true);
+    return;
+  }
+
+  if (!engineer.chat_id) {
+    showToast(`У ${engineer.name} нет Telegram`, true);
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = "Отправка...";
+
+  try {
+    const r = await fetch(`${API}/send`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ticket,
+        engineer_name: engineer.name,
+        chat_id: engineer.chat_id
+      })
+    });
+    const data = await r.json();
+
+    if (data.success) {
+      btn.textContent = `✓ → ${engineer.name}`;
+      btn.classList.add("btn-sent");
+      sentCount++;
+      document.getElementById("sent-count").textContent = sentCount;
+      showToast(`Заявка #${ticket.ticket_number} отправлена → ${engineer.name}`);
+    } else {
+      btn.disabled = false;
+      btn.textContent = "📤 Назначить";
+      showToast(data.error || "Ошибка отправки", true);
+    }
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = "📤 Назначить";
+    showToast("Ошибка: " + e.message, true);
+  }
+}
+
+function ownerShort(id) {
+  const map = {16: "Askar", 17: "Maxat", 18: "Ramazan", 19: "Temirbek"};
+  return map[id] || "—";
+}
+
+function formatDate(str) {
+  if (!str) return "—";
+  return str.slice(0, 16).replace("T", " ");
+}
+
+function escHtml(str) {
+  if (!str) return "";
+  return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+function showToast(msg, error=false) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.className = "toast show" + (error ? " error" : "");
+  setTimeout(() => t.className = "toast", 3500);
+}
+
+document.getElementById("senior-filter").addEventListener("change", renderTable);
+
+// Загружаем инженеров при старте
+loadSeniors();
+</script>
+</body>
+</html>

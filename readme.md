@@ -1,6 +1,6 @@
 Сайт:
 1. Главная Страница: https://m100ika.github.io/Instructions/MainPage/Main/index.html
-2.
+2. Распределение заявок (ИТС): https://m100ika.github.io/Instructions/python_server/index.html
 
 
 
