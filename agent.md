@@ -1,6 +1,69 @@
 📐 Design System & AI Coding Guidelines: ITS NU Website
 This document serves as a strict style guide for AI assistants and developers when creating new pages, components, or modifying the Engineering Technical Service (ITS) Nazarbayev University website.
 
+## ⚠️ Two active themes — read this first
+
+As of 2026-09-08, this repository has **two** concurrent visual systems:
+
+1. **Dark theme (current, `MainPage/Main/index.html`)** — Tailwind CDN,
+   Material Symbols Outlined icons, amber accent `#f59e0b` on dark surfaces
+   (`#111827`/`#0b0f1a`). See "Dark Theme (Main Page)" section below.
+2. **Legacy light/red Constructivist theme (`Instruktazh/**` instruction
+   pages only)** — vanilla CSS custom properties, Font Awesome, white
+   background, red accent `#b91c1c`. This is everything described in the
+   rest of this document below the dark-theme section. It has **not** been
+   migrated and remains the correct style to follow when editing any file
+   under `Instruktazh/`.
+
+When editing `MainPage/Main/index.html`, follow the Dark Theme section.
+When editing anything under `Instruktazh/`, follow the legacy section as
+before (it is unchanged).
+
+## Dark Theme (Main Page)
+
+Used exclusively by `MainPage/Main/index.html`, migrated from
+`stich_template.html` (see `docs/superpowers/specs/2026-09-08-main-page-dark-redesign-design.md`
+for the full rationale).
+
+**Stack:** Tailwind CDN (`cdn.tailwindcss.com?plugins=forms,container-queries`)
+with a custom `tailwind.config` (colors/spacing/typography), Google Fonts
+Inter + Material Symbols Outlined. No Font Awesome, no AOS on this page —
+scroll reveal is a hand-rolled `IntersectionObserver` (`.reveal`/`.reveal.active`).
+
+**Colors:**
+- Background: `#111827` (`bg-background`), Hero background `#0b0f1a`.
+- Surfaces: `#1f2937` (`bg-surface-variant`), `#374151` (`surface-container-highest`, also used for `.grid-cell` borders).
+- Accent (the ONLY accent): amber `#f59e0b` (`text-primary`/`bg-primary`). Used for CTAs, active nav state, hover-invert, numbers, icons.
+- Text: `#f9fafb` (`text-on-surface`) primary, `#9ca3af` (`text-on-surface-variant`) secondary.
+- Semantic: error/emergency `#ef4444` (`text-error`), success/status `#10b981` (`text-status-success`).
+
+**Typography:** Inter throughout, via Tailwind's custom font-size tokens:
+`headline-xl` (48px/900, hero titles), `headline-lg` (32px/800, section
+titles), `headline-md` (24px/700, card/subsection titles), `body-lg`
+(18px), `body-md` (16px), `label-bold` (14px/700 uppercase, used for
+buttons/badges/labels), `label-sm` (12px).
+
+**Shape:** `borderRadius` is `0px` for `DEFAULT`/`lg`/`xl` (rectangular
+everywhere) except `full` (`9999px`, for dots/circular badges only) — same
+zero-radius philosophy as the legacy theme, just carried into Tailwind's
+config instead of a raw CSS rule.
+
+**Icons:** Material Symbols Outlined exclusively
+(`<span class="material-symbols-outlined">icon_name</span>`), never Font
+Awesome, on this page.
+
+**Grid/card pattern:** repeated card grids (Виды работ, Технические
+подразделения) use the `.grid-cell` class (1px `#374151` border with
+negative margins to collapse into a shared grid line) plus a `group`
+hover that inverts the card to `bg-primary`/`text-on-primary`.
+
+**Motion:** `.reveal` fades/slides sections in on scroll via a shared
+`IntersectionObserver`; the Hero's WebGL grid-shader background and the
+`.animate-pulse-gentle`/`.iot-glow-icon` CSS animations are all disabled
+under `prefers-reduced-motion: reduce`.
+
+---
+
 1. Design Philosophy: Engineering Constructivism
 The visual language of this website is inspired by Constructivism and industrial engineering blueprints.
 
