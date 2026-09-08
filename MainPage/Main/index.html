@@ -924,7 +924,51 @@
 })();
 </script>
 
-<!-- MODAL PLACEHOLDER: real markup added in Task 9 -->
+<div class="fixed inset-0 z-[100] bg-black/80 hidden items-center justify-center p-4" id="requestModal">
+<div class="relative w-full max-w-lg bg-surface border-2 border-primary p-10">
+<button class="absolute top-4 right-5 text-3xl font-black text-on-surface-variant hover:text-primary transition-colors" onclick="closeModal()" aria-label="Закрыть">&times;</button>
+<h3 class="font-headline-md text-headline-md uppercase mb-8 text-on-surface">Подать заявку</h3>
+<form id="emailForm" class="space-y-6">
+<div>
+<label class="block font-label-bold uppercase tracking-wider text-on-surface-variant mb-2 text-xs">Ваше ФИО</label>
+<input type="text" required placeholder="Иванов И.И." class="w-full bg-background border border-outline focus:border-primary px-4 py-3 text-on-surface outline-none transition-colors">
+</div>
+<div>
+<label class="block font-label-bold uppercase tracking-wider text-on-surface-variant mb-2 text-xs">Корпус и аудитория</label>
+<input type="text" required placeholder="Блок 5, каб. 201" class="w-full bg-background border border-outline focus:border-primary px-4 py-3 text-on-surface outline-none transition-colors">
+</div>
+<div>
+<label class="block font-label-bold uppercase tracking-wider text-on-surface-variant mb-2 text-xs">Тип заявки</label>
+<select required class="w-full bg-background border border-outline focus:border-primary px-4 py-3 text-on-surface outline-none transition-colors">
+<option value="">Выберите направление...</option>
+<option>Ремонт оборудования (КИП/Электроника)</option>
+<option>Механические работы</option>
+<option>Газовые системы</option>
+<option>Вентиляция и климат</option>
+<option>Электрика</option>
+<option>АСУ/Криогеника</option>
+</select>
+</div>
+<div>
+<label class="block font-label-bold uppercase tracking-wider text-on-surface-variant mb-2 text-xs">Описание проблемы</label>
+<textarea rows="4" required placeholder="Подробно опишите неисправность..." class="w-full bg-background border border-outline focus:border-primary px-4 py-3 text-on-surface outline-none transition-colors"></textarea>
+</div>
+<button type="submit" class="w-full bg-primary text-on-primary px-8 py-4 font-label-bold uppercase tracking-widest active:scale-95 transition-transform">Отправить заявку</button>
+</form>
+</div>
+</div>
+
+<script>
+document.getElementById('requestModal').addEventListener('click', function (e) {
+    if (e.target === this) closeModal();
+});
+
+document.getElementById('emailForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    alert("Заявка формируется для отправки на engineeringdesk@nu.edu.kz. (В рабочей версии будет настроен SMTP)");
+    closeModal();
+});
+</script>
 
 <footer class="w-full bg-surface-variant text-on-surface border-t-2 border-primary">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 px-edge-margin py-12">
