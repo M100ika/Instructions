@@ -125,6 +125,14 @@
         .card-autoclave { --card-accent: #6b46c1; }
         .card-autoclave .card-icon-wrapper { background: linear-gradient(135deg, #faf5ff 0%, #e9d8fd 100%); }
         .card-autoclave .card-icon-wrapper svg { color: #6b46c1; }
+
+        .card-lpkf { --card-accent: #0e7490; }
+        .card-lpkf .card-icon-wrapper { background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%); }
+        .card-lpkf .card-icon-wrapper svg { color: #0e7490; }
+
+        .card-contac { --card-accent: #0f766e; }
+        .card-contac .card-icon-wrapper { background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%); }
+        .card-contac .card-icon-wrapper svg { color: #0f766e; }
         
         .status-badge {
             display: inline-flex;
@@ -459,6 +467,82 @@
                         </div>
                         <div class="px-6 py-4 bg-[var(--bg)] border-t border-[var(--border)]">
                             <div class="flex items-center justify-center gap-2 text-sm font-medium" style="color:#6b46c1;">
+                                <span>Открыть документ</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Допуск к LPKF ProtoLaser U4 -->
+                <a href="https://m100ika.github.io/Instructions/Instruktazh/LPKF/index.html"
+                   class="card-link animate-fade-in delay-400">
+                    <div class="instruction-card card-lpkf h-full">
+                        <div class="p-6">
+                            <div class="card-icon-wrapper mb-5">
+                                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-narrow text-lg font-bold text-[var(--text)] text-center mb-3">
+                                Допуск к LPKF ProtoLaser U4
+                            </h4>
+                            <p class="text-sm text-[var(--muted)] text-center mb-4">
+                                Работа на лазерном станке для прототипирования плат
+                            </p>
+                            <div class="flex items-center justify-center gap-2 text-xs text-[var(--muted)]">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                                ИТ-ОТ-006
+                            </div>
+                        </div>
+                        <div class="px-6 py-4 bg-[var(--bg)] border-t border-[var(--border)]">
+                            <div class="flex items-center justify-center gap-2 text-sm font-medium" style="color:#0e7490;">
+                                <span>Открыть документ</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Допуск к LPKF Contac S4 -->
+                <a href="https://m100ika.github.io/Instructions/Instruktazh/LPKF/contac-s4.html"
+                   class="card-link animate-fade-in delay-400">
+                    <div class="instruction-card card-contac h-full">
+                        <div class="p-6">
+                            <div class="card-icon-wrapper mb-5">
+                                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 22h18"></path>
+                                    <path d="M6 18h12"></path>
+                                    <path d="M9 14h6"></path>
+                                    <path d="M12 2v12"></path>
+                                    <path d="M8 6l4-4 4 4"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-narrow text-lg font-bold text-[var(--text)] text-center mb-3">
+                                Допуск к LPKF Contac S4
+                            </h4>
+                            <p class="text-sm text-[var(--muted)] text-center mb-4">
+                                Металлизация отверстий печатных плат
+                            </p>
+                            <div class="flex items-center justify-center gap-2 text-xs text-[var(--muted)]">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                                ИТ-ОТ-007
+                            </div>
+                        </div>
+                        <div class="px-6 py-4 bg-[var(--bg)] border-t border-[var(--border)]">
+                            <div class="flex items-center justify-center gap-2 text-sm font-medium" style="color:#0f766e;">
                                 <span>Открыть документ</span>
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <line x1="5" y1="12" x2="19" y2="12"></line>

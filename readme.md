@@ -9,3 +9,6 @@
 2. Первичный инструктаж https://m100ika.github.io/Instructions/Instruktazh/pervichnii_instruktazh/index.html
 3. Повтороный инструктаж https://m100ika.github.io/Instructions/Instruktazh/povtornii_intruktazh/index.html
 4. Вводный инструктаж https://m100ika.github.io/Instructions/Instruktazh/Vvodnii_instruktazh/index.html
+5. ДОПУСК К РАБОТЕ НА ПАРОВЫХ АВТОКЛАВАХ SYSTEC VX-150 И DX-23 https://m100ika.github.io/Instructions/Instruktazh/autoclaves/index.html
+6. ДОПУСК К РАБОТЕ НА ЛАЗЕРНОМ СТАНКЕ LPKF PROTOLASER U4 https://m100ika.github.io/Instructions/Instruktazh/LPKF/index.html
+7. ДОПУСК К РАБОТЕ НА УСТАНОВКЕ МЕТАЛЛИЗАЦИИ LPKF CONTAC S4 https://m100ika.github.io/Instructions/Instruktazh/LPKF/contac-s4.html

@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Допуск к работе на LPKF ProtoLaser U4 — Инженер КИП</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --accent: #c9a227;
+            --text: #2d3748;
+            --muted: #718096;
+            --bg: #fafaf9;
+            --card: #ffffff;
+            --border: #e2e8f0;
+            --danger: #c53030;
+            --warning: #d69e2e;
+        }
+
+        body {
+            font-family: 'PT Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .font-narrow {
+            font-family: 'PT Sans Narrow', sans-serif;
+        }
+
+        .document {
+            background: var(--card);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .section-number {
+            background: linear-gradient(135deg, var(--danger) 0%, #9b2c2c 100%);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .header-stripe {
+            background: linear-gradient(90deg, var(--primary) 0%, #2c5282 50%, var(--primary) 100%);
+            height: 4px;
+        }
+
+        .accent-stripe {
+            background: var(--accent);
+            height: 2px;
+        }
+
+        .danger-box {
+            background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+            border-left: 4px solid var(--danger);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fffaf0 0%, #feebc8 100%);
+            border-left: 4px solid var(--warning);
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
+            border-left: 4px solid var(--primary);
+        }
+
+        @media print {
+            body { background: white; }
+            .document { box-shadow: none; }
+            .lang-switcher { display: none; }
+            #ack-form-section { display: none; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .slide-up {
+            animation: slideUp 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in, .slide-up {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        .logo-main {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+        }
+
+        .logo-jubilee {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+        }
+
+        /* Language switcher */
+        .lang-switcher {
+            display: flex;
+            gap: 4px;
+        }
+
+        .lang-btn {
+            padding: 4px 12px;
+            font-size: 12px;
+            font-family: 'PT Sans Narrow', sans-serif;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.15s;
+            letter-spacing: 0.05em;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* Form */
+        .form-input {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 9px 13px;
+            font-family: 'PT Sans', sans-serif;
+            font-size: 14px;
+            color: var(--text);
+            background: white;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+        }
+
+        .form-submit {
+            background: var(--primary);
+            color: white;
+            font-family: 'PT Sans Narrow', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            padding: 11px 28px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .form-submit:disabled {
+            background: var(--muted);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .form-submit:not(:disabled):hover {
+            background: #2c5282;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 54, 93, 0.3);
+        }
+
+        .status-box {
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+
+        .status-sending {
+            background: #ebf8ff;
+            border: 1px solid #bee3f8;
+            color: #2b6cb0;
+        }
+
+        .status-success {
+            background: #f0fff4;
+            border: 1px solid #9ae6b4;
+            color: #276749;
+        }
+
+        .status-error {
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            color: var(--danger);
+        }
+    </style>
+</head>
+<body class="min-h-screen py-8 px-4">
+    <div id="document" class="document max-w-4xl mx-auto rounded-lg overflow-hidden">
+
+        <!-- Header -->
+        <div class="header-stripe"></div>
+        <div class="accent-stripe"></div>
+
+        <div class="px-10 py-8 border-b border-[var(--border)]">
+
+            <!-- Language switcher -->
+            <div class="flex justify-end mb-3">
+                <div class="lang-switcher" role="group">
+                    <button class="lang-btn" data-lang="ru" onclick="setLanguage('ru')">РУС</button>
+                    <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">ENG</button>
+                    <button class="lang-btn" data-lang="kk" onclick="setLanguage('kk')">ҚАЗ</button>
+                </div>
+            </div>
+
+            <!-- Logos -->
+            <div class="logo-container mb-6">
+                <img src="https://z-cdn-media.chatglm.cn/files/0353fdbc-58ab-4f59-a7fd-85df90be9f4c.png?auth_key=1877374705-48b17b9768224eb4baa8edebe7b70d95-0-ca8685bf276b897f8ce93f00103a1821"
+                     alt="Логотип Инженерно-технической службы"
+                     class="logo-main">
+                <img src="https://z-cdn-media.chatglm.cn/files/fb25d888-4762-44e8-9189-ce08374a23f9.png?auth_key=1877540789-73669ef81d984f34b5589dea86900e76-0-aa01884582084149a5c6dbaa54d14073"
+                     alt="15 лет Назарбаев Университет"
+                     class="logo-jubilee">
+            </div>
+
+            <div class="text-center mb-4">
+                <div class="text-xs text-[var(--muted)] uppercase tracking-wider mb-2" data-i18n="deptLabel">
+                    Инженерно-техническая служба
+                </div>
+                <div class="font-narrow text-2xl font-bold text-[var(--primary)] leading-tight" data-i18n="universityName">
+                    НАЗАРБАЕВ УНИВЕРСИТЕТ
+                </div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <div class="inline-block px-4 py-1 bg-[var(--danger)] text-white text-xs uppercase tracking-widest rounded mb-4" data-i18n="safetyBadge">
+                    Инструкция по технике безопасности
+                </div>
+                <h1 class="font-narrow text-3xl md:text-4xl font-bold text-[var(--primary)] leading-tight" data-i18n="mainTitle">
+                    ДОПУСК К РАБОТЕ НА ЛАЗЕРНОМ СТАНКЕ LPKF PROTOLASER U4
+                </h1>
+                <h2 class="font-narrow text-xl md:text-2xl text-[var(--muted)] mt-2" data-i18n="mainSubtitle">
+                    Инструктаж по эксплуатации оборудования
+                </h2>
+                <p class="text-sm text-[var(--muted)] mt-3 max-w-xl mx-auto" data-i18n="introText">
+                    Допуск к самостоятельной работе на станке предоставляется Инженерно-технической службой (ETS) только после прохождения данного инструктажа. Пожалуйста, внимательно прочтите инструкцию и подтвердите ознакомление, указав свои контактные данные.
+                </p>
+            </div>
+
+            <div class="flex justify-between mt-8 text-sm text-[var(--muted)]">
+                <div>
+                    <span data-i18n="docNumberLabel">Номер документа:</span>
+                    <span class="font-bold text-[var(--text)]"> ИТ-ОТ-006</span>
+                </div>
+                <div>
+                    <span data-i18n="docDateLabel">Дата утверждения:</span>
+                    <span class="font-bold text-[var(--text)]" id="current-date"></span>
+                </div>
+            </div>
+
+            <div class="mt-4 text-center text-sm text-[var(--muted)]" data-i18n-html="contactLine">
+                Заявки и вопросы по работе станка: <a href="mailto:engineeringdesk@nu.edu.kz" class="font-bold text-[var(--primary)]">engineeringdesk@nu.edu.kz</a>
+            </div>
+            <div class="mt-2 text-center text-sm text-[var(--muted)]" data-i18n-html="manualLine">
+                Полное руководство (how-to guide, PDF): <a href="https://drive.google.com/file/d/1cvZnP5yprOOOk2qDvAWudi7Vvdc_a7zr/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="font-bold text-[var(--primary)]">открыть manual</a>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="px-10 py-8 space-y-8">
+
+            <!-- Section 1 -->
+            <section class="slide-up" style="animation-delay: 0.1s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">1</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s1Title">
+                            Станок, к которому предоставляется допуск
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)]" data-i18n="s1Body">
+                            В кабинете установлен лазерный станок LPKF ProtoLaser U4, находящийся на балансе и обслуживании Инженерно-технической службы (ETS). Станок использует УФ-лазер для прямого структурирования печатных плат — абляции (удаления) меди и материала платы под управлением программного обеспечения CircuitPro PL. Допуск к самостоятельной работе выдаётся ETS только после прохождения данного инструктажа и цифрового подтверждения ознакомления.
+                        </p>
+                        <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)] mt-4">
+                            <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s1PurposeTitle">Назначение станка</div>
+                            <p class="text-sm" data-i18n="s1PurposeText">ProtoLaser U4 применяется для быстрого прототипирования печатных плат: изоляционное структурирование проводников, сверление переходных отверстий, вырезание контура платы, а также вспомогательные процессы — например, изготовление полиимидных трафаретов.</p>
+                        </div>
+                        <div class="danger-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]" data-i18n-html="s1Danger">
+                                <strong>Важно:</strong> станок предназначен только для обработки материалов, предусмотренных технологическим процессом (специализированные ламинаты для печатных плат, плёнки для трафаретов и т. п.). Обработка непроверенных или неразрешённых материалов запрещена — лазерная абляция неизвестных материалов может привести к выделению токсичных паров или возгоранию.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2 -->
+            <section class="slide-up" style="animation-delay: 0.15s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">2</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s2Title">
+                            Общие требования техники безопасности
+                        </h3>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item1"><strong>Класс опасности:</strong> станок оснащён полностью закрытым корпусом с блокировкой — при открытии крышки/двери во время работы лазерное излучение автоматически прекращается. Несмотря на это, станок остаётся источником повышенной опасности: лазерное излучение, движущиеся механизмы, дым и пыль от обработки материала.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item2"><strong>Только для обученного персонала:</strong> к самостоятельной работе допускаются только лица, прошедшие настоящий инструктаж и получившие допуск ETS. Допуск персональный и не может быть передан третьим лицам.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item3"><strong>Запрет на модификацию защитных устройств:</strong> запрещается снимать, блокировать, модифицировать или обходить блокировку корпуса и другие защитные устройства станка. Нарушение блокировки может привести к прямому воздействию лазерного излучения.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item4"><strong>Система вытяжки обязательна:</strong> перед запуском обработки необходимо включить и проверить исправность системы вытяжки дыма и пыли. Лазерная абляция меди и материала платы образует дым и мелкодисперсную пыль, опасные при вдыхании.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item5"><strong>Разрешённые материалы:</strong> обрабатывать только материалы, предусмотренные технологическим процессом. Запрещается загружать неизвестные, непроверенные или не предусмотренные инструкцией материалы без согласования с ETS.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item6"><strong>Присутствие при работе:</strong> не оставлять работающий станок без присмотра. При длительной обработке — периодически проверять ход процесса и состояние системы вытяжки.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item7"><strong>Компьютер и программное обеспечение:</strong> станок управляется через ПО CircuitPro PL на выделенном компьютере. Запрещается менять настройки ПО, параметры лазера и системные настройки компьютера без согласования с ETS.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3 -->
+            <section class="slide-up" style="animation-delay: 0.2s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">3</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s3Title">
+                            Порядок работы
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">1</div>
+                                <p class="text-sm" data-i18n-html="s3Step1"><strong>Проверка перед началом:</strong> чистота рабочей зоны и линзы, исправность блокировки корпуса, включена и исправна система вытяжки.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">2</div>
+                                <p class="text-sm" data-i18n-html="s3Step2"><strong>Подготовка заготовки:</strong> надёжно закрепить заготовку платы на рабочем столе; при необходимости — измерить толщину материала (автоматически или в одной точке) для корректной фокусировки лазера.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">3</div>
+                                <p class="text-sm" data-i18n-html="s3Step3"><strong>Позиционирование проекта:</strong> в CircuitPro PL задать размещение проекта на заготовке и распознать реперные метки (fiducials) для точной привязки координат обработки.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">4</div>
+                                <p class="text-sm" data-i18n-html="s3Step4"><strong>Проверка параметров:</strong> перед основной обработкой — при необходимости выполнить тестовый прогон на образце для проверки параметров мощности и скорости лазера под конкретный материал.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">5</div>
+                                <p class="text-sm" data-i18n-html="s3Step5"><strong>Запуск обработки:</strong> закрыть корпус станка, включить систему вытяжки, запустить задание (job) из CircuitPro PL и проверить результаты расчёта на наличие предупреждений или ошибок перед подтверждением запуска.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">6</div>
+                                <p class="text-sm" data-i18n-html="s3Step6"><strong>Контроль цикла:</strong> следить за ходом обработки на экране. Не открывать корпус до полной остановки лазера и завершения задания.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">7</div>
+                                <p class="text-sm" data-i18n-html="s3Step7"><strong>Завершение и выгрузка:</strong> после завершения задания открыть корпус, аккуратно извлечь заготовку, проверить края на наличие заусенцев и непрорезанных участков.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">8</div>
+                                <p class="text-sm" data-i18n-html="s3Step8"><strong>После работы:</strong> выключить систему вытяжки, очистить рабочую зону от обрезков материала и пыли.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4 -->
+            <section class="slide-up" style="animation-delay: 0.25s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">4</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s4Title">
+                            Технологические процессы
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)] mb-3" data-i18n="s4Intro">
+                            Руководство LPKF (how-to guide) содержит пошаговые инструкции для разных технологических процессов. Перед выполнением процесса, который вы делаете впервые, изучите соответствующий раздел руководства и, при необходимости, проконсультируйтесь с инженером ETS:
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s4Item1Title">Двусторонние платы</div>
+                                <p class="text-sm" data-i18n="s4Item1Text">Изготовление двусторонних печатных плат без металлизации отверстий и с гальванической металлизацией переходных отверстий.</p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s4Item2Title">Многослойные платы</div>
+                                <p class="text-sm" data-i18n="s4Item2Text">Изготовление многослойных плат, включая платы со скрытыми (blind) и захороненными (buried) переходными отверстиями.</p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s4Item3Title">Дополнительные применения</div>
+                                <p class="text-sm" data-i18n="s4Item3Text">Изготовление полиимидных трафаретов, гибко-жёстких (flex-rigid) плат и других специальных изделий.</p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s4Item4Title">Импорт файлов</div>
+                                <p class="text-sm" data-i18n="s4Item4Text">Обработка файлов Gerber и Excellon в CircuitPro PL — перед запуском задания проверять предупреждения о неопределённом формате или отсутствующих параметрах файла.</p>
+                            </div>
+                        </div>
+                        <div class="warning-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]" data-i18n-html="s4Note">
+                                Использование техпроцесса не по назначению или без проверки параметров может привести к браку заготовки, повреждению инструмента или станка. При сомнениях — уточнить у инженера ETS (<a href="mailto:engineeringdesk@nu.edu.kz" class="font-bold">engineeringdesk@nu.edu.kz</a>) до запуска задания.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5 -->
+            <section class="slide-up" style="animation-delay: 0.3s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">5</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s5Title">
+                            Действия при неисправностях и аварийных ситуациях
+                        </h3>
+                        <div class="warning-box p-4 rounded-r-lg space-y-2">
+                            <p class="text-sm" data-i18n-html="s5Item1"><strong>Предупреждения при расчёте задания:</strong> если ПО CircuitPro PL показывает предупреждения или ошибки при проверке результатов расчёта — не запускать обработку, разобраться в причине или обратиться к инженеру ETS.</p>
+                            <p class="text-sm" data-i18n-html="s5Item2"><strong>Отказ или снижение эффективности системы вытяжки:</strong> прекратить обработку, не запускать новое задание до восстановления работы вытяжки.</p>
+                            <p class="text-sm" data-i18n-html="s5Item3"><strong>Посторонний запах, избыточный дым или необычный шум:</strong> немедленно остановить обработку, не открывать корпус до выяснения причины, уведомить ETS.</p>
+                            <p class="text-sm" data-i18n-html="s5Item4"><strong>Неисправность блокировки корпуса</strong> (крышка не блокируется или не открывается): не применять силу и не пытаться обойти блокировку самостоятельно, обратиться в ETS.</p>
+                            <p class="text-sm" data-i18n-html="s5Item5"><strong>Заявки, не требующие экстренного вмешательства</strong> (плановое обслуживание, вопросы по допуску и эксплуатации), направляются на <a href="mailto:engineeringdesk@nu.edu.kz" class="font-bold">engineeringdesk@nu.edu.kz</a>.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6 -->
+            <section class="slide-up" style="animation-delay: 0.35s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">6</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s6Title">
+                            Порядок получения допуска
+                        </h3>
+                        <div class="info-box p-4 rounded-r-lg">
+                            <p class="text-sm text-[var(--text)]" data-i18n-html="s6Body">
+                                Допуск к самостоятельной работе на станке предоставляется ETS индивидуально, по результатам прохождения настоящего инструктажа и цифрового подтверждения ознакомления. Допуск является персональным и не может быть передан другому сотруднику. ETS вправе отозвать допуск при нарушении правил эксплуатации или техники безопасности, а также назначить повторный инструктаж при изменении процедур или оборудования. Заявки на допуск и вопросы по планированию работ на станке направляются на <a href="mailto:engineeringdesk@nu.edu.kz" class="font-bold text-[var(--primary)]">engineeringdesk@nu.edu.kz</a>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Digital Acknowledgement Form -->
+        <div id="ack-form-section" class="px-10 py-8 border-t border-[var(--border)] bg-[var(--bg)]">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-8 h-8 rounded-full bg-[var(--primary)] text-white flex items-center justify-center flex-shrink-0">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                </div>
+                <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase" data-i18n="formTitle">
+                    Цифровое подтверждение ознакомления и запрос допуска
+                </h3>
+            </div>
+
+            <form id="ack-form" class="space-y-5 max-w-2xl" onsubmit="return false;">
+
+                <!-- Full Name -->
+                <div>
+                    <label for="form-fullname" class="block text-sm font-bold text-[var(--text)] mb-1" data-i18n="formNameLabel">ФИО</label>
+                    <input type="text" id="form-fullname" class="form-input" required
+                           data-i18n-placeholder="formNamePlaceholder"
+                           placeholder="Фамилия Имя Отчество"
+                           oninput="checkFormValidity()">
+                </div>
+
+                <!-- Position / Department -->
+                <div>
+                    <label for="form-position" class="block text-sm font-bold text-[var(--text)] mb-1" data-i18n="formPositionLabel">Должность / отдел</label>
+                    <input type="text" id="form-position" class="form-input" required
+                           data-i18n-placeholder="formPositionPlaceholder"
+                           placeholder="Напр.: Научный сотрудник, Лаборатория электроники"
+                           oninput="checkFormValidity()">
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label for="form-email" class="block text-sm font-bold text-[var(--text)] mb-1" data-i18n="formEmailLabel">Электронная почта</label>
+                    <input type="email" id="form-email" class="form-input" required
+                           data-i18n-placeholder="formEmailPlaceholder"
+                           placeholder="email@nu.edu.kz"
+                           oninput="checkFormValidity()">
+                </div>
+
+                <!-- Consent checkbox -->
+                <div class="flex items-start gap-3 p-4 bg-white rounded-lg border border-[var(--border)]">
+                    <input type="checkbox" id="form-consent"
+                           style="margin-top:2px; width:16px; height:16px; flex-shrink:0; accent-color: var(--primary);"
+                           onchange="checkFormValidity()">
+                    <label for="form-consent" class="text-sm text-[var(--text)] cursor-pointer" data-i18n="formConsentLabel">
+                        Я ознакомился(лась) с инструкцией по эксплуатации станка LPKF ProtoLaser U4 и обязуюсь соблюдать изложенные правила техники безопасности
+                    </label>
+                </div>
+
+                <!-- Submit button -->
+                <button type="button" id="form-submit" class="form-submit" disabled onclick="submitForm()">
+                    <span data-i18n="formSubmitBtn">ОТПРАВИТЬ ПОДТВЕРЖДЕНИЕ</span>
+                </button>
+            </form>
+
+            <!-- Status messages -->
+            <div id="status-sending" class="status-box status-sending" style="display:none;" data-i18n="formSending">Отправка…</div>
+            <div id="status-success" class="status-box status-success" style="display:none;" data-i18n="formSuccess">Подтверждение записано ✓</div>
+            <div id="status-error"   class="status-box status-error"   style="display:none;" data-i18n="formError">Ошибка отправки — попробуйте ещё раз</div>
+        </div>
+
+        <!-- Footer -->
+        <div class="accent-stripe"></div>
+        <div class="header-stripe"></div>
+    </div>
+
+    <script>
+        // ─── CONFIG ──────────────────────────────────────────────────────────────
+        const WEB_APP_URL = "https://script.google.com/a/macros/nu.edu.kz/s/AKfycbyLx9X5kakeuI9A7e2A0fqX2DQO0sRuoX6mBRLat6uMfX4gLDhQhX-2Mn_YpEWb6k9u4g/exec";
+
+        // ─── TRANSLATIONS ────────────────────────────────────────────────────────
+        const translations = {
+            ru: {
+                pageTitle:        "Допуск к работе на LPKF ProtoLaser U4 — Инженер КИП",
+                deptLabel:        "Инженерно-техническая служба",
+                universityName:   "НАЗАРБАЕВ УНИВЕРСИТЕТ",
+                safetyBadge:      "Инструкция по технике безопасности",
+                mainTitle:        "ДОПУСК К РАБОТЕ НА ЛАЗЕРНОМ СТАНКЕ LPKF PROTOLASER U4",
+                mainSubtitle:     "Инструктаж по эксплуатации оборудования",
+                introText:        "Допуск к самостоятельной работе на станке предоставляется Инженерно-технической службой (ETS) только после прохождения данного инструктажа. Пожалуйста, внимательно прочтите инструкцию и подтвердите ознакомление, указав свои контактные данные.",
+                docNumberLabel:   "Номер документа:",
+                docDateLabel:     "Дата утверждения:",
+                contactLine:      "Заявки и вопросы по работе станка: <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold text-[var(--primary)]\">engineeringdesk@nu.edu.kz</a>",
+                manualLine:       "Полное руководство (how-to guide, PDF): <a href=\"https://drive.google.com/file/d/1cvZnP5yprOOOk2qDvAWudi7Vvdc_a7zr/view?usp=sharing\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"font-bold text-[var(--primary)]\">открыть manual</a>",
+
+                s1Title:        "Станок, к которому предоставляется допуск",
+                s1Body:         "В кабинете установлен лазерный станок LPKF ProtoLaser U4, находящийся на балансе и обслуживании Инженерно-технической службы (ETS). Станок использует УФ-лазер для прямого структурирования печатных плат — абляции (удаления) меди и материала платы под управлением программного обеспечения CircuitPro PL. Допуск к самостоятельной работе выдаётся ETS только после прохождения данного инструктажа и цифрового подтверждения ознакомления.",
+                s1PurposeTitle: "Назначение станка",
+                s1PurposeText:  "ProtoLaser U4 применяется для быстрого прототипирования печатных плат: изоляционное структурирование проводников, сверление переходных отверстий, вырезание контура платы, а также вспомогательные процессы — например, изготовление полиимидных трафаретов.",
+                s1Danger:       "<strong>Важно:</strong> станок предназначен только для обработки материалов, предусмотренных технологическим процессом (специализированные ламинаты для печатных плат, плёнки для трафаретов и т. п.). Обработка непроверенных или неразрешённых материалов запрещена — лазерная абляция неизвестных материалов может привести к выделению токсичных паров или возгоранию.",
+
+                s2Title: "Общие требования техники безопасности",
+                s2Item1: "<strong>Класс опасности:</strong> станок оснащён полностью закрытым корпусом с блокировкой — при открытии крышки/двери во время работы лазерное излучение автоматически прекращается. Несмотря на это, станок остаётся источником повышенной опасности: лазерное излучение, движущиеся механизмы, дым и пыль от обработки материала.",
+                s2Item2: "<strong>Только для обученного персонала:</strong> к самостоятельной работе допускаются только лица, прошедшие настоящий инструктаж и получившие допуск ETS. Допуск персональный и не может быть передан третьим лицам.",
+                s2Item3: "<strong>Запрет на модификацию защитных устройств:</strong> запрещается снимать, блокировать, модифицировать или обходить блокировку корпуса и другие защитные устройства станка. Нарушение блокировки может привести к прямому воздействию лазерного излучения.",
+                s2Item4: "<strong>Система вытяжки обязательна:</strong> перед запуском обработки необходимо включить и проверить исправность системы вытяжки дыма и пыли. Лазерная абляция меди и материала платы образует дым и мелкодисперсную пыль, опасные при вдыхании.",
+                s2Item5: "<strong>Разрешённые материалы:</strong> обрабатывать только материалы, предусмотренные технологическим процессом. Запрещается загружать неизвестные, непроверенные или не предусмотренные инструкцией материалы без согласования с ETS.",
+                s2Item6: "<strong>Присутствие при работе:</strong> не оставлять работающий станок без присмотра. При длительной обработке — периодически проверять ход процесса и состояние системы вытяжки.",
+                s2Item7: "<strong>Компьютер и программное обеспечение:</strong> станок управляется через ПО CircuitPro PL на выделенном компьютере. Запрещается менять настройки ПО, параметры лазера и системные настройки компьютера без согласования с ETS.",
+
+                s3Title: "Порядок работы",
+                s3Step1: "<strong>Проверка перед началом:</strong> чистота рабочей зоны и линзы, исправность блокировки корпуса, включена и исправна система вытяжки.",
+                s3Step2: "<strong>Подготовка заготовки:</strong> надёжно закрепить заготовку платы на рабочем столе; при необходимости — измерить толщину материала (автоматически или в одной точке) для корректной фокусировки лазера.",
+                s3Step3: "<strong>Позиционирование проекта:</strong> в CircuitPro PL задать размещение проекта на заготовке и распознать реперные метки (fiducials) для точной привязки координат обработки.",
+                s3Step4: "<strong>Проверка параметров:</strong> перед основной обработкой — при необходимости выполнить тестовый прогон на образце для проверки параметров мощности и скорости лазера под конкретный материал.",
+                s3Step5: "<strong>Запуск обработки:</strong> закрыть корпус станка, включить систему вытяжки, запустить задание (job) из CircuitPro PL и проверить результаты расчёта на наличие предупреждений или ошибок перед подтверждением запуска.",
+                s3Step6: "<strong>Контроль цикла:</strong> следить за ходом обработки на экране. Не открывать корпус до полной остановки лазера и завершения задания.",
+                s3Step7: "<strong>Завершение и выгрузка:</strong> после завершения задания открыть корпус, аккуратно извлечь заготовку, проверить края на наличие заусенцев и непрорезанных участков.",
+                s3Step8: "<strong>После работы:</strong> выключить систему вытяжки, очистить рабочую зону от обрезков материала и пыли.",
+
+                s4Title:      "Технологические процессы",
+                s4Intro:      "Руководство LPKF (how-to guide) содержит пошаговые инструкции для разных технологических процессов. Перед выполнением процесса, который вы делаете впервые, изучите соответствующий раздел руководства и, при необходимости, проконсультируйтесь с инженером ETS:",
+                s4Item1Title: "Двусторонние платы",
+                s4Item1Text:  "Изготовление двусторонних печатных плат без металлизации отверстий и с гальванической металлизацией переходных отверстий.",
+                s4Item2Title: "Многослойные платы",
+                s4Item2Text:  "Изготовление многослойных плат, включая платы со скрытыми (blind) и захороненными (buried) переходными отверстиями.",
+                s4Item3Title: "Дополнительные применения",
+                s4Item3Text:  "Изготовление полиимидных трафаретов, гибко-жёстких (flex-rigid) плат и других специальных изделий.",
+                s4Item4Title: "Импорт файлов",
+                s4Item4Text:  "Обработка файлов Gerber и Excellon в CircuitPro PL — перед запуском задания проверять предупреждения о неопределённом формате или отсутствующих параметрах файла.",
+                s4Note:       "Использование техпроцесса не по назначению или без проверки параметров может привести к браку заготовки, повреждению инструмента или станка. При сомнениях — уточнить у инженера ETS (<a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold\">engineeringdesk@nu.edu.kz</a>) до запуска задания.",
+
+                s5Title: "Действия при неисправностях и аварийных ситуациях",
+                s5Item1: "<strong>Предупреждения при расчёте задания:</strong> если ПО CircuitPro PL показывает предупреждения или ошибки при проверке результатов расчёта — не запускать обработку, разобраться в причине или обратиться к инженеру ETS.",
+                s5Item2: "<strong>Отказ или снижение эффективности системы вытяжки:</strong> прекратить обработку, не запускать новое задание до восстановления работы вытяжки.",
+                s5Item3: "<strong>Посторонний запах, избыточный дым или необычный шум:</strong> немедленно остановить обработку, не открывать корпус до выяснения причины, уведомить ETS.",
+                s5Item4: "<strong>Неисправность блокировки корпуса</strong> (крышка не блокируется или не открывается): не применять силу и не пытаться обойти блокировку самостоятельно, обратиться в ETS.",
+                s5Item5: "<strong>Заявки, не требующие экстренного вмешательства</strong> (плановое обслуживание, вопросы по допуску и эксплуатации), направляются на <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold\">engineeringdesk@nu.edu.kz</a>.",
+
+                s6Title: "Порядок получения допуска",
+                s6Body:  "Допуск к самостоятельной работе на станке предоставляется ETS индивидуально, по результатам прохождения настоящего инструктажа и цифрового подтверждения ознакомления. Допуск является персональным и не может быть передан другому сотруднику. ETS вправе отозвать допуск при нарушении правил эксплуатации или техники безопасности, а также назначить повторный инструктаж при изменении процедур или оборудования. Заявки на допуск и вопросы по планированию работ на станке направляются на <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold text-[var(--primary)]\">engineeringdesk@nu.edu.kz</a>.",
+
+                formTitle:              "Цифровое подтверждение ознакомления и запрос допуска",
+                formNameLabel:          "ФИО",
+                formNamePlaceholder:    "Фамилия Имя Отчество",
+                formPositionLabel:      "Должность / отдел",
+                formPositionPlaceholder:"Напр.: Научный сотрудник, Лаборатория электроники",
+                formEmailLabel:         "Электронная почта",
+                formEmailPlaceholder:   "email@nu.edu.kz",
+                formConsentLabel:       "Я ознакомился(лась) с инструкцией по эксплуатации станка LPKF ProtoLaser U4 и обязуюсь соблюдать изложенные правила техники безопасности",
+                formSubmitBtn:          "ОТПРАВИТЬ ПОДТВЕРЖДЕНИЕ",
+                formSending:            "Отправка…",
+                formSuccess:            "Подтверждение записано ✓",
+                formError:              "Ошибка отправки — попробуйте ещё раз",
+            },
+
+            en: {
+                pageTitle:        "LPKF ProtoLaser U4 Access Briefing — ETS",
+                deptLabel:        "Engineering and Technical Services",
+                universityName:   "NAZARBAYEV UNIVERSITY",
+                safetyBadge:      "Safety Instruction",
+                mainTitle:        "ACCESS AUTHORIZATION FOR THE LPKF PROTOLASER U4 LASER SYSTEM",
+                mainSubtitle:     "Equipment Operation Briefing",
+                introText:        "Authorization to operate the machine independently is granted by Engineering and Technical Services (ETS) only after completing this briefing. Please read the instructions carefully and confirm your acknowledgement by providing your contact information.",
+                docNumberLabel:   "Document number:",
+                docDateLabel:     "Approval date:",
+                contactLine:      "Requests and questions regarding the machine: <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold text-[var(--primary)]\">engineeringdesk@nu.edu.kz</a>",
+                manualLine:       "Full manual (how-to guide, PDF): <a href=\"https://drive.google.com/file/d/1cvZnP5yprOOOk2qDvAWudi7Vvdc_a7zr/view?usp=sharing\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"font-bold text-[var(--primary)]\">open manual</a>",
+
+                s1Title:        "Machine Covered by This Authorization",
+                s1Body:         "The room is equipped with an LPKF ProtoLaser U4 laser system owned and maintained by Engineering and Technical Services (ETS). The machine uses a UV laser for direct structuring of printed circuit boards — ablating (removing) copper and board material under the control of the CircuitPro PL software. Authorization to operate the machine independently is granted by ETS only after completing this briefing and submitting the digital acknowledgement.",
+                s1PurposeTitle: "Purpose of the Machine",
+                s1PurposeText:  "The ProtoLaser U4 is used for rapid PCB prototyping: isolation structuring of conductive traces, drilling of vias, cutting the board outline, and auxiliary processes such as producing polyimide stencils.",
+                s1Danger:       "<strong>Important:</strong> the machine is intended only for processing materials specified by the process (specialized PCB laminates, stencil films, etc.). Processing unverified or unauthorized materials is prohibited — laser ablation of unknown materials can release toxic fumes or cause fire.",
+
+                s2Title: "General Safety Requirements",
+                s2Item1: "<strong>Hazard class:</strong> the machine has a fully enclosed housing with an interlock — opening the lid/door during operation automatically stops laser emission. Despite this, the machine remains a source of elevated hazard: laser radiation, moving mechanisms, and smoke/dust from material processing.",
+                s2Item2: "<strong>Trained personnel only:</strong> only individuals who have completed this briefing and received ETS authorization may operate the equipment independently. Authorization is personal and may not be transferred to a third party.",
+                s2Item3: "<strong>No modifying protective devices:</strong> do not remove, block, modify, or bypass the housing interlock or other protective devices. Defeating the interlock can result in direct exposure to laser radiation.",
+                s2Item4: "<strong>Extraction system is mandatory:</strong> switch on and verify the smoke/dust extraction system before starting a job. Laser ablation of copper and board material produces smoke and fine particulates hazardous if inhaled.",
+                s2Item5: "<strong>Permitted materials:</strong> process only materials specified by the process documentation. Do not load unknown, unverified, or unspecified materials without ETS approval.",
+                s2Item6: "<strong>Attended operation:</strong> do not leave a running machine unattended. During long jobs, periodically check the process status and the extraction system.",
+                s2Item7: "<strong>Computer and software:</strong> the machine is controlled via CircuitPro PL on a dedicated computer. Do not change software settings, laser parameters, or the computer's system settings without ETS approval.",
+
+                s3Title: "Operating Procedure",
+                s3Step1: "<strong>Pre-start check:</strong> cleanliness of the work area and lens, correct operation of the housing interlock, and the extraction system switched on and functioning.",
+                s3Step2: "<strong>Preparing the workpiece:</strong> secure the board blank firmly on the work table; if needed, measure the material thickness (automatically or at a single point) for correct laser focus.",
+                s3Step3: "<strong>Project placement:</strong> in CircuitPro PL, set the project placement on the workpiece and recognize the fiducials to accurately reference the processing coordinates.",
+                s3Step4: "<strong>Parameter check:</strong> before the main run, perform a test pass on a sample if needed to verify laser power and speed settings for the specific material.",
+                s3Step5: "<strong>Starting the job:</strong> close the machine housing, switch on the extraction system, start the job from CircuitPro PL, and check the computation results for any warnings or errors before confirming the start.",
+                s3Step6: "<strong>Monitoring the cycle:</strong> watch the process progress on screen. Do not open the housing until the laser has fully stopped and the job is complete.",
+                s3Step7: "<strong>Completion and unloading:</strong> once the job is complete, open the housing, carefully remove the workpiece, and check the edges for burrs or uncut sections.",
+                s3Step8: "<strong>After use:</strong> switch off the extraction system and clean the work area of material scraps and dust.",
+
+                s4Title:      "Processing Techniques",
+                s4Intro:      "The LPKF how-to guide contains step-by-step instructions for various processing techniques. Before performing a technique for the first time, review the relevant chapter of the manual and, if needed, consult an ETS engineer:",
+                s4Item1Title: "Double-Sided Boards",
+                s4Item1Text:  "Producing double-sided PCBs without through-hole plating and with galvanic through-hole plating.",
+                s4Item2Title: "Multi-Layer Boards",
+                s4Item2Text:  "Producing multi-layer PCBs, including boards with blind and buried vias.",
+                s4Item3Title: "Additional Applications",
+                s4Item3Text:  "Producing polyimide stencils, flex-rigid PCBs, and other specialized items.",
+                s4Item4Title: "File Import",
+                s4Item4Text:  "Processing Gerber and Excellon files in CircuitPro PL — check for warnings about undefined format or missing file parameters before starting a job.",
+                s4Note:       "Using a technique for the wrong purpose, or without verifying the parameters, can spoil the workpiece or damage the tool or machine. If in doubt, check with an ETS engineer (<a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold\">engineeringdesk@nu.edu.kz</a>) before starting the job.",
+
+                s5Title: "Faults and Emergency Procedures",
+                s5Item1: "<strong>Warnings during job computation:</strong> if CircuitPro PL shows warnings or errors when checking the computation results, do not start processing — investigate the cause or contact an ETS engineer.",
+                s5Item2: "<strong>Extraction system failure or reduced performance:</strong> stop processing and do not start a new job until extraction is restored.",
+                s5Item3: "<strong>Unusual smell, excessive smoke, or abnormal noise:</strong> stop processing immediately, do not open the housing until the cause is identified, and notify ETS.",
+                s5Item4: "<strong>Housing interlock fault</strong> (lid does not lock or does not open): do not force it or attempt to bypass the interlock yourself — contact ETS.",
+                s5Item5: "<strong>Non-urgent requests</strong> (planned maintenance, access questions, general operating questions) should be sent to <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold\">engineeringdesk@nu.edu.kz</a>.",
+
+                s6Title: "Authorization Process",
+                s6Body:  "Authorization to operate the machine independently is granted by ETS on an individual basis, after completion of this briefing and submission of the digital acknowledgement. Authorization is personal and may not be transferred to another employee. ETS may revoke authorization for violations of operating or safety rules, and may require a refresher briefing if procedures or equipment change. Access requests and scheduling questions regarding the machine should be sent to <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold text-[var(--primary)]\">engineeringdesk@nu.edu.kz</a>.",
+
+                formTitle:              "Digital Acknowledgement and Access Request",
+                formNameLabel:          "Full Name",
+                formNamePlaceholder:    "First name Last name",
+                formPositionLabel:      "Position / Department",
+                formPositionPlaceholder:"e.g., Researcher, Electronics Lab",
+                formEmailLabel:         "Email",
+                formEmailPlaceholder:   "email@nu.edu.kz",
+                formConsentLabel:       "I have read the LPKF ProtoLaser U4 operating instructions and commit to following the safety rules described above",
+                formSubmitBtn:          "SUBMIT ACKNOWLEDGEMENT",
+                formSending:            "Sending…",
+                formSuccess:            "Acknowledgement recorded ✓",
+                formError:              "Submission error — please try again",
+            },
+
+            kk: {
+                pageTitle:        "LPKF ProtoLaser U4 рұқсат алу нұсқаулығы — ETS", // CHECK
+                deptLabel:        "Инженерлік-техникалық қызмет",
+                universityName:   "НАЗАРБАЕВ УНИВЕРСИТЕТІ",
+                safetyBadge:      "Қауіпсіздік техникасы нұсқаулығы",
+                mainTitle:        "LPKF PROTOLASER U4 ЛАЗЕРЛІК СТАНОГЫНДА ЖҰМЫС ІСТЕУГЕ РҰҚСАТ", // CHECK
+                mainSubtitle:     "Жабдықты пайдалану жөніндегі нұсқаулық", // CHECK
+                introText:        "Станокта дербес жұмыс істеуге рұқсатты Инженерлік-техникалық қызмет (ETS) осы нұсқаулықтан өткеннен кейін ғана береді. Нұсқаулықты мұқият оқып шығып, байланыс деректеріңізді көрсету арқылы танысқаныңызды растаңыз.", // CHECK
+                docNumberLabel:   "Құжат нөмірі:",
+                docDateLabel:     "Бекіту күні:",
+                contactLine:      "Станоктың жұмысына қатысты өтінімдер мен сұрақтар: <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold text-[var(--primary)]\">engineeringdesk@nu.edu.kz</a>", // CHECK
+                manualLine:       "Толық нұсқаулық (how-to guide, PDF): <a href=\"https://drive.google.com/file/d/1cvZnP5yprOOOk2qDvAWudi7Vvdc_a7zr/view?usp=sharing\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"font-bold text-[var(--primary)]\">manualды ашу</a>", // CHECK
+
+                s1Title:        "Рұқсат берілетін станок", // CHECK
+                s1Body:         "Кабинетте Инженерлік-техникалық қызметтің (ETS) теңгерімінде және қызмет көрсетуінде тұрған LPKF ProtoLaser U4 лазерлік станогы орнатылған. Станок CircuitPro PL бағдарламалық жасақтамасының басқаруымен басып шығарылған платаларды тікелей құрылымдау — мысты және плата материалын абляциялау (кетіру) үшін УК-лазерді пайдаланады. Дербес жұмыс істеуге рұқсатты ETS осы нұсқаулықтан өтіп, танысуды электрондық түрде растағаннан кейін ғана береді.", // CHECK
+                s1PurposeTitle: "Станоктың мақсаты", // CHECK
+                s1PurposeText:  "ProtoLaser U4 басып шығарылған платаларды жедел прототиптеу үшін қолданылады: өткізгіштерді оқшаулай құрылымдау, өтпелі тесіктерді бұрғылау, плата контурын кесу, сондай-ақ полиимидті трафареттер жасау сияқты қосалқы процестер.", // CHECK
+                s1Danger:       "<strong>Маңызды:</strong> станок тек технологиялық процесте көзделген материалдарды (басып шығарылған платаларға арналған арнайы ламинаттар, трафареттерге арналған үлдірлер және т.б.) өңдеуге арналған. Тексерілмеген немесе рұқсат етілмеген материалдарды өңдеуге тыйым салынады — белгісіз материалдарды лазермен абляциялау улы буларды бөлуге немесе өртке әкелуі мүмкін.", // CHECK
+
+                s2Title: "Жалпы қауіпсіздік техникасы талаптары", // CHECK
+                s2Item1: "<strong>Қауіп класы:</strong> станок бұғатталған, толығымен жабық корпуспен жабдықталған — жұмыс кезінде қақпақ/есік ашылғанда лазерлік сәулелену автоматты түрде тоқтайды. Соған қарамастан, станок жоғары қауіп көзі болып қала береді: лазерлік сәулелену, қозғалатын механизмдер, материалды өңдеуден пайда болатын түтін мен шаң.", // CHECK
+                s2Item2: "<strong>Тек оқытылған персонал үшін:</strong> дербес жұмыс істеуге тек осы нұсқаулықтан өтіп, ETS рұқсатын алған адамдар ғана жіберіледі. Рұқсат жеке болып табылады және үшінші тұлғаларға берілмейді.", // CHECK
+                s2Item3: "<strong>Қорғаныш құрылғыларын өзгертуге тыйым:</strong> корпустың бұғатын және станоктың басқа қорғаныш құрылғыларын алып тастауға, бұғаттауға, өзгертуге немесе айналып өтуге тыйым салынады. Бұғатты бұзу лазерлік сәулеленудің тікелей әсеріне әкелуі мүмкін.", // CHECK
+                s2Item4: "<strong>Сорғыш жүйе міндетті:</strong> өңдеуді бастамас бұрын түтін мен шаңды сорғыш жүйені қосып, оның ақаусыздығын тексеру қажет. Мыс пен плата материалын лазермен абляциялау тыныс алу үшін қауіпті түтін мен ұсақ дисперсті шаң түзеді.", // CHECK
+                s2Item5: "<strong>Рұқсат етілген материалдар:</strong> тек технологиялық процесте көзделген материалдарды өңдеңіз. ETS-пен келісусіз белгісіз, тексерілмеген немесе нұсқаулықта көзделмеген материалдарды жүктеуге тыйым салынады.", // CHECK
+                s2Item6: "<strong>Жұмыс кезінде қадағалау:</strong> жұмыс істеп тұрған станокты қараусыз қалдырмаңыз. Ұзақ өңдеу кезінде процестің барысын және сорғыш жүйенің жағдайын мезгіл-мезгіл тексеріп отырыңыз.", // CHECK
+                s2Item7: "<strong>Компьютер және бағдарламалық жасақтама:</strong> станок бөлек компьютердегі CircuitPro PL бағдарламасы арқылы басқарылады. ETS-пен келісусіз бағдарлама баптауларын, лазер параметрлерін және компьютердің жүйелік баптауларын өзгертуге тыйым салынады.", // CHECK
+
+                s3Title: "Жұмыс тәртібі", // CHECK
+                s3Step1: "<strong>Бастамас бұрын тексеру:</strong> жұмыс аймағы мен линзаның тазалығы, корпус бұғатының дұрыс жұмыс істеуі, сорғыш жүйенің қосылып, ақаусыз болуы.", // CHECK
+                s3Step2: "<strong>Дайындаманы дайындау:</strong> плата дайындамасын жұмыс үстеліне сенімді бекітіңіз; қажет болса — лазердің дұрыс фокусталуы үшін материал қалыңдығын (автоматты түрде немесе бір нүктеде) өлшеңіз.", // CHECK
+                s3Step3: "<strong>Жобаны орналастыру:</strong> CircuitPro PL бағдарламасында жобаның дайындамадағы орналасуын белгілеп, өңдеу координаттарын дәл байланыстыру үшін реперлік белгілерді (fiducials) тану.", // CHECK
+                s3Step4: "<strong>Параметрлерді тексеру:</strong> негізгі өңдеу алдында қажет болса — нақты материал үшін лазердің қуаты мен жылдамдық параметрлерін тексеру мақсатында үлгіде сынақ өткізу.", // CHECK
+                s3Step5: "<strong>Өңдеуді бастау:</strong> станок корпусын жабыңыз, сорғыш жүйені қосыңыз, CircuitPro PL бағдарламасынан тапсырманы (job) іске қосыңыз және іске қосуды растамас бұрын есептеу нәтижелерінде ескертулер немесе қателердің жоқтығын тексеріңіз.", // CHECK
+                s3Step6: "<strong>Циклді бақылау:</strong> экрандағы өңдеу барысын бақылаңыз. Лазер толық тоқтап, тапсырма аяқталғанға дейін корпусты ашпаңыз.", // CHECK
+                s3Step7: "<strong>Аяқтау және түсіру:</strong> тапсырма аяқталғаннан кейін корпусты ашып, дайындаманы абайлап алыңыз, жиектерінде қыртыс пен кесілмеген жерлердің жоқтығын тексеріңіз.", // CHECK
+                s3Step8: "<strong>Жұмыстан кейін:</strong> сорғыш жүйені өшіріп, жұмыс аймағын материал қалдықтары мен шаңнан тазалаңыз.", // CHECK
+
+                s4Title:      "Технологиялық процестер", // CHECK
+                s4Intro:      "LPKF нұсқаулығында (how-to guide) әртүрлі технологиялық процестер үшін кезең-кезеңімен нұсқаулар берілген. Алғаш рет орындайтын процесс алдында нұсқаулықтың тиісті бөлімін оқып шығыңыз және қажет болса ETS инженерімен ақылдасыңыз:", // CHECK
+                s4Item1Title: "Екі жақты платалар", // CHECK
+                s4Item1Text:  "Тесіктерін металдандырмай және өтпелі тесіктерін гальваникалық металдандырып екі жақты басып шығарылған платалар жасау.", // CHECK
+                s4Item2Title: "Көп қабатты платалар", // CHECK
+                s4Item2Text:  "Жасырын (blind) және көмілген (buried) өтпелі тесіктері бар платаларды қоса, көп қабатты платалар жасау.", // CHECK
+                s4Item3Title: "Қосымша қолданыстар", // CHECK
+                s4Item3Text:  "Полиимидті трафареттер, икемді-қатты (flex-rigid) платалар және басқа арнайы бұйымдар жасау.", // CHECK
+                s4Item4Title: "Файлдарды импорттау", // CHECK
+                s4Item4Text:  "CircuitPro PL бағдарламасында Gerber және Excellon файлдарын өңдеу — тапсырманы іске қоспас бұрын файл форматының анықталмағаны немесе параметрлердің жоқтығы туралы ескертулерді тексеру.", // CHECK
+                s4Note:       "Технологиялық процесті мақсатына сай емес немесе параметрлерін тексермей қолдану дайындаманың бүлінуіне, құралдың немесе станоктың зақымдалуына әкелуі мүмкін. Күмәніңіз болса — тапсырманы бастамас бұрын ETS инженерінен (<a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold\">engineeringdesk@nu.edu.kz</a>) сұраңыз.", // CHECK
+
+                s5Title: "Ақаулар мен төтенше жағдайлардағы әрекеттер", // CHECK
+                s5Item1: "<strong>Тапсырманы есептеу кезіндегі ескертулер:</strong> CircuitPro PL есептеу нәтижелерін тексеру кезінде ескертулер немесе қателер көрсетсе — өңдеуді бастамаңыз, себебін анықтаңыз немесе ETS инженеріне хабарласыңыз.", // CHECK
+                s5Item2: "<strong>Сорғыш жүйенің істен шығуы немесе тиімділігінің төмендеуі:</strong> өңдеуді тоқтатыңыз, сорғыш жұмысы қалпына келгенше жаңа тапсырманы бастамаңыз.", // CHECK
+                s5Item3: "<strong>Бөгде иіс, шамадан тыс түтін немесе әдеттен тыс шу:</strong> өңдеуді дереу тоқтатыңыз, себебі анықталғанға дейін корпусты ашпаңыз, ETS-ке хабарлаңыз.", // CHECK
+                s5Item4: "<strong>Корпус бұғатының ақаулығы</strong> (қақпақ бұғатталмайды немесе ашылмайды): күш қолданбаңыз және бұғатты өз бетіңізше айналып өтуге тырыспаңыз, ETS-ке хабарласыңыз.", // CHECK
+                s5Item5: "<strong>Жедел араласуды қажет етпейтін өтінімдер</strong> (жоспарлы қызмет көрсету, рұқсат және пайдалану бойынша сұрақтар) <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold\">engineeringdesk@nu.edu.kz</a> мекенжайына жіберіледі.", // CHECK
+
+                s6Title: "Рұқсат алу тәртібі", // CHECK
+                s6Body:  "Станокта дербес жұмыс істеуге рұқсатты ETS осы нұсқаулықтан өту және танысуды электрондық түрде растау нәтижелері бойынша жеке тәртіппен береді. Рұқсат жеке болып табылады және басқа қызметкерге берілмейді. ETS пайдалану немесе қауіпсіздік техникасы ережелерін бұзған жағдайда рұқсатты кері қайтарып алуға, сондай-ақ рәсімдер немесе жабдық өзгерген кезде қайта нұсқаулық тағайындауға құқылы. Станокқа рұқсат алу және жұмыстарды жоспарлау бойынша өтінімдер <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold text-[var(--primary)]\">engineeringdesk@nu.edu.kz</a> мекенжайына жіберіледі.", // CHECK
+
+                formTitle:              "Танысуды электрондық растау және рұқсатқа өтінім", // CHECK
+                formNameLabel:          "Тегі, аты, әкесінің аты",
+                formNamePlaceholder:    "Тегіңіз Атыңыз",
+                formPositionLabel:      "Лауазымы / бөлімше",
+                formPositionPlaceholder:"Мысалы: Зерттеуші, Электроника зертханасы",
+                formEmailLabel:         "Электрондық пошта",
+                formEmailPlaceholder:   "email@nu.edu.kz",
+                formConsentLabel:       "Мен LPKF ProtoLaser U4 станогын пайдалану жөніндегі нұсқаулықпен таныстым және жоғарыда көрсетілген қауіпсіздік техникасы ережелерін сақтауға міндеттенемін", // CHECK
+                formSubmitBtn:          "РАСТАУДЫ ЖІБЕРУ",
+                formSending:            "Жіберілуде…", // CHECK
+                formSuccess:            "Растау тіркелді ✓", // CHECK
+                formError:              "Жіберу қатесі — қайталап көріңіз", // CHECK
+            },
+        };
+
+        // ─── STATE ───────────────────────────────────────────────────────────────
+        let currentLang = localStorage.getItem('lang') || 'ru';
+        let currentStatus = null; // 'sending' | 'success' | 'error' | null
+
+        // ─── LANGUAGE ────────────────────────────────────────────────────────────
+        function applyLanguage(lang) {
+            const t = translations[lang];
+
+            document.documentElement.lang = lang;
+            document.title = t.pageTitle;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (t[key] !== undefined) el.textContent = t[key];
+            });
+
+            document.querySelectorAll('[data-i18n-html]').forEach(el => {
+                const key = el.dataset.i18nHtml;
+                if (t[key] !== undefined) el.innerHTML = t[key];
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.dataset.i18nPlaceholder;
+                if (t[key] !== undefined) el.placeholder = t[key];
+            });
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            updateDate(lang);
+
+            // Re-apply current status text after language switch
+            if (currentStatus) showStatus(currentStatus);
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            applyLanguage(lang);
+        }
+
+        function updateDate(lang) {
+            const locales = { ru: 'ru-RU', en: 'en-GB', kk: 'kk-KZ' };
+            const el = document.getElementById('current-date');
+            if (!el) return;
+            try {
+                el.textContent = ' ' + new Date().toLocaleDateString(locales[lang] || 'ru-RU', {
+                    day: '2-digit', month: 'long', year: 'numeric'
+                });
+            } catch (e) {
+                el.textContent = ' ' + new Date().toLocaleDateString('ru-RU', {
+                    day: '2-digit', month: 'long', year: 'numeric'
+                });
+            }
+        }
+
+        // ─── FORM ────────────────────────────────────────────────────────────────
+        function checkFormValidity() {
+            const name     = document.getElementById('form-fullname').value.trim();
+            const position = document.getElementById('form-position').value.trim();
+            const email    = document.getElementById('form-email').value.trim();
+            const consent  = document.getElementById('form-consent').checked;
+            const emailOk  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+            const btn = document.getElementById('form-submit');
+            btn.disabled = !(name && position && email && emailOk && consent);
+        }
+
+        function showStatus(id) {
+            ['sending', 'success', 'error'].forEach(s => {
+                document.getElementById('status-' + s).style.display = (s === id) ? 'block' : 'none';
+            });
+            currentStatus = id;
+        }
+
+        function hideStatus() {
+            ['sending', 'success', 'error'].forEach(s => {
+                document.getElementById('status-' + s).style.display = 'none';
+            });
+            currentStatus = null;
+        }
+
+        async function submitForm() {
+            const fullName   = document.getElementById('form-fullname').value.trim();
+            const position   = document.getElementById('form-position').value.trim();
+            const email      = document.getElementById('form-email').value.trim();
+            const lang       = currentLang;
+            const clientTime = new Date().toISOString();
+
+            const btn = document.getElementById('form-submit');
+            btn.disabled = true;
+            showStatus('sending');
+
+            const body = new URLSearchParams({ fullName, position, email, lang, clientTime });
+
+            try {
+                await fetch(WEB_APP_URL, {
+                    method:  'POST',
+                    mode:    'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body:    body.toString(),
+                });
+                showStatus('success');
+                // Lock form after success to prevent duplicates
+                document.getElementById('ack-form').querySelectorAll('input').forEach(el => el.disabled = true);
+            } catch (err) {
+                showStatus('error');
+                btn.disabled = false;
+            }
+        }
+
+        // ─── INIT ────────────────────────────────────────────────────────────────
+        applyLanguage(currentLang);
+
+        // Intersection Observer for scroll animations
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!prefersReducedMotion) {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+            document.querySelectorAll('.slide-up').forEach(el => {
+                el.style.animationPlayState = 'paused';
+                observer.observe(el);
+            });
+        }
+    </script>
+</body>
+</html>

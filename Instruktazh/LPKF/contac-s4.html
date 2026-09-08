@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Допуск к работе на LPKF Contac S4 — Инженер КИП</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --accent: #c9a227;
+            --text: #2d3748;
+            --muted: #718096;
+            --bg: #fafaf9;
+            --card: #ffffff;
+            --border: #e2e8f0;
+            --danger: #c53030;
+            --warning: #d69e2e;
+        }
+
+        body {
+            font-family: 'PT Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .font-narrow {
+            font-family: 'PT Sans Narrow', sans-serif;
+        }
+
+        .document {
+            background: var(--card);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .section-number {
+            background: linear-gradient(135deg, var(--danger) 0%, #9b2c2c 100%);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .header-stripe {
+            background: linear-gradient(90deg, var(--primary) 0%, #2c5282 50%, var(--primary) 100%);
+            height: 4px;
+        }
+
+        .accent-stripe {
+            background: var(--accent);
+            height: 2px;
+        }
+
+        .danger-box {
+            background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+            border-left: 4px solid var(--danger);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fffaf0 0%, #feebc8 100%);
+            border-left: 4px solid var(--warning);
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
+            border-left: 4px solid var(--primary);
+        }
+
+        @media print {
+            body { background: white; }
+            .document { box-shadow: none; }
+            .lang-switcher { display: none; }
+            #ack-form-section { display: none; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .slide-up {
+            animation: slideUp 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in, .slide-up {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        .logo-main {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+        }
+
+        .logo-jubilee {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+        }
+
+        /* Language switcher */
+        .lang-switcher {
+            display: flex;
+            gap: 4px;
+        }
+
+        .lang-btn {
+            padding: 4px 12px;
+            font-size: 12px;
+            font-family: 'PT Sans Narrow', sans-serif;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.15s;
+            letter-spacing: 0.05em;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* Form */
+        .form-input {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 9px 13px;
+            font-family: 'PT Sans', sans-serif;
+            font-size: 14px;
+            color: var(--text);
+            background: white;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+        }
+
+        .form-submit {
+            background: var(--primary);
+            color: white;
+            font-family: 'PT Sans Narrow', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            padding: 11px 28px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .form-submit:disabled {
+            background: var(--muted);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .form-submit:not(:disabled):hover {
+            background: #2c5282;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 54, 93, 0.3);
+        }
+
+        .status-box {
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+
+        .status-sending {
+            background: #ebf8ff;
+            border: 1px solid #bee3f8;
+            color: #2b6cb0;
+        }
+
+        .status-success {
+            background: #f0fff4;
+            border: 1px solid #9ae6b4;
+            color: #276749;
+        }
+
+        .status-error {
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            color: var(--danger);
+        }
+    </style>
+</head>
+<body class="min-h-screen py-8 px-4">
+    <div id="document" class="document max-w-4xl mx-auto rounded-lg overflow-hidden">
+
+        <!-- Header -->
+        <div class="header-stripe"></div>
+        <div class="accent-stripe"></div>
+
+        <div class="px-10 py-8 border-b border-[var(--border)]">
+
+            <!-- Language switcher -->
+            <div class="flex justify-end mb-3">
+                <div class="lang-switcher" role="group">
+                    <button class="lang-btn" data-lang="ru" onclick="setLanguage('ru')">РУС</button>
+                    <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">ENG</button>
+                    <button class="lang-btn" data-lang="kk" onclick="setLanguage('kk')">ҚАЗ</button>
+                </div>
+            </div>
+
+            <!-- Logos -->
+            <div class="logo-container mb-6">
+                <img src="https://z-cdn-media.chatglm.cn/files/0353fdbc-58ab-4f59-a7fd-85df90be9f4c.png?auth_key=1877374705-48b17b9768224eb4baa8edebe7b70d95-0-ca8685bf276b897f8ce93f00103a1821"
+                     alt="Логотип Инженерно-технической службы"
+                     class="logo-main">
+                <img src="https://z-cdn-media.chatglm.cn/files/fb25d888-4762-44e8-9189-ce08374a23f9.png?auth_key=1877540789-73669ef81d984f34b5589dea86900e76-0-aa01884582084149a5c6dbaa54d14073"
+                     alt="15 лет Назарбаев Университет"
+                     class="logo-jubilee">
+            </div>
+
+            <div class="text-center mb-4">
+                <div class="text-xs text-[var(--muted)] uppercase tracking-wider mb-2" data-i18n="deptLabel">
+                    Инженерно-техническая служба
+                </div>
+                <div class="font-narrow text-2xl font-bold text-[var(--primary)] leading-tight" data-i18n="universityName">
+                    НАЗАРБАЕВ УНИВЕРСИТЕТ
+                </div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <div class="inline-block px-4 py-1 bg-[var(--danger)] text-white text-xs uppercase tracking-widest rounded mb-4" data-i18n="safetyBadge">
+                    Инструкция по технике безопасности
+                </div>
+                <h1 class="font-narrow text-3xl md:text-4xl font-bold text-[var(--primary)] leading-tight" data-i18n="mainTitle">
+                    ДОПУСК К РАБОТЕ НА УСТАНОВКЕ МЕТАЛЛИЗАЦИИ LPKF CONTAC S4
+                </h1>
+                <h2 class="font-narrow text-xl md:text-2xl text-[var(--muted)] mt-2" data-i18n="mainSubtitle">
+                    Инструктаж по эксплуатации оборудования
+                </h2>
+                <p class="text-sm text-[var(--muted)] mt-3 max-w-xl mx-auto" data-i18n="introText">
+                    Допуск к самостоятельной работе на установке предоставляется Инженерно-технической службой (ETS) только после прохождения данного инструктажа. Пожалуйста, внимательно прочтите инструкцию и подтвердите ознакомление, указав свои контактные данные.
+                </p>
+            </div>
+
+            <div class="flex justify-between mt-8 text-sm text-[var(--muted)]">
+                <div>
+                    <span data-i18n="docNumberLabel">Номер документа:</span>
+                    <span class="font-bold text-[var(--text)]"> ИТ-ОТ-007</span>
+                </div>
+                <div>
+                    <span data-i18n="docDateLabel">Дата утверждения:</span>
+                    <span class="font-bold text-[var(--text)]" id="current-date"></span>
+                </div>
+            </div>
+
+            <div class="mt-4 text-center text-sm text-[var(--muted)]" data-i18n-html="contactLine">
+                Заявки и вопросы по работе установки: <a href="mailto:engineeringdesk@nu.edu.kz" class="font-bold text-[var(--primary)]">engineeringdesk@nu.edu.kz</a>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="px-10 py-8 space-y-8">
+
+            <!-- Section 1 -->
+            <section class="slide-up" style="animation-delay: 0.1s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">1</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s1Title">
+                            Установка, к которой предоставляется допуск
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)]" data-i18n="s1Body">
+                            В кабинете установлена система металлизации отверстий LPKF Contac S4, находящаяся на балансе и обслуживании Инженерно-технической службы (ETS). Установка предназначена для сквозной металлизации (химической и гальванической) отверстий двусторонних и многослойных печатных плат с последующим химическим лужением. Металлизации подлежат отверстия диаметром от 0,2 мм с соотношением сторон (глубина/диаметр) до 1:8. Допуск к самостоятельной работе выдаётся ETS только после прохождения данного инструктажа и цифрового подтверждения ознакомления.
+                        </p>
+                        <div class="danger-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]" data-i18n-html="s1Danger">
+                                <strong>Важно:</strong> заливать в ванны установки только реагенты, одобренные LPKF для данной системы. Запрещается использовать неодобренные химикаты, изменённое программное обеспечение или необорудованные материалы для металлизации без согласования с ETS.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2 -->
+            <section class="slide-up" style="animation-delay: 0.15s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">2</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s2Title">
+                            Общие требования техники безопасности
+                        </h3>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item1"><strong>Электробезопасность:</strong> прикосновение к токоведущим частям представляет прямую опасность для жизни. Работы на энергозависимых компонентах установки выполняет только квалифицированный электрик; запрещается шунтировать или отключать предохранители; перед любыми работами с токоведущими частями отключать питание на всё время работ; беречь от попадания влаги.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item2"><strong>Термическая опасность:</strong> жидкость в ванне очистки нагревается примерно до 55°C и может вызвать ожог при контакте с кожей. Избегать контакта с жидкостями, всегда использовать средства индивидуальной защиты.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item3"><strong>Химическая опасность:</strong> контакт с реагентами может вызвать ожоги кожи, раздражение и повреждение глаз, проблемы с дыхательными путями при вдыхании паров, химические ожоги при проглатывании. Перед началом работы изучить паспорта безопасности (SDS) используемых реагентов; работать только в помещении с кратностью воздухообмена не менее 4 раз в час; избегать прямого контакта с химикатами; немедленно снимать загрязнённую одежду; тщательно мыть руки после работы.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item4"><strong>Средства индивидуальной защиты обязательны:</strong> защитные очки от брызг (EN166), химически стойкие перчатки (EN ISO 374-1:2016) и закрытая рабочая одежда — надевать перед каждой работой с реагентами и загрузкой/выгрузкой платы.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item5"><strong>Механические опасности:</strong> моторизованная рама держателя платы движется во время процесса металлизации — не браться за раму руками во время работы. Крышка установки выполнена из безопасного стекла: при повреждении не трогать осколки руками, убирать пылесосом; если осколки попали в ванну — слить и отфильтровать раствор и обратиться в ETS/LPKF Service. Следить, чтобы шланги и кабели не создавали угрозу спотыкания; пролитую жидкость убирать немедленно — риск поскользнуться.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item6"><strong>Крышки ванн обязательны:</strong> неиспользуемые ванны всегда закрывать штатными крышками — это предотвращает случайный контакт с реагентами, снижает испарение и защищает растворы от загрязнения.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item7"><strong>Ванна активации требует особой осторожности:</strong> реагент активации крайне чувствителен к загрязнению и может стать непригодным даже при незначительном загрязнении. Всегда закрывать ванну крышкой, когда она не используется. Потери от испарения восполнять только тем же реагентом до отметки уровня — никогда не доливать простую воду.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item8"><strong>Только для обученного персонала:</strong> к самостоятельной работе допускаются только лица, прошедшие настоящий инструктаж и получившие допуск ETS. Допуск персональный и не может быть передан третьим лицам.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3 -->
+            <section class="slide-up" style="animation-delay: 0.2s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">3</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s3Title">
+                            Порядок работы
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">1</div>
+                                <p class="text-sm" data-i18n-html="s3Step1"><strong>Подготовка:</strong> убедиться, что температура в помещении 20–25°C; проверить уровень жидкости в ванне очистки; проверить ванну меднения на наличие кристаллов медного купороса и при необходимости вернуть их в раствор; подготовить рядом с установкой ёмкость-распылитель с дистиллированной или деионизированной водой.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">2</div>
+                                <p class="text-sm" data-i18n-html="s3Step2"><strong>Включение и выбор профиля:</strong> включить главный выключатель, включить установку кнопкой On/Off; на сенсорном экране выбрать профиль обработки, соответствующий типу и размеру платы.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">3</div>
+                                <p class="text-sm" data-i18n-html="s3Step3"><strong>Закрепление платы:</strong> установить плату в держатель по центру, надёжно затянуть винты; ополоснуть плату водой не менее 30 секунд перед началом обработки.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">4</div>
+                                <p class="text-sm" data-i18n-html="s3Step4"><strong>Последовательная обработка по ваннам:</strong> следовать инструкциям на экране — плата последовательно погружается в ванны очистки, кондиционирования, активации, доочистки, меднения и лужения; между ваннами плату ополаскивать водой; снятую крышку ванны класть в специальный держатель для крышек, а не в произвольное место.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">5</div>
+                                <p class="text-sm" data-i18n-html="s3Step5"><strong>Контроль процесса:</strong> не оставлять установку без присмотра во время цикла; не прикасаться к моторизованной раме держателя, пока она движется; следить за отсчётом времени и температурой на экране.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">6</div>
+                                <p class="text-sm" data-i18n-html="s3Step6"><strong>Завершение и выгрузка:</strong> после завершения последней фазы ополоснуть плату водой, быстро высушить тёплым воздухом и снять с держателя; убедиться, что ни одна плата не осталась в ваннах.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">7</div>
+                                <p class="text-sm" data-i18n-html="s3Step7"><strong>Выключение:</strong> закрыть все ванны штатными крышками; выключить установку через меню (Shutdown) на сенсорном экране либо удержанием кнопки On/Off.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">8</div>
+                                <p class="text-sm" data-i18n-html="s3Step8"><strong>После работы:</strong> привести рабочее место в порядок; отработанные реагенты и загрязнённые материалы утилизировать согласно правилам обращения с химическими отходами (см. раздел 5).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4 -->
+            <section class="slide-up" style="animation-delay: 0.25s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">4</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s4Title">
+                            Технологические ванны и реагенты
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)] mb-3" data-i18n="s4Intro">
+                            Установка имеет шесть технологических ванн, которые заполняются только реагентами, одобренными LPKF для данной системы. Точное соответствие номеров ванн реагентам указано на маркировке установки — при сомнениях сверяйтесь с ней, а не полагайтесь на память.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s4Item1Title">Очистка</div>
+                                <p class="text-sm" data-i18n="s4Item1Text">Реагент Cleaner 110, ванна нагревается примерно до 55°C.</p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s4Item2Title">Кондиционирование</div>
+                                <p class="text-sm" data-i18n="s4Item2Text">Реагент Cleaner 210, без нагрева.</p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s4Item3Title">Активация</div>
+                                <p class="text-sm" data-i18n="s4Item3Text">Реагент Activator 310 — чувствителен к загрязнению, восполнять испарение только этим же реагентом.</p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s4Item4Title">Доочистка отверстий</div>
+                                <p class="text-sm" data-i18n="s4Item4Text">Реагенты ViaCleaner Part 1 и Part 2.</p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s4Item5Title">Меднение</div>
+                                <p class="text-sm" data-i18n="s4Item5Text">Реагент Copper Plater 400, с автоматическим барботажем воздуха для равномерного меднения.</p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s4Item6Title">Лужение</div>
+                                <p class="text-sm" data-i18n="s4Item6Text">Электролизное олово (Electroless Tin Liquid) — перед погружением платы перемешать стеклопластиковой палочкой во избежание осаждения.</p>
+                            </div>
+                        </div>
+                        <div class="warning-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]" data-i18n-html="s4Note">
+                                Заливать в ванны только реагенты, указанные и одобренные LPKF для соответствующей ванны. Запрещается смешивать реагенты между собой или доливать воду вместо реагента (особенно в ванну активации) — это может безвозвратно испортить раствор. При сомнениях — уточнить у инженера ETS (<a href="mailto:engineeringdesk@nu.edu.kz" class="font-bold">engineeringdesk@nu.edu.kz</a>) до начала работы.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5 -->
+            <section class="slide-up" style="animation-delay: 0.3s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">5</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s5Title">
+                            Неисправности, аварии и обращение с реагентами
+                        </h3>
+                        <div class="warning-box p-4 rounded-r-lg space-y-2">
+                            <p class="text-sm" data-i18n-html="s5Item1"><strong>Разлив реагента:</strong> выключить установку и отсоединить от электропитания; убрать жидкость сухими бумажными полотенцами. При разливе реагента меднения (Copper Plater 400) на электрические компоненты — обязательно обратиться в LPKF Service и дать установке высохнуть при комнатной температуре не менее суток перед следующим включением.</p>
+                            <p class="text-sm" data-i18n-html="s5Item2"><strong>Повреждение стеклянной крышки:</strong> не трогать осколки руками, убрать пылесосом. Если осколки попали в ванну — слить и отфильтровать раствор, обратиться в ETS.</p>
+                            <p class="text-sm" data-i18n-html="s5Item3"><strong>Пожар или авария:</strong> немедленно выключить установку главным выключателем (положение «0» выполняет функцию аварийной остановки), по возможности отключить внешние компоненты от питания, эвакуировать людей из опасной зоны, если это безопасно. Держать под рукой средства первой помощи и пожаротушения, не загромождать пути эвакуации.</p>
+                            <p class="text-sm" data-i18n-html="s5Item4"><strong>Утилизация реагентов:</strong> отработанные химикаты запрещено сливать в канализацию — собирать в отдельные ёмкости для утилизации согласно установленным нормам. Сточные воды после промывки платы могут содержать медь в высокой концентрации и требуют очистки перед сбросом.</p>
+                            <p class="text-sm" data-i18n-html="s5Item5"><strong>Заявки, не требующие экстренного вмешательства</strong> (плановое обслуживание, вопросы по допуску и эксплуатации), направляются на <a href="mailto:engineeringdesk@nu.edu.kz" class="font-bold">engineeringdesk@nu.edu.kz</a>.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6 -->
+            <section class="slide-up" style="animation-delay: 0.35s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">6</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s6Title">
+                            Порядок получения допуска
+                        </h3>
+                        <div class="info-box p-4 rounded-r-lg">
+                            <p class="text-sm text-[var(--text)]" data-i18n-html="s6Body">
+                                Допуск к самостоятельной работе на установке предоставляется ETS индивидуально, по результатам прохождения настоящего инструктажа и цифрового подтверждения ознакомления. Допуск является персональным и не может быть передан другому сотруднику. ETS вправе отозвать допуск при нарушении правил эксплуатации или техники безопасности, а также назначить повторный инструктаж при изменении процедур или оборудования. Заявки на допуск и вопросы по планированию работ на установке направляются на <a href="mailto:engineeringdesk@nu.edu.kz" class="font-bold text-[var(--primary)]">engineeringdesk@nu.edu.kz</a>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Digital Acknowledgement Form -->
+        <div id="ack-form-section" class="px-10 py-8 border-t border-[var(--border)] bg-[var(--bg)]">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-8 h-8 rounded-full bg-[var(--primary)] text-white flex items-center justify-center flex-shrink-0">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                </div>
+                <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase" data-i18n="formTitle">
+                    Цифровое подтверждение ознакомления и запрос допуска
+                </h3>
+            </div>
+
+            <form id="ack-form" class="space-y-5 max-w-2xl" onsubmit="return false;">
+
+                <!-- Full Name -->
+                <div>
+                    <label for="form-fullname" class="block text-sm font-bold text-[var(--text)] mb-1" data-i18n="formNameLabel">ФИО</label>
+                    <input type="text" id="form-fullname" class="form-input" required
+                           data-i18n-placeholder="formNamePlaceholder"
+                           placeholder="Фамилия Имя Отчество"
+                           oninput="checkFormValidity()">
+                </div>
+
+                <!-- Position / Department -->
+                <div>
+                    <label for="form-position" class="block text-sm font-bold text-[var(--text)] mb-1" data-i18n="formPositionLabel">Должность / отдел</label>
+                    <input type="text" id="form-position" class="form-input" required
+                           data-i18n-placeholder="formPositionPlaceholder"
+                           placeholder="Напр.: Научный сотрудник, Лаборатория электроники"
+                           oninput="checkFormValidity()">
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label for="form-email" class="block text-sm font-bold text-[var(--text)] mb-1" data-i18n="formEmailLabel">Электронная почта</label>
+                    <input type="email" id="form-email" class="form-input" required
+                           data-i18n-placeholder="formEmailPlaceholder"
+                           placeholder="email@nu.edu.kz"
+                           oninput="checkFormValidity()">
+                </div>
+
+                <!-- Consent checkbox -->
+                <div class="flex items-start gap-3 p-4 bg-white rounded-lg border border-[var(--border)]">
+                    <input type="checkbox" id="form-consent"
+                           style="margin-top:2px; width:16px; height:16px; flex-shrink:0; accent-color: var(--primary);"
+                           onchange="checkFormValidity()">
+                    <label for="form-consent" class="text-sm text-[var(--text)] cursor-pointer" data-i18n="formConsentLabel">
+                        Я ознакомился(лась) с инструкцией по эксплуатации установки LPKF Contac S4 и обязуюсь соблюдать изложенные правила техники безопасности
+                    </label>
+                </div>
+
+                <!-- Submit button -->
+                <button type="button" id="form-submit" class="form-submit" disabled onclick="submitForm()">
+                    <span data-i18n="formSubmitBtn">ОТПРАВИТЬ ПОДТВЕРЖДЕНИЕ</span>
+                </button>
+            </form>
+
+            <!-- Status messages -->
+            <div id="status-sending" class="status-box status-sending" style="display:none;" data-i18n="formSending">Отправка…</div>
+            <div id="status-success" class="status-box status-success" style="display:none;" data-i18n="formSuccess">Подтверждение записано ✓</div>
+            <div id="status-error"   class="status-box status-error"   style="display:none;" data-i18n="formError">Ошибка отправки — попробуйте ещё раз</div>
+        </div>
+
+        <!-- Footer -->
+        <div class="accent-stripe"></div>
+        <div class="header-stripe"></div>
+    </div>
+
+    <script>
+        // ─── CONFIG ──────────────────────────────────────────────────────────────
+        const WEB_APP_URL = "https://script.google.com/a/macros/nu.edu.kz/s/AKfycbzJ7uKDIvDe04aUkRJVo0gqi1JuPLtTob-Qe58IZ2BNXiwXfxuuOQkMFYW2OHsD4poirg/exec";
+
+        // ─── TRANSLATIONS ────────────────────────────────────────────────────────
+        const translations = {
+            ru: {
+                pageTitle:        "Допуск к работе на LPKF Contac S4 — Инженер КИП",
+                deptLabel:        "Инженерно-техническая служба",
+                universityName:   "НАЗАРБАЕВ УНИВЕРСИТЕТ",
+                safetyBadge:      "Инструкция по технике безопасности",
+                mainTitle:        "ДОПУСК К РАБОТЕ НА УСТАНОВКЕ МЕТАЛЛИЗАЦИИ LPKF CONTAC S4",
+                mainSubtitle:     "Инструктаж по эксплуатации оборудования",
+                introText:        "Допуск к самостоятельной работе на установке предоставляется Инженерно-технической службой (ETS) только после прохождения данного инструктажа. Пожалуйста, внимательно прочтите инструкцию и подтвердите ознакомление, указав свои контактные данные.",
+                docNumberLabel:   "Номер документа:",
+                docDateLabel:     "Дата утверждения:",
+                contactLine:      "Заявки и вопросы по работе установки: <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold text-[var(--primary)]\">engineeringdesk@nu.edu.kz</a>",
+
+                s1Title: "Установка, к которой предоставляется допуск",
+                s1Body:  "В кабинете установлена система металлизации отверстий LPKF Contac S4, находящаяся на балансе и обслуживании Инженерно-технической службы (ETS). Установка предназначена для сквозной металлизации (химической и гальванической) отверстий двусторонних и многослойных печатных плат с последующим химическим лужением. Металлизации подлежат отверстия диаметром от 0,2 мм с соотношением сторон (глубина/диаметр) до 1:8. Допуск к самостоятельной работе выдаётся ETS только после прохождения данного инструктажа и цифрового подтверждения ознакомления.",
+                s1Danger: "<strong>Важно:</strong> заливать в ванны установки только реагенты, одобренные LPKF для данной системы. Запрещается использовать неодобренные химикаты, изменённое программное обеспечение или необорудованные материалы для металлизации без согласования с ETS.",
+
+                s2Title: "Общие требования техники безопасности",
+                s2Item1: "<strong>Электробезопасность:</strong> прикосновение к токоведущим частям представляет прямую опасность для жизни. Работы на энергозависимых компонентах установки выполняет только квалифицированный электрик; запрещается шунтировать или отключать предохранители; перед любыми работами с токоведущими частями отключать питание на всё время работ; беречь от попадания влаги.",
+                s2Item2: "<strong>Термическая опасность:</strong> жидкость в ванне очистки нагревается примерно до 55°C и может вызвать ожог при контакте с кожей. Избегать контакта с жидкостями, всегда использовать средства индивидуальной защиты.",
+                s2Item3: "<strong>Химическая опасность:</strong> контакт с реагентами может вызвать ожоги кожи, раздражение и повреждение глаз, проблемы с дыхательными путями при вдыхании паров, химические ожоги при проглатывании. Перед началом работы изучить паспорта безопасности (SDS) используемых реагентов; работать только в помещении с кратностью воздухообмена не менее 4 раз в час; избегать прямого контакта с химикатами; немедленно снимать загрязнённую одежду; тщательно мыть руки после работы.",
+                s2Item4: "<strong>Средства индивидуальной защиты обязательны:</strong> защитные очки от брызг (EN166), химически стойкие перчатки (EN ISO 374-1:2016) и закрытая рабочая одежда — надевать перед каждой работой с реагентами и загрузкой/выгрузкой платы.",
+                s2Item5: "<strong>Механические опасности:</strong> моторизованная рама держателя платы движется во время процесса металлизации — не браться за раму руками во время работы. Крышка установки выполнена из безопасного стекла: при повреждении не трогать осколки руками, убирать пылесосом; если осколки попали в ванну — слить и отфильтровать раствор и обратиться в ETS/LPKF Service. Следить, чтобы шланги и кабели не создавали угрозу спотыкания; пролитую жидкость убирать немедленно — риск поскользнуться.",
+                s2Item6: "<strong>Крышки ванн обязательны:</strong> неиспользуемые ванны всегда закрывать штатными крышками — это предотвращает случайный контакт с реагентами, снижает испарение и защищает растворы от загрязнения.",
+                s2Item7: "<strong>Ванна активации требует особой осторожности:</strong> реагент активации крайне чувствителен к загрязнению и может стать непригодным даже при незначительном загрязнении. Всегда закрывать ванну крышкой, когда она не используется. Потери от испарения восполнять только тем же реагентом до отметки уровня — никогда не доливать простую воду.",
+                s2Item8: "<strong>Только для обученного персонала:</strong> к самостоятельной работе допускаются только лица, прошедшие настоящий инструктаж и получившие допуск ETS. Допуск персональный и не может быть передан третьим лицам.",
+
+                s3Title: "Порядок работы",
+                s3Step1: "<strong>Подготовка:</strong> убедиться, что температура в помещении 20–25°C; проверить уровень жидкости в ванне очистки; проверить ванну меднения на наличие кристаллов медного купороса и при необходимости вернуть их в раствор; подготовить рядом с установкой ёмкость-распылитель с дистиллированной или деионизированной водой.",
+                s3Step2: "<strong>Включение и выбор профиля:</strong> включить главный выключатель, включить установку кнопкой On/Off; на сенсорном экране выбрать профиль обработки, соответствующий типу и размеру платы.",
+                s3Step3: "<strong>Закрепление платы:</strong> установить плату в держатель по центру, надёжно затянуть винты; ополоснуть плату водой не менее 30 секунд перед началом обработки.",
+                s3Step4: "<strong>Последовательная обработка по ваннам:</strong> следовать инструкциям на экране — плата последовательно погружается в ванны очистки, кондиционирования, активации, доочистки, меднения и лужения; между ваннами плату ополаскивать водой; снятую крышку ванны класть в специальный держатель для крышек, а не в произвольное место.",
+                s3Step5: "<strong>Контроль процесса:</strong> не оставлять установку без присмотра во время цикла; не прикасаться к моторизованной раме держателя, пока она движется; следить за отсчётом времени и температурой на экране.",
+                s3Step6: "<strong>Завершение и выгрузка:</strong> после завершения последней фазы ополоснуть плату водой, быстро высушить тёплым воздухом и снять с держателя; убедиться, что ни одна плата не осталась в ваннах.",
+                s3Step7: "<strong>Выключение:</strong> закрыть все ванны штатными крышками; выключить установку через меню (Shutdown) на сенсорном экране либо удержанием кнопки On/Off.",
+                s3Step8: "<strong>После работы:</strong> привести рабочее место в порядок; отработанные реагенты и загрязнённые материалы утилизировать согласно правилам обращения с химическими отходами (см. раздел 5).",
+
+                s4Title:      "Технологические ванны и реагенты",
+                s4Intro:      "Установка имеет шесть технологических ванн, которые заполняются только реагентами, одобренными LPKF для данной системы. Точное соответствие номеров ванн реагентам указано на маркировке установки — при сомнениях сверяйтесь с ней, а не полагайтесь на память.",
+                s4Item1Title: "Очистка",
+                s4Item1Text:  "Реагент Cleaner 110, ванна нагревается примерно до 55°C.",
+                s4Item2Title: "Кондиционирование",
+                s4Item2Text:  "Реагент Cleaner 210, без нагрева.",
+                s4Item3Title: "Активация",
+                s4Item3Text:  "Реагент Activator 310 — чувствителен к загрязнению, восполнять испарение только этим же реагентом.",
+                s4Item4Title: "Доочистка отверстий",
+                s4Item4Text:  "Реагенты ViaCleaner Part 1 и Part 2.",
+                s4Item5Title: "Меднение",
+                s4Item5Text:  "Реагент Copper Plater 400, с автоматическим барботажем воздуха для равномерного меднения.",
+                s4Item6Title: "Лужение",
+                s4Item6Text:  "Электролизное олово (Electroless Tin Liquid) — перед погружением платы перемешать стеклопластиковой палочкой во избежание осаждения.",
+                s4Note:       "Заливать в ванны только реагенты, указанные и одобренные LPKF для соответствующей ванны. Запрещается смешивать реагенты между собой или доливать воду вместо реагента (особенно в ванну активации) — это может безвозвратно испортить раствор. При сомнениях — уточнить у инженера ETS (<a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold\">engineeringdesk@nu.edu.kz</a>) до начала работы.",
+
+                s5Title: "Неисправности, аварии и обращение с реагентами",
+                s5Item1: "<strong>Разлив реагента:</strong> выключить установку и отсоединить от электропитания; убрать жидкость сухими бумажными полотенцами. При разливе реагента меднения (Copper Plater 400) на электрические компоненты — обязательно обратиться в LPKF Service и дать установке высохнуть при комнатной температуре не менее суток перед следующим включением.",
+                s5Item2: "<strong>Повреждение стеклянной крышки:</strong> не трогать осколки руками, убрать пылесосом. Если осколки попали в ванну — слить и отфильтровать раствор, обратиться в ETS.",
+                s5Item3: "<strong>Пожар или авария:</strong> немедленно выключить установку главным выключателем (положение «0» выполняет функцию аварийной остановки), по возможности отключить внешние компоненты от питания, эвакуировать людей из опасной зоны, если это безопасно. Держать под рукой средства первой помощи и пожаротушения, не загромождать пути эвакуации.",
+                s5Item4: "<strong>Утилизация реагентов:</strong> отработанные химикаты запрещено сливать в канализацию — собирать в отдельные ёмкости для утилизации согласно установленным нормам. Сточные воды после промывки платы могут содержать медь в высокой концентрации и требуют очистки перед сбросом.",
+                s5Item5: "<strong>Заявки, не требующие экстренного вмешательства</strong> (плановое обслуживание, вопросы по допуску и эксплуатации), направляются на <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold\">engineeringdesk@nu.edu.kz</a>.",
+
+                s6Title: "Порядок получения допуска",
+                s6Body:  "Допуск к самостоятельной работе на установке предоставляется ETS индивидуально, по результатам прохождения настоящего инструктажа и цифрового подтверждения ознакомления. Допуск является персональным и не может быть передан другому сотруднику. ETS вправе отозвать допуск при нарушении правил эксплуатации или техники безопасности, а также назначить повторный инструктаж при изменении процедур или оборудования. Заявки на допуск и вопросы по планированию работ на установке направляются на <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold text-[var(--primary)]\">engineeringdesk@nu.edu.kz</a>.",
+
+                formTitle:              "Цифровое подтверждение ознакомления и запрос допуска",
+                formNameLabel:          "ФИО",
+                formNamePlaceholder:    "Фамилия Имя Отчество",
+                formPositionLabel:      "Должность / отдел",
+                formPositionPlaceholder:"Напр.: Научный сотрудник, Лаборатория электроники",
+                formEmailLabel:         "Электронная почта",
+                formEmailPlaceholder:   "email@nu.edu.kz",
+                formConsentLabel:       "Я ознакомился(лась) с инструкцией по эксплуатации установки LPKF Contac S4 и обязуюсь соблюдать изложенные правила техники безопасности",
+                formSubmitBtn:          "ОТПРАВИТЬ ПОДТВЕРЖДЕНИЕ",
+                formSending:            "Отправка…",
+                formSuccess:            "Подтверждение записано ✓",
+                formError:              "Ошибка отправки — попробуйте ещё раз",
+            },
+
+            en: {
+                pageTitle:        "LPKF Contac S4 Access Briefing — ETS",
+                deptLabel:        "Engineering and Technical Services",
+                universityName:   "NAZARBAYEV UNIVERSITY",
+                safetyBadge:      "Safety Instruction",
+                mainTitle:        "ACCESS AUTHORIZATION FOR THE LPKF CONTAC S4 PLATING SYSTEM",
+                mainSubtitle:     "Equipment Operation Briefing",
+                introText:        "Authorization to operate the system independently is granted by Engineering and Technical Services (ETS) only after completing this briefing. Please read the instructions carefully and confirm your acknowledgement by providing your contact information.",
+                docNumberLabel:   "Document number:",
+                docDateLabel:     "Approval date:",
+                contactLine:      "Requests and questions regarding the system: <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold text-[var(--primary)]\">engineeringdesk@nu.edu.kz</a>",
+
+                s1Title: "System Covered by This Authorization",
+                s1Body:  "The room is equipped with an LPKF Contac S4 through-hole plating system owned and maintained by Engineering and Technical Services (ETS). The system performs through-hole plating (chemical and galvanic) of double-sided and multi-layer PCBs, followed by electroless tin plating. It can plate drilled holes with a diameter of at least 0.2 mm and an aspect ratio (depth/diameter) of up to 1:8. Authorization to operate the system independently is granted by ETS only after completing this briefing and submitting the digital acknowledgement.",
+                s1Danger: "<strong>Important:</strong> fill the tanks only with chemicals approved by LPKF for this system. Using unapproved chemicals, modified software, or unspecified materials for plating without ETS approval is prohibited.",
+
+                s2Title: "General Safety Requirements",
+                s2Item1: "<strong>Electrical safety:</strong> touching energized parts is a direct danger to life. Work on energized components of the system must be performed only by a qualified electrician; never bridge or deactivate fuses; de-energize the system before any work on energized parts and keep it de-energized for the entire duration; keep moisture away from energized parts.",
+                s2Item2: "<strong>Thermal hazard:</strong> the liquid in the cleaning tank is heated to approximately 55°C and can cause burns on skin contact. Avoid contact with the liquids and always wear personal protective equipment.",
+                s2Item3: "<strong>Chemical hazard:</strong> contact with the chemicals can cause skin burns, eye irritation and damage, respiratory problems from inhaling fumes, and chemical burns if ingested. Read the safety data sheets (SDS) for the chemicals before working with them; work only in a room with an air change rate of at least 4 per hour; avoid direct contact with the chemicals; take off contaminated clothing immediately; wash your hands thoroughly after work.",
+                s2Item4: "<strong>Personal protective equipment is mandatory:</strong> splash goggles (EN166), chemical-resistant gloves (EN ISO 374-1:2016), and closed work clothing — put these on before any work with the chemicals or loading/unloading a board.",
+                s2Item5: "<strong>Mechanical hazards:</strong> the motorized PCB holder frame moves during the plating process — do not grasp the frame while it is moving. The housing cover is made of safety glass: if damaged, do not touch the shards with bare hands, remove them with a vacuum cleaner; if glass falls into a tank, drain and filter the liquid and contact ETS/LPKF Service. Ensure hoses and cables do not create a tripping hazard; clean up spilled liquid immediately — slipping hazard.",
+                s2Item6: "<strong>Tank covers are mandatory:</strong> always cover tanks that are not in use with the provided covers — this prevents accidental contact with the chemicals, reduces evaporation, and protects the solutions from contamination.",
+                s2Item7: "<strong>The activation bath requires special care:</strong> the activation chemical is highly sensitive to contamination and can become unusable even from slight contamination. Always cover the tank when not in use. Replenish evaporation losses only with the same chemical, up to the fill mark — never top it up with plain water.",
+                s2Item8: "<strong>Trained personnel only:</strong> only individuals who have completed this briefing and received ETS authorization may operate the equipment independently. Authorization is personal and may not be transferred to a third party.",
+
+                s3Title: "Operating Procedure",
+                s3Step1: "<strong>Preparation:</strong> ensure the room temperature is 20–25°C; check the fill level of the cleaning tank; check the copper-plating tank for copper sulphate crystals and put them back into the bath if present; place a spray bottle of distilled or de-ionized water next to the system.",
+                s3Step2: "<strong>Switching on and selecting a profile:</strong> switch on the main switch, turn the system on with the On/Off button; on the touch screen, select the processing profile matching the board type and size.",
+                s3Step3: "<strong>Mounting the board:</strong> fasten the board into the holder, centered, and tighten the screws securely; rinse the board with water for at least 30 seconds before starting processing.",
+                s3Step4: "<strong>Sequential processing through the tanks:</strong> follow the on-screen instructions — the board is immersed in sequence in the cleaning, conditioning, activation, active-cleaning, copper-plating, and tin-plating tanks; rinse the board with water between tanks; place a removed tank cover into the designated cover holder, not anywhere else.",
+                s3Step5: "<strong>Monitoring the process:</strong> do not leave the system unattended during a cycle; do not touch the motorized holder frame while it is moving; watch the time countdown and temperature on screen.",
+                s3Step6: "<strong>Completion and unloading:</strong> once the final phase is complete, rinse the board with water, dry it quickly with warm air, and remove it from the holder; make sure no board is left in any of the tanks.",
+                s3Step7: "<strong>Shutdown:</strong> cover all tanks with the standard covers; shut the system down via the on-screen menu (Shutdown) or by holding the On/Off button.",
+                s3Step8: "<strong>After use:</strong> tidy up the work area; dispose of spent chemicals and contaminated materials according to the chemical waste procedures (see Section 5).",
+
+                s4Title:      "Process Tanks and Chemicals",
+                s4Intro:      "The system has six process tanks, which must be filled only with chemicals approved by LPKF for this system. The exact tank-to-chemical mapping is on the machine's labeling — check it rather than relying on memory if in doubt.",
+                s4Item1Title: "Cleaning",
+                s4Item1Text:  "Cleaner 110, tank heated to approximately 55°C.",
+                s4Item2Title: "Conditioning",
+                s4Item2Text:  "Cleaner 210, unheated.",
+                s4Item3Title: "Activation",
+                s4Item3Text:  "Activator 310 — sensitive to contamination; replenish evaporation only with the same chemical.",
+                s4Item4Title: "Active Cleaning (Vias)",
+                s4Item4Text:  "ViaCleaner Part 1 and Part 2.",
+                s4Item5Title: "Copper Plating",
+                s4Item5Text:  "Copper Plater 400, with automatic air injection for uniform copper deposition.",
+                s4Item6Title: "Tin Plating",
+                s4Item6Text:  "Electroless Tin Liquid — stir with a fiberglass rod before immersing the board to prevent sedimentation.",
+                s4Note:       "Fill each tank only with the chemical specified and approved by LPKF for that tank. Do not mix chemicals or top up with water instead of the chemical (especially in the activation tank) — this can permanently ruin the solution. If in doubt, check with an ETS engineer (<a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold\">engineeringdesk@nu.edu.kz</a>) before starting work.",
+
+                s5Title: "Faults, Emergencies, and Handling Chemicals",
+                s5Item1: "<strong>Chemical spill:</strong> switch off the system and disconnect it from the power supply; remove the liquid with dry paper towels. If Copper Plater 400 has been spilled onto electrical components, contact LPKF Service and let the system dry at room temperature for at least one day before the next start-up.",
+                s5Item2: "<strong>Damaged glass cover:</strong> do not touch the shards with bare hands, remove them with a vacuum cleaner. If glass has fallen into a tank, drain and filter the liquid and contact ETS.",
+                s5Item3: "<strong>Fire or accident:</strong> immediately switch off the system at the main switch (position \"0\" serves as the emergency stop), disconnect external components from power if possible, and evacuate people from the danger zone if it is safe to do so. Keep first aid and fire-fighting equipment on hand and keep evacuation routes clear.",
+                s5Item4: "<strong>Chemical disposal:</strong> spent chemicals must never be poured down the drain — collect them in designated containers for disposal per applicable regulations. Wastewater from rinsing boards can have a high copper content and requires treatment before discharge.",
+                s5Item5: "<strong>Non-urgent requests</strong> (planned maintenance, access questions, general operating questions) should be sent to <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold\">engineeringdesk@nu.edu.kz</a>.",
+
+                s6Title: "Authorization Process",
+                s6Body:  "Authorization to operate the system independently is granted by ETS on an individual basis, after completion of this briefing and submission of the digital acknowledgement. Authorization is personal and may not be transferred to another employee. ETS may revoke authorization for violations of operating or safety rules, and may require a refresher briefing if procedures or equipment change. Access requests and scheduling questions regarding the system should be sent to <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold text-[var(--primary)]\">engineeringdesk@nu.edu.kz</a>.",
+
+                formTitle:              "Digital Acknowledgement and Access Request",
+                formNameLabel:          "Full Name",
+                formNamePlaceholder:    "First name Last name",
+                formPositionLabel:      "Position / Department",
+                formPositionPlaceholder:"e.g., Researcher, Electronics Lab",
+                formEmailLabel:         "Email",
+                formEmailPlaceholder:   "email@nu.edu.kz",
+                formConsentLabel:       "I have read the LPKF Contac S4 operating instructions and commit to following the safety rules described above",
+                formSubmitBtn:          "SUBMIT ACKNOWLEDGEMENT",
+                formSending:            "Sending…",
+                formSuccess:            "Acknowledgement recorded ✓",
+                formError:              "Submission error — please try again",
+            },
+
+            kk: {
+                pageTitle:        "LPKF Contac S4 рұқсат алу нұсқаулығы — ETS", // CHECK
+                deptLabel:        "Инженерлік-техникалық қызмет",
+                universityName:   "НАЗАРБАЕВ УНИВЕРСИТЕТІ",
+                safetyBadge:      "Қауіпсіздік техникасы нұсқаулығы",
+                mainTitle:        "LPKF CONTAC S4 МЕТАЛДАНДЫРУ ҚОНДЫРҒЫСЫНДА ЖҰМЫС ІСТЕУГЕ РҰҚСАТ", // CHECK
+                mainSubtitle:     "Жабдықты пайдалану жөніндегі нұсқаулық", // CHECK
+                introText:        "Қондырғыда дербес жұмыс істеуге рұқсатты Инженерлік-техникалық қызмет (ETS) осы нұсқаулықтан өткеннен кейін ғана береді. Нұсқаулықты мұқият оқып шығып, байланыс деректеріңізді көрсету арқылы танысқаныңызды растаңыз.", // CHECK
+                docNumberLabel:   "Құжат нөмірі:",
+                docDateLabel:     "Бекіту күні:",
+                contactLine:      "Қондырғының жұмысына қатысты өтінімдер мен сұрақтар: <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold text-[var(--primary)]\">engineeringdesk@nu.edu.kz</a>", // CHECK
+
+                s1Title: "Рұқсат берілетін қондырғы", // CHECK
+                s1Body:  "Кабинетте Инженерлік-техникалық қызметтің (ETS) теңгерімінде және қызмет көрсетуінде тұрған LPKF Contac S4 тесіктерді металдандыру қондырғысы орнатылған. Қондырғы екі жақты және көп қабатты платалардың тесіктерін сквозной металдандыруға (химиялық және гальваникалық) және кейіннен химиялық қалайылауға арналған. Диаметрі 0,2 мм-ден бастап, ара қатынасы (тереңдігі/диаметрі) 1:8-ге дейінгі бұрғыланған тесіктер металдандырылады. Дербес жұмыс істеуге рұқсатты ETS осы нұсқаулықтан өтіп, танысуды электрондық түрде растағаннан кейін ғана береді.", // CHECK
+                s1Danger: "<strong>Маңызды:</strong> қондырғының ваннaларына тек LPKF осы жүйе үшін мақұлдаған реагенттерді ғана құйыңыз. ETS-пен келісусіз мақұлданбаған химикаттарды, өзгертілген бағдарламалық жасақтаманы немесе металдандыруға арналмаған материалдарды пайдалануға тыйым салынады.", // CHECK
+
+                s2Title: "Жалпы қауіпсіздік техникасы талаптары", // CHECK
+                s2Item1: "<strong>Электр қауіпсіздігі:</strong> кернеу астындағы бөліктерге тию өмірге тікелей қауіп төндіреді. Қондырғының кернеу астындағы компоненттерімен жұмысты тек білікті электрик орындайды; сақтандырғыштарды шунттауға немесе өшіруге тыйым салынады; кернеу астындағы бөліктермен кез келген жұмыс алдында қоректенуді жұмыс уақытының соңына дейін өшіру; ылғалдың түсуінен сақтау.", // CHECK
+                s2Item2: "<strong>Термиялық қауіп:</strong> тазалау ваннасындағы сұйықтық шамамен 55°C-қа дейін қызады және теріге тигенде күйдіруі мүмкін. Сұйықтықтармен жанасудан аулақ болыңыз, әрқашан жеке қорғаныш құралдарын пайдаланыңыз.", // CHECK
+                s2Item3: "<strong>Химиялық қауіп:</strong> реагенттермен жанасу теріде күйік, көздің тітіркенуі мен зақымдалуы, буларды жұтқанда тыныс алу жолдарының проблемалары, жұтылған жағдайда химиялық күйіктер тудыруы мүмкін. Жұмысты бастамас бұрын пайдаланылатын реагенттердің қауіпсіздік паспорттарын (SDS) оқып шығыңыз; сағатына кемінде 4 рет ауа алмасатын үй-жайда ғана жұмыс істеңіз; химикаттармен тікелей жанасудан аулақ болыңыз; ластанған киімді дереу шешіңіз; жұмыстан кейін қолыңызды мұқият жуыңыз.", // CHECK
+                s2Item4: "<strong>Жеке қорғаныш құралдары міндетті:</strong> шашырауға қарсы көзілдірік (EN166), химиялық төзімді қолғаптар (EN ISO 374-1:2016) және жабық жұмыс киімі — реагенттермен жұмыс істеу және платаны тиеу/түсіру алдында әрдайым киіңіз.", // CHECK
+                s2Item5: "<strong>Механикалық қауіптер:</strong> металдандыру процесі кезінде плата ұстағышының моторлы рамасы қозғалады — жұмыс кезінде рамадан қолмен ұстамаңыз. Қондырғының қақпағы қауіпсіз шыныдан жасалған: зақымдалған жағдайда сынықтарды қолмен ұстамаңыз, шаңсорғышпен жинаңыз; сынықтар ваннаға түссе — ерітіндіні төгіп, сүзіп алыңыз және ETS/LPKF Service қызметіне хабарласыңыз. Шлангілер мен кабельдердің сүрінуге қауіп төндірмеуін қадағалаңыз; төгілген сұйықтықты дереу жойыңыз — сырғанап құлау қаупі бар.", // CHECK
+                s2Item6: "<strong>Ванна қақпақтары міндетті:</strong> пайдаланылмайтын ваннaларды әрдайым штаттық қақпақтармен жабыңыз — бұл реагенттермен кездейсоқ жанасуды болдырмайды, булануды азайтады және ерітінділерді ластанудан қорғайды.", // CHECK
+                s2Item7: "<strong>Активация ваннасы ерекше сақтықты талап етеді:</strong> активация реагенті ластануға өте сезімтал және аз ғана ластанғанда жарамсыз болып қалуы мүмкін. Пайдаланылмаған кезде ваннaны әрдайым қақпақпен жабыңыз. Булану шығынын тек сол реагентпен деңгей белгісіне дейін толықтырыңыз — ешқашан кәдімгі су құймаңыз.", // CHECK
+                s2Item8: "<strong>Тек оқытылған персонал үшін:</strong> дербес жұмыс істеуге тек осы нұсқаулықтан өтіп, ETS рұқсатын алған адамдар ғана жіберіледі. Рұқсат жеке болып табылады және үшінші тұлғаларға берілмейді.", // CHECK
+
+                s3Title: "Жұмыс тәртібі", // CHECK
+                s3Step1: "<strong>Дайындық:</strong> үй-жайдағы температураның 20–25°C болуын қамтамасыз етіңіз; тазалау ваннасындағы сұйықтық деңгейін тексеріңіз; мыстандыру ваннасында мыс купоросы кристалдарының бар-жоғын тексеріп, болса ерітіндіге қайтарыңыз; қондырғының жанына дистилденген немесе деионизденген су құйылған бүріккіш ыдыс қойыңыз.", // CHECK
+                s3Step2: "<strong>Қосу және профильді таңдау:</strong> негізгі ажыратқышты қосыңыз, қондырғыны On/Off түймесімен қосыңыз; сенсорлық экранда платаның түрі мен өлшеміне сәйкес өңдеу профилін таңдаңыз.", // CHECK
+                s3Step3: "<strong>Платаны бекіту:</strong> платаны ұстағышқа ортасына түсіріп орнатыңыз, бұрандаларды сенімді тартыңыз; өңдеуді бастамас бұрын платаны кемінде 30 секунд сумен шайыңыз.", // CHECK
+                s3Step4: "<strong>Ванналар бойынша кезекті өңдеу:</strong> экрандағы нұсқауларды орындаңыз — плата кезекпен тазалау, кондициялау, активация, доочистка, мыстандыру және қалайылау ванналарына батырылады; ванналар арасында платаны сумен шайыңыз; шешілген ванна қақпағын кездейсоқ жерге емес, арнайы қақпақ ұстағышына қойыңыз.", // CHECK
+                s3Step5: "<strong>Процесті бақылау:</strong> цикл барысында қондырғыны қараусыз қалдырмаңыз; ұстағыштың моторлы рамасы қозғалып тұрғанда оған тимеңіз; экрандағы уақыт санағы мен температураны бақылаңыз.", // CHECK
+                s3Step6: "<strong>Аяқтау және түсіру:</strong> соңғы фаза аяқталғаннан кейін платаны сумен шайыңыз, жылы ауамен жылдам кептіріңіз және ұстағыштан алыңыз; ешбір плата ваннaларда қалмағанына көз жеткізіңіз.", // CHECK
+                s3Step7: "<strong>Өшіру:</strong> барлық ваннaларды штаттық қақпақтармен жабыңыз; қондырғыны сенсорлық экрандағы мәзір арқылы (Shutdown) немесе On/Off түймесін басып тұру арқылы өшіріңіз.", // CHECK
+                s3Step8: "<strong>Жұмыстан кейін:</strong> жұмыс орнын ретке келтіріңіз; пайдаланылған реагенттер мен ластанған материалдарды химиялық қалдықтармен жұмыс істеу ережелеріне сәйкес утилизациялаңыз (5-бөлімді қараңыз).", // CHECK
+
+                s4Title:      "Технологиялық ваннaлар мен реагенттер", // CHECK
+                s4Intro:      "Қондырғыда алты технологиялық ванна бар, олар тек LPKF осы жүйе үшін мақұлдаған реагенттермен толтырылады. Ванна нөмірлерінің реагенттерге дәл сәйкестігі қондырғының таңбалауында көрсетілген — күмәніңіз болса, жадыға сенбей, соны тексеріңіз.", // CHECK
+                s4Item1Title: "Тазалау", // CHECK
+                s4Item1Text:  "Cleaner 110 реагенті, ванна шамамен 55°C-қа дейін қызады.", // CHECK
+                s4Item2Title: "Кондициялау", // CHECK
+                s4Item2Text:  "Cleaner 210 реагенті, қыздырусыз.", // CHECK
+                s4Item3Title: "Активация", // CHECK
+                s4Item3Text:  "Activator 310 реагенті — ластануға сезімтал, буланғанды тек сол реагентпен толықтырыңыз.", // CHECK
+                s4Item4Title: "Тесіктерді доочистка жасау", // CHECK
+                s4Item4Text:  "ViaCleaner Part 1 және Part 2 реагенттері.", // CHECK
+                s4Item5Title: "Мыстандыру", // CHECK
+                s4Item5Text:  "Copper Plater 400 реагенті, біркелкі мыстандыру үшін автоматты ауа үрлеумен.", // CHECK
+                s4Item6Title: "Қалайылау", // CHECK
+                s4Item6Text:  "Electroless Tin Liquid (электролизсіз қалайы) — платаны батырмас бұрын шөгуді болдырмау үшін шыны талшықты таяқшамен араластырыңыз.", // CHECK
+                s4Note:       "Әрбір ваннaға тек сол ванна үшін LPKF көрсеткен және мақұлдаған реагентті құйыңыз. Реагенттерді бір-бірімен араластыруға немесе реагенттің орнына су құюға (әсіресе активация ваннасына) тыйым салынады — бұл ерітіндіні қайтымсыз бұзуы мүмкін. Күмәніңіз болса — жұмысты бастамас бұрын ETS инженерінен (<a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold\">engineeringdesk@nu.edu.kz</a>) сұраңыз.", // CHECK
+
+                s5Title: "Ақаулар, апаттар және реагенттермен жұмыс", // CHECK
+                s5Item1: "<strong>Реагенттің төгілуі:</strong> қондырғыны өшіріп, электр қоректенуден ажыратыңыз; сұйықтықты құрғақ қағаз сүлгілермен жойыңыз. Мыстандыру реагенті (Copper Plater 400) электр компоненттеріне төгілсе — міндетті түрде LPKF Service қызметіне хабарласыңыз және келесі қосу алдында қондырғыны бөлме температурасында кемінде бір тәулік кептіріңіз.", // CHECK
+                s5Item2: "<strong>Шыны қақпақтың зақымдалуы:</strong> сынықтарды қолмен ұстамаңыз, шаңсорғышпен жинаңыз. Сынықтар ваннaға түссе — ерітіндіні төгіп, сүзіп алыңыз, ETS-ке хабарласыңыз.", // CHECK
+                s5Item3: "<strong>Өрт немесе апат:</strong> қондырғыны негізгі ажыратқышпен дереу өшіріңіз («0» күйі авариялық тоқтату қызметін атқарады), мүмкіндігінше сыртқы компоненттерді қоректенуден ажыратыңыз, қауіпсіз болса адамдарды қауіпті аймақтан эвакуациялаңыз. Алғашқы көмек және өрт сөндіру құралдарын қолда ұстаңыз, эвакуация жолдарын бос қалдырыңыз.", // CHECK
+                s5Item4: "<strong>Реагенттерді утилизациялау:</strong> пайдаланылған химикаттарды кәрізге құюға тыйым салынады — оларды белгіленген нормаларға сәйкес утилизациялау үшін бөлек ыдыстарға жинаңыз. Платаны шаю кезінде түзілетін ағынды сулардың мыс концентрациясы жоғары болуы мүмкін және ағызар алдында тазартуды қажет етеді.", // CHECK
+                s5Item5: "<strong>Жедел араласуды қажет етпейтін өтінімдер</strong> (жоспарлы қызмет көрсету, рұқсат және пайдалану бойынша сұрақтар) <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold\">engineeringdesk@nu.edu.kz</a> мекенжайына жіберіледі.", // CHECK
+
+                s6Title: "Рұқсат алу тәртібі", // CHECK
+                s6Body:  "Қондырғыда дербес жұмыс істеуге рұқсатты ETS осы нұсқаулықтан өту және танысуды электрондық түрде растау нәтижелері бойынша жеке тәртіппен береді. Рұқсат жеке болып табылады және басқа қызметкерге берілмейді. ETS пайдалану немесе қауіпсіздік техникасы ережелерін бұзған жағдайда рұқсатты кері қайтарып алуға, сондай-ақ рәсімдер немесе жабдық өзгерген кезде қайта нұсқаулық тағайындауға құқылы. Қондырғыға рұқсат алу және жұмыстарды жоспарлау бойынша өтінімдер <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold text-[var(--primary)]\">engineeringdesk@nu.edu.kz</a> мекенжайына жіберіледі.", // CHECK
+
+                formTitle:              "Танысуды электрондық растау және рұқсатқа өтінім", // CHECK
+                formNameLabel:          "Тегі, аты, әкесінің аты",
+                formNamePlaceholder:    "Тегіңіз Атыңыз",
+                formPositionLabel:      "Лауазымы / бөлімше",
+                formPositionPlaceholder:"Мысалы: Зерттеуші, Электроника зертханасы",
+                formEmailLabel:         "Электрондық пошта",
+                formEmailPlaceholder:   "email@nu.edu.kz",
+                formConsentLabel:       "Мен LPKF Contac S4 қондырғысын пайдалану жөніндегі нұсқаулықпен таныстым және жоғарыда көрсетілген қауіпсіздік техникасы ережелерін сақтауға міндеттенемін", // CHECK
+                formSubmitBtn:          "РАСТАУДЫ ЖІБЕРУ",
+                formSending:            "Жіберілуде…", // CHECK
+                formSuccess:            "Растау тіркелді ✓", // CHECK
+                formError:              "Жіберу қатесі — қайталап көріңіз", // CHECK
+            },
+        };
+
+        // ─── STATE ───────────────────────────────────────────────────────────────
+        let currentLang = localStorage.getItem('lang') || 'ru';
+        let currentStatus = null; // 'sending' | 'success' | 'error' | null
+
+        // ─── LANGUAGE ────────────────────────────────────────────────────────────
+        function applyLanguage(lang) {
+            const t = translations[lang];
+
+            document.documentElement.lang = lang;
+            document.title = t.pageTitle;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (t[key] !== undefined) el.textContent = t[key];
+            });
+
+            document.querySelectorAll('[data-i18n-html]').forEach(el => {
+                const key = el.dataset.i18nHtml;
+                if (t[key] !== undefined) el.innerHTML = t[key];
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.dataset.i18nPlaceholder;
+                if (t[key] !== undefined) el.placeholder = t[key];
+            });
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            updateDate(lang);
+
+            // Re-apply current status text after language switch
+            if (currentStatus) showStatus(currentStatus);
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            applyLanguage(lang);
+        }
+
+        function updateDate(lang) {
+            const locales = { ru: 'ru-RU', en: 'en-GB', kk: 'kk-KZ' };
+            const el = document.getElementById('current-date');
+            if (!el) return;
+            try {
+                el.textContent = ' ' + new Date().toLocaleDateString(locales[lang] || 'ru-RU', {
+                    day: '2-digit', month: 'long', year: 'numeric'
+                });
+            } catch (e) {
+                el.textContent = ' ' + new Date().toLocaleDateString('ru-RU', {
+                    day: '2-digit', month: 'long', year: 'numeric'
+                });
+            }
+        }
+
+        // ─── FORM ────────────────────────────────────────────────────────────────
+        function checkFormValidity() {
+            const name     = document.getElementById('form-fullname').value.trim();
+            const position = document.getElementById('form-position').value.trim();
+            const email    = document.getElementById('form-email').value.trim();
+            const consent  = document.getElementById('form-consent').checked;
+            const emailOk  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+            const btn = document.getElementById('form-submit');
+            btn.disabled = !(name && position && email && emailOk && consent);
+        }
+
+        function showStatus(id) {
+            ['sending', 'success', 'error'].forEach(s => {
+                document.getElementById('status-' + s).style.display = (s === id) ? 'block' : 'none';
+            });
+            currentStatus = id;
+        }
+
+        function hideStatus() {
+            ['sending', 'success', 'error'].forEach(s => {
+                document.getElementById('status-' + s).style.display = 'none';
+            });
+            currentStatus = null;
+        }
+
+        async function submitForm() {
+            const fullName   = document.getElementById('form-fullname').value.trim();
+            const position   = document.getElementById('form-position').value.trim();
+            const email      = document.getElementById('form-email').value.trim();
+            const lang       = currentLang;
+            const clientTime = new Date().toISOString();
+
+            const btn = document.getElementById('form-submit');
+            btn.disabled = true;
+            showStatus('sending');
+
+            const body = new URLSearchParams({ fullName, position, email, lang, clientTime });
+
+            try {
+                await fetch(WEB_APP_URL, {
+                    method:  'POST',
+                    mode:    'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body:    body.toString(),
+                });
+                showStatus('success');
+                // Lock form after success to prevent duplicates
+                document.getElementById('ack-form').querySelectorAll('input').forEach(el => el.disabled = true);
+            } catch (err) {
+                showStatus('error');
+                btn.disabled = false;
+            }
+        }
+
+        // ─── INIT ────────────────────────────────────────────────────────────────
+        applyLanguage(currentLang);
+
+        // Intersection Observer for scroll animations
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!prefersReducedMotion) {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+            document.querySelectorAll('.slide-up').forEach(el => {
+                el.style.animationPlayState = 'paused';
+                observer.observe(el);
+            });
+        }
+    </script>
+</body>
+</html>
