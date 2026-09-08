@@ -13,3 +13,10 @@
 6. ДОПУСК К РАБОТЕ НА ЛАЗЕРНОМ СТАНКЕ LPKF PROTOLASER U4 https://m100ika.github.io/Instructions/Instruktazh/LPKF/index.html
 7. ДОПУСК К РАБОТЕ НА УСТАНОВКЕ МЕТАЛЛИЗАЦИИ LPKF CONTAC S4 https://m100ika.github.io/Instructions/Instruktazh/LPKF/contac-s4.html
 8. ПРОВЕРКА БОКСОВ МИКРОБИОЛОГИЧЕСКОЙ БЕЗОПАСНОСТИ II КЛАССА https://m100ika.github.io/Instructions/Instruktazh/biosafety_cabinets/index.html
+
+
+
+Таблицы с подтверждениями о прохождении инструктажа:
+1. LPKF U4 - https://docs.google.com/spreadsheets/d/1KspiDa4AvZkloeopcTrkLREnTowOx0Khg7cRXjzpbic/edit?gid=235548576#gid=235548576
+2. LPKF Contact S4 - https://docs.google.com/spreadsheets/d/1MfdOPjefG7KZ1--VGEJNzeBKqs8oF92_5cB9JkuBou8/edit?gid=1041515687#gid=1041515687
+3. C4 616 Autoclave - https://docs.google.com/spreadsheets/d/1M8oWCe0yqsR4spwBHVQXflUGzY0_Pjw5Yx6merQn4BU/edit?gid=1056417782#gid=1056417782
