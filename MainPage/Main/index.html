@@ -1,1586 +1,304 @@
 <!DOCTYPE html>
-<html lang="ru">
-
+<html class="dark scroll-smooth" lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ИТС НУ — Инженерно-техническая служба</title>
-    <link rel="icon" type="image/png" href="../../Media/Icon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
-        :root {
-            --bg-main: #ffffff;
-            --text-primary: #111827;
-            --text-secondary: #6b7280;
-            --border-color: #e5e7eb;
-            --construct-red: #b91c1c;
-            --construct-black: #000000;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            line-height: 1.6;
-            font-weight: 400;
-            overflow-x: hidden;
-        }
-
-        /* --- НАВИГАЦИЯ --- */
-        nav {
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 2px solid var(--construct-black);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 12px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-        }
-
-        .logo-area img {
-            height: 35px;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 700;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--construct-red);
-        }
-
-        .mobile-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* --- СТРАНИЦЫ --- */
-        .page {
-            display: none;
-            padding-top: 60px;
-            min-height: 100vh;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 80px 40px;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4 {
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
-        }
-
-        h1 {
-            font-size: 4.5rem;
-            font-weight: 900;
-            line-height: 1;
-            margin-bottom: 24px;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 50px;
-            border-left: 5px solid var(--construct-black);
-            padding-left: 20px;
-        }
-
-        h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-        }
-
-        /* --- КНОПКИ --- */
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background-color: var(--construct-red);
-            color: #fff;
-            padding: 16px 32px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            cursor: pointer;
-            border: 2px solid var(--construct-red);
-            transition: all 0.3s;
-        }
-
-        .btn-primary:hover {
-            background-color: #fff;
-            color: var(--construct-red);
-        }
-
-        .btn-outline {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background-color: transparent;
-            color: var(--construct-black);
-            padding: 16px 32px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            cursor: pointer;
-            border: 2px solid var(--construct-black);
-            transition: all 0.3s;
-        }
-
-        .btn-outline:hover {
-            background-color: var(--construct-black);
-            color: #fff;
-        }
-
-        .btn-disabled {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background-color: var(--border-color);
-            color: var(--text-secondary);
-            padding: 16px 32px;
-            font-weight: 800;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            cursor: not-allowed;
-            border: 2px solid var(--border-color);
-        }
-
-        /* --- ГЛАВНАЯ СТРАНИЦА --- */
-
-        /* 3.1 Hero */
-        .hero-construct {
-            position: relative;
-            background: var(--bg-main);
-            min-height: calc(100vh - 60px);
-            display: flex;
-            align-items: center;
-            border-bottom: 2px solid var(--construct-black);
-        }
-
-        .hero-grid {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 40px;
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #f0fdf4;
-            color: #166534;
-            padding: 8px 16px;
-            border: 1px solid #166534;
-            font-weight: 800;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #166534;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(22, 101, 52, 0.7);
-            }
-
-            70% {
-                box-shadow: 0 0 0 10px rgba(22, 101, 52, 0);
-            }
-
-            100% {
-                box-shadow: 0 0 0 0 rgba(22, 101, 52, 0);
-            }
-        }
-
-        .geo-circle {
-            position: absolute;
-            width: 350px;
-            height: 350px;
-            border: 2px solid var(--border-color);
-            border-radius: 50%;
-            top: 15%;
-            right: 5%;
-            z-index: 0;
-        }
-
-        /* 3.2 Статистика */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            border-top: 2px solid var(--construct-black);
-            border-bottom: 2px solid var(--construct-black);
-        }
-
-        .stat-item {
-            padding: 40px;
-            border-right: 1px solid var(--border-color);
-        }
-
-        .stat-item:last-child {
-            border-right: none;
-        }
-
-        .stat-num {
-            font-size: 3.5rem;
-            font-weight: 900;
-            line-height: 1;
-        }
-
-        .stat-desc {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-secondary);
-            margin-top: 10px;
-            font-weight: 600;
-        }
-
-        /* 3.3 О службе и помещения */
-        .about-section-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 60px;
-            align-items: start;
-        }
-
-        .premises-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0;
-            border: 1px solid var(--construct-black);
-        }
-
-        .premise-cell {
-            padding: 20px;
-            border-right: 1px solid var(--construct-black);
-            border-bottom: 1px solid var(--construct-black);
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: background 0.2s;
-        }
-
-        .premise-cell:hover {
-            background-color: var(--text-primary);
-            color: #fff;
-        }
-
-        .premise-cell:nth-child(3n) {
-            border-right: none;
-        }
-
-        .premise-cell:nth-child(n+4) {
-            border-bottom: none;
-        }
-
-        /* 3.4 & 3.5 Виды работ и Услуги (Сетки) */
-        .work-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0;
-            border: 1px solid var(--construct-black);
-        }
-
-        .work-card {
-            padding: 30px;
-            border-right: 1px solid var(--construct-black);
-            border-bottom: 1px solid var(--construct-black);
-            transition: background 0.2s;
-        }
-
-        .work-card:nth-child(3n) {
-            border-right: none;
-        }
-
-        .work-card:nth-child(n+4) {
-            border-bottom: none;
-        }
-
-        .work-card:hover {
-            background-color: #f9fafb;
-        }
-
-        .work-card i {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--construct-red);
-        }
-
-        .service-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0;
-            border: 1px solid var(--construct-black);
-        }
-
-        .service-card {
-            padding: 25px;
-            border-right: 1px solid var(--construct-black);
-            border-bottom: 1px solid var(--construct-black);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: all 0.2s;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .service-card:nth-child(3n) {
-            border-right: none;
-        }
-
-        .service-card:nth-child(n+4) {
-            border-bottom: none;
-        }
-
-        .service-card:hover {
-            background-color: var(--construct-black);
-            color: #fff;
-        }
-
-        .service-card:hover .service-arrow {
-            transform: translateX(5px);
-            color: var(--construct-red);
-        }
-
-        .service-title {
-            font-weight: 700;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-        }
-
-        .service-arrow {
-            margin-left: auto;
-            font-size: 1.2rem;
-            transition: all 0.2s;
-        }
-
-        /* 3.6 IoT Диспетчерская */
-        .iot-block {
-            background: var(--text-primary);
-            color: #fff;
-            padding: 60px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .iot-block::before {
-            content: 'IoT';
-            position: absolute;
-            right: -20px;
-            top: -40px;
-            font-size: 15rem;
-            font-weight: 900;
-            color: rgba(255, 255, 255, 0.05);
-            pointer-events: none;
-        }
-
-        .badge-soon {
-            display: inline-block;
-            background: var(--construct-red);
-            color: #fff;
-            padding: 4px 10px;
-            font-size: 0.8rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-        }
-
-        /* 3.7 Контакты */
-        .contacts-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 0;
-            border: 1px solid var(--construct-black);
-        }
-
-        .contact-left {
-            padding: 40px;
-            border-right: 1px solid var(--construct-black);
-        }
-
-        .contact-item {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            align-items: flex-start;
-        }
-
-        .contact-item i {
-            color: var(--construct-red);
-            font-size: 1.2rem;
-            margin-top: 3px;
-        }
-
-        .contact-right {
-            padding: 40px;
-            background-color: #f9fafb;
-        }
-
-        .schedule-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            font-weight: 500;
-            border-bottom: 1px dashed var(--border-color);
-            padding-bottom: 5px;
-        }
-
-        /* --- ВНУТРЕННИЕ СТРАНИЦЫ (ЗАГЛУШКИ) --- */
-        .placeholder-page {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            min-height: 80vh;
-        }
-
-        /* --- ФОРМА (МОДАЛ) --- */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: #fff;
-            padding: 50px;
-            width: 100%;
-            max-width: 600px;
-            position: relative;
-            border: 2px solid var(--construct-black);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            background: none;
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            font-weight: 900;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 8px;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 14px 16px;
-            background: #fff;
-            border: 1px solid var(--construct-black);
-            font-family: inherit;
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-width: 3px;
-        }
-
-        /* --- ПОДВАЛ --- */
-        footer {
-            background-color: var(--construct-black);
-            color: #9ca3af;
-            padding: 30px 40px;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        /* --- АДАПТИВНОСТЬ --- */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-btn {
-                display: block;
-            }
-
-            .hero-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .geo-circle {
-                display: none;
-            }
-
-            h1 {
-                font-size: 3rem;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .stat-item:nth-child(2) {
-                border-right: none;
-            }
-
-            .stat-item {
-                border-bottom: 1px solid var(--border-color);
-            }
-
-            .about-section-grid,
-            .iot-block,
-            .contacts-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-left {
-                border-right: none;
-                border-bottom: 1px solid var(--construct-black);
-            }
-
-            .premises-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .premise-cell:nth-child(3n) {
-                border-right: 1px solid var(--construct-black);
-            }
-
-            .premise-cell:nth-child(2n) {
-                border-right: none;
-            }
-
-            .premise-cell:nth-child(n+4) {
-                border-bottom: 1px solid var(--construct-black);
-            }
-
-            .premise-cell:nth-child(n+5) {
-                border-bottom: none;
-            }
-
-            .work-grid,
-            .service-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .work-card,
-            .service-card {
-                border-right: none !important;
-                border-bottom: 1px solid var(--construct-black);
-            }
-
-            .work-card:last-child,
-            .service-card:last-child {
-                border-bottom: none;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ИТС НУ — Инженерно-техническая служба</title>
+<link rel="icon" type="image/png" href="../../Media/Icon.png">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "outline": "#374151",
+          "on-surface-variant": "#9ca3af",
+          "primary-fixed-dim": "#f59e0b",
+          "surface-variant": "#1f2937",
+          "primary": "#f59e0b",
+          "surface-dim": "#111827",
+          "status-success": "#10b981",
+          "on-primary-container": "#111827",
+          "on-tertiary-fixed-variant": "#9ca3af",
+          "tertiary": "#1f2937",
+          "on-secondary": "#111827",
+          "surface-container-lowest": "#0b0f1a",
+          "surface-container-high": "#1f2937",
+          "surface-container-low": "#111827",
+          "on-tertiary-fixed": "#f9fafb",
+          "secondary-fixed": "#374151",
+          "secondary": "#9ca3af",
+          "on-tertiary": "#f9fafb",
+          "outline-variant": "#374151",
+          "secondary-fixed-dim": "#4b5563",
+          "tertiary-container": "#1f2937",
+          "error-container": "#7f1d1d",
+          "on-surface": "#f9fafb",
+          "inverse-surface": "#f9fafb",
+          "on-primary-fixed": "#000000",
+          "surface-tint": "#f59e0b",
+          "on-background": "#f9fafb",
+          "on-error-container": "#fecaca",
+          "primary-fixed": "#fbbf24",
+          "surface-container": "#111827",
+          "on-secondary-container": "#f9fafb",
+          "surface-container-highest": "#374151",
+          "on-primary": "#000000",
+          "on-tertiary-container": "#9ca3af",
+          "tertiary-fixed-dim": "#4b5563",
+          "inverse-on-surface": "#111827",
+          "border-primary": "#f59e0b",
+          "on-error": "#ffffff",
+          "on-primary-fixed-variant": "#d97706",
+          "background": "#111827",
+          "primary-container": "#f59e0b",
+          "tertiary-fixed": "#374151",
+          "on-secondary-fixed": "#f9fafb",
+          "secondary-container": "#1f2937",
+          "surface": "#111827",
+          "on-secondary-fixed-variant": "#9ca3af",
+          "surface-bright": "#1f2937",
+          "inverse-primary": "#f59e0b",
+          "error": "#ef4444",
+          "accent-blue": "#3b82f6"
+        },
+        borderRadius: {
+          "DEFAULT": "0px",
+          "lg": "0px",
+          "xl": "0px",
+          "full": "9999px"
+        },
+        spacing: {
+          "gutter": "0px",
+          "unit": "4px",
+          "edge-margin": "24px",
+          "border-width-heavy": "2px",
+          "border-width": "1px"
+        },
+        fontFamily: {
+          "headline-md": ["Inter"],
+          "body-lg": ["Inter"],
+          "label-sm": ["Inter"],
+          "headline-lg": ["Inter"],
+          "headline-xl": ["Inter"],
+          "body-md": ["Inter"],
+          "label-bold": ["Inter"]
+        },
+        fontSize: {
+          "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+          "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+          "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+          "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "800"}],
+          "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "900"}],
+          "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+          "label-bold": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}]
+        }
+      }
+    }
+  }
+</script>
+<style>
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    .grid-cell {
+        border: 1px solid #374151;
+        margin-right: -1px;
+        margin-bottom: -1px;
+    }
+    .nav-glass {
+        background-color: rgba(17, 24, 39, 0.9);
+        backdrop-filter: blur(8px);
+    }
+    .nav-link {
+        color: #9ca3af;
+        border-bottom: 2px solid transparent;
+    }
+    .nav-link:hover {
+        background-color: #f59e0b;
+        color: #000;
+    }
+    .nav-link.active {
+        color: #f59e0b;
+        border-bottom-color: #f59e0b;
+    }
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    @keyframes pulse-gentle {
+        0%, 100% { transform: scale(1); box-shadow: 0 0 0 rgba(245, 158, 11, 0); }
+        50% { transform: scale(1.05); box-shadow: 0 0 15px rgba(245, 158, 11, 0.2); }
+    }
+    .animate-pulse-gentle {
+        animation: pulse-gentle 2s infinite ease-in-out;
+    }
+
+    @keyframes iot-glow {
+        0%, 100% { text-shadow: 0 0 10px rgba(245, 158, 11, 0); transform: scale(1); }
+        50% { text-shadow: 0 0 30px rgba(245, 158, 11, 0.4); transform: scale(1.1); }
+    }
+    .iot-glow-icon {
+        animation: iot-glow 3s infinite ease-in-out;
+    }
+
+    .connector-line {
+        transition: width 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+        width: 0%;
+    }
+    .connector-line.active {
+        width: 100%;
+    }
+
+    #hero-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+        .animate-pulse-gentle, .iot-glow-icon { animation: none; }
+    }
+</style>
 </head>
-
-<body>
-
-    <nav>
-        <div class="nav-container">
-            <div class="logo-area" onclick="showPage('home')">
-                <img src="../../Media/Logo.png" alt="ИТС НУ">
-            </div>
-            <ul class="nav-links" id="navLinks">
-                <li><a onclick="showPage('home')" class="active" id="nav-home">Главная</a></li>
-                <li><a onclick="showPage('about')" id="nav-about">О службе</a></li>
-                <li><a onclick="showPage('services')" id="nav-services">Услуги</a></li>
-                <li><a onclick="showPage('team')" id="nav-team">Структура</a></li>
-                <li><a href="https://m100ika.github.io/Instructions/Instruktazh/Instruktazh_main/index.html"
-                        target="_blank">Инструкции ↗</a></li>
-            </ul>
-            <button class="mobile-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
-        </div>
-    </nav>
-
-    <!-- СТРАНИЦА: ГЛАВНАЯ -->
-    <div id="page-home" class="page active">
-
-        <!-- 3.1 Hero-блок -->
-        <div class="hero-construct">
-            <div class="geo-circle"></div>
-            <div class="hero-grid">
-                <div style="position: relative; z-index: 1;">
-                    <div class="status-badge" data-aos="fade-down">
-                        <div class="pulse-dot"></div> Служба работает
-                    </div>
-                    <h1 style="font-size: 4rem; margin-bottom: 20px;" data-aos="fade-right">
-                        Инженерно-<br>техническая<br>служба</h1>
-                    <p style="font-size: 1.3rem; max-width: 500px; margin-bottom: 40px; color: var(--text-primary);"
-                        data-aos="fade-right" data-aos-delay="100">Обеспечиваем бесперебойную техническую эксплуатацию
-                        всех лабораторных и научных помещений университета.</p>
-                    <div style="display: flex; gap: 20px; flex-wrap: wrap;" data-aos="fade-up" data-aos-delay="200">
-                        <button class="btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Подать
-                            заявку</button>
-                        <a href="https://support.nu.edu.kz" target="_blank" class="btn-outline"><i
-                                class="fas fa-clipboard-list"></i> Мои заявки</a>
-                    </div>
-                </div>
-                <div
-                    style="position: relative; z-index: 1; display: flex; justify-content: center; align-items: center;">
-                    <div style="text-align: right;">
-                        <div style="font-size: 10rem; font-weight: 900; line-height: 0.8; color: var(--bg-secondary);">
-                            ИТС<br>НУ</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3.2 Статистика -->
-        <div class="stats-grid" data-aos="fade-up">
-            <div class="stat-item">
-                <div class="stat-num">15</div>
-                <div class="stat-desc">Специалистов</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-num">08</div>
-                <div class="stat-desc">Направлений работы</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-num">2ч</div>
-                <div class="stat-desc">Среднее время ответа</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-num" style="color: var(--construct-red);">24/7</div>
-                <div class="stat-desc">Аварийная линия</div>
-            </div>
-        </div>
-
-        <!-- 3.3 О службе и помещения -->
-        <div class="container">
-            <div class="about-section-grid">
-                <div data-aos="fade-right">
-                    <h2 style="border-left: none; padding-left: 0; font-size: 2rem;">О службе</h2>
-                    <p>Инженерно-техническая служба (ИТС) — структурное подразделение, обеспечивающее техническую
-                        эксплуатацию всех лабораторных и научных помещений Назарбаев Университета. Мы объединяем
-                        экспертов по 8 направлениям для поддержки вашей науки.</p>
-                </div>
-                <div data-aos="fade-left">
-                    <div class="premises-grid">
-                        <div class="premise-cell"><i class="fas fa-flask"></i> Научные лаборатории</div>
-                        <div class="premise-cell"><i class="fas fa-microscope"></i> Исслед. центры</div>
-                        <div class="premise-cell"><i class="fas fa-chalkboard-teacher"></i> Учебные помещения</div>
-                        <div class="premise-cell"><i class="fas fa-server"></i> Серверные помещения</div>
-                        <div class="premise-cell"><i class="fas fa-snowflake"></i> Криогенные системы</div>
-                        <div class="premise-cell"><i class="fas fa-tools"></i> Мастерские</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3.4 Виды работ -->
-        <div class="container" style="padding-top: 0;">
-            <h2 data-aos="fade-right">Виды работ</h2>
-            <div class="work-grid" data-aos="fade-up">
-                <div class="work-card">
-                    <i class="fas fa-screwdriver-wrench"></i>
-                    <h4>Ремонт оборудования</h4>
-                    <p>Диагностика и ремонт лабораторного и научного оборудования.</p>
-                </div>
-                <div class="work-card">
-                    <i class="fas fa-cogs"></i>
-                    <h4>Механические работы</h4>
-                    <p>Высокоточная обработка металла и пластика, изготовление деталей.</p>
-                </div>
-                <div class="work-card">
-                    <i class="fas fa-fire-flame-simple"></i>
-                    <h4>Газовые системы</h4>
-                    <p>Обслуживание газопроводов, панелей, проверка герметичности.</p>
-                </div>
-                <div class="work-card">
-                    <i class="fas fa-wind"></i>
-                    <h4>Вентиляция и климат</h4>
-                    <p>Поддержание микроклимата, обслуживание чистых комнат.</p>
-                </div>
-                <div class="work-card">
-                    <i class="fas fa-bolt"></i>
-                    <h4>Электрика</h4>
-                    <p>Ремонт и обслуживание электрооборудования и щитовых.</p>
-                </div>
-                <div class="work-card">
-                    <i class="fas fa-network-wired"></i>
-                    <h4>АСУ и Криогеника</h4>
-                    <p>Диспетчеризация (SCADA) и поддержка сверхнизких температур.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3.5 Популярные услуги -->
-        <div class="container" style="padding-top: 0;">
-            <h2 data-aos="fade-right">Популярные услуги</h2>
-            <div class="service-grid" data-aos="fade-up">
-                <div class="service-card" onclick="showPage('services')">
-                    <span class="service-title">Ремонт приборов</span>
-                    <i class="fas fa-arrow-right service-arrow"></i>
-                </div>
-                <div class="service-card" onclick="showPage('services')">
-                    <span class="service-title">Прототипирование плат</span>
-                    <i class="fas fa-arrow-right service-arrow"></i>
-                </div>
-                <div class="service-card" onclick="showPage('services')">
-                    <span class="service-title">Заправка жидким азотом</span>
-                    <i class="fas fa-arrow-right service-arrow"></i>
-                </div>
-                <div class="service-card" onclick="showPage('services')">
-                    <span class="service-title">Газовые панели</span>
-                    <i class="fas fa-arrow-right service-arrow"></i>
-                </div>
-                <div class="service-card" onclick="showPage('services')">
-                    <span class="service-title">Изготовление деталей на заказ</span>
-                    <i class="fas fa-arrow-right service-arrow"></i>
-                </div>
-                <div class="service-card" onclick="showPage('services')">
-                    <span class="service-title">Обслуживание вытяжных шкафов</span>
-                    <i class="fas fa-arrow-right service-arrow"></i>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3.6 IoT диспетчерская -->
-        <div class="container" style="padding-top: 0;">
-            <div class="iot-block" data-aos="fade-up">
-                <div>
-                    <div class="badge-soon">Скоро</div>
-                    <h3 style="font-size: 2rem; margin-bottom: 15px; color: #fff;">IoT мониторинг помещений</h3>
-                    <p style="color: #9ca3af; font-size: 1.1rem; margin-bottom: 25px;">Температура, давление газов,
-                        уровень азота — в реальном времени.</p>
-                    <button class="btn-disabled" disabled><i class="fas fa-chart-line"></i> Открыть панель</button>
-                </div>
-                <div style="text-align: right; position: relative; z-index: 1;">
-                    <i class="fas fa-microchip" style="font-size: 6rem; color: rgba(255,255,255,0.1);"></i>
-                    <p
-                        style="font-size: 0.8rem; color: rgba(255,255,255,0.4); margin: 0; font-weight: 600; letter-spacing: 0.1em;">
-                        ESP32 → MQTT → BACKEND → WEBSOCKET</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3.7 Контакты и режим работы -->
-        <div class="container" style="padding-top: 0;">
-            <div class="contacts-grid" data-aos="fade-up">
-                <div class="contact-left">
-                    <h3 style="margin-bottom: 25px;">Контакты</h3>
-                    <div class="contact-item">
-                        <i class="fas fa-phone-alt"></i>
-                        <div>
-                            <div style="font-weight: 700;">Внутренний номер</div>
-                            <div style="color: var(--text-secondary);">1-555 (Дежурный инженер)</div>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-whatsapp"></i>
-                        <div>
-                            <div style="font-weight: 700;">WhatsApp</div>
-                            <div style="color: var(--text-secondary);">+7 (777) 000 00 00</div>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <div style="font-weight: 700;">Email</div>
-                            <div style="color: var(--construct-red); font-weight: 600;">engineeringdesk@nu.edu.kz</div>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <div style="font-weight: 700;">Кабинет</div>
-                            <div style="color: var(--text-secondary);">Блок 5, Этаж 1, Пом. 102</div>
-                        </div>
-                    </div>
-                    <div class="contact-item"
-                        style="margin-top: 20px; background: #fef2f2; padding: 15px; border: 1px solid var(--construct-red); width: 100%;">
-                        <i class="fas fa-exclamation-triangle" style="color: var(--construct-red);"></i>
-                        <div>
-                            <div style="font-weight: 800; color: var(--construct-red); text-transform: uppercase;">
-                                Аварийная линия</div>
-                            <div style="color: var(--text-primary); font-weight: 700;">1-999 (Круглосуточно)</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-right">
-                    <h3 style="margin-bottom: 25px;">Режим работы</h3>
-                    <div class="schedule-row">
-                        <span>Понедельник — Пятница</span>
-                        <span style="font-weight: 800;">09:00 — 18:00</span>
-                    </div>
-                    <div class="schedule-row">
-                        <span>Суббота — Воскресенье</span>
-                        <span style="font-weight: 800; color: var(--text-secondary);">Выходной</span>
-                    </div>
-                    <div style="margin-top: 30px; border-top: 2px dashed var(--border-color); padding-top: 20px;">
-                        <div
-                            style="display: flex; align-items: center; gap: 10px; color: var(--construct-red); font-weight: 700;">
-                            <i class="fas fa-shield-alt"></i> Аварийные вызовы принимаются круглосуточно
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- ВНУТРЕННИЕ СТРАНИЦЫ (ЗАГЛУШКИ) -->
-    <div id="page-about" class="page">
-        <div class="container">
-            <h1 data-aos="fade-right">О службе</h1>
-            <p style="font-size: 1.25rem; font-weight: 500; color: var(--text-primary); max-width: 800px; margin-bottom: 50px;"
-                data-aos="fade-right" data-aos-delay="100">
-                Инженерно-техническая служба (ИТС) Назарбаев Университета — это специализированное структурное
-                подразделение, обеспечивающее бесперебойную техническую эксплуатацию, обслуживание и поддержку всей
-                лабораторной и научной инфраструктуры университета.
-            </p>
-
-            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 50px;"
-                data-aos="fade-up">
-                <p>Назарбаев Университет является ведущим исследовательским университетом Казахстана, и высокий уровень
-                    научной деятельности напрямую зависит от состояния технической базы. Именно ИТС стоит за кулисами
-                    каждого успешного эксперимента, каждой работающей лаборатории и каждой исправной инженерной системы.
-                    Без слаженной работы технической службы проведение научных исследований мирового уровня было бы
-                    невозможным.</p>
-                <p>Служба объединяет высококвалифицированных инженеров, механиков и технических специалистов различных
-                    профилей, способных решать задачи любой сложности — от планового обслуживания вентиляционных систем
-                    до разработки прототипов электронных устройств и ремонта уникального научного оборудования.</p>
-            </div>
-
-            <h2 data-aos="fade-right">Миссия и главная задача</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-bottom: 50px;"
-                data-aos="fade-up">
-                <div>
-                    <p style="font-weight: 700; color: var(--text-primary);">Главная задача ИТС — обеспечение
-                        полноценного технического обслуживания всех лабораторных и научных помещений Назарбаев
-                        Университета.</p>
-                    <p>Это означает, что каждый исследователь, каждый студент и каждый преподаватель могут
-                        сосредоточиться на своей научной работе, не беспокоясь о техническом состоянии оборудования и
-                        помещений. ИТС берёт на себя всю техническую ответственность — от обеспечения безопасности
-                        газовых систем до поддержания нужного микроклимата в чувствительных к температуре лабораториях.
-                    </p>
-                </div>
-                <div>
-                    <h3 style="margin-bottom: 20px;">Ключевые принципы:</h3>
-                    <ul style="list-style-type: none; padding: 0;">
-                        <li
-                            style="margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
-                            <strong>Оперативность</strong> — минимальное время реакции на технические неисправности
-                        </li>
-                        <li
-                            style="margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
-                            <strong>Профессионализм</strong> — глубокая экспертиза в каждой технической области
-                        </li>
-                        <li
-                            style="margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
-                            <strong>Надёжность</strong> — превентивное обслуживание для предотвращения поломок
-                        </li>
-                        <li
-                            style="margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
-                            <strong>Безопасность</strong> — строгое соблюдение норм технической и лабораторной
-                            безопасности
-                        </li>
-                        <li style="margin-bottom: 10px; padding-bottom: 10px;"><strong>Инновационность</strong> —
-                            применение современных методов и технологий в работе</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h2 data-aos="fade-right">Состав службы</h2>
-            <div style="border: 2px solid var(--construct-black); padding: 40px; display: flex; gap: 40px; align-items: center; background: #f9fafb; flex-wrap: wrap;"
-                data-aos="fade-up">
-                <div style="font-size: 5rem; font-weight: 900; color: var(--construct-red); line-height: 1;">15</div>
-                <div style="flex: 1;">
-                    <h3 style="margin-bottom: 10px;">Специалистов</h3>
-                    <p style="margin: 0;">ИТС насчитывает 15 квалифицированных специалистов, охватывающих все ключевые
-                        технические направления. Каждое подразделение службы возглавляется старшим специалистом,
-                        обеспечивающим координацию работ и профессиональное наставничество.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="page-services" class="page">
-        <style>
-            .services-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 50px 40px;
-                margin-top: 50px;
-            }
-            .service-item {
-                border-top: 4px solid var(--construct-black);
-                padding-top: 25px;
-                transition: transform 0.2s;
-            }
-            .service-item:hover {
-                transform: translateY(-5px);
-            }
-            .service-num {
-                font-size: 4rem;
-                font-weight: 900;
-                color: var(--construct-red);
-                line-height: 1;
-                margin-bottom: 20px;
-                display: block;
-                letter-spacing: -2px;
-            }
-            .service-item h3 {
-                font-size: 1.4rem;
-                margin-bottom: 15px;
-                border-left: none;
-                padding-left: 0;
-                min-height: 3.5rem;
-            }
-            .service-item p {
-                font-size: 1rem;
-                color: var(--text-secondary);
-                line-height: 1.6;
-                margin: 0;
-            }
-            @media (max-width: 768px) {
-                .service-item h3 { min-height: auto; }
-            }
-        </style>
-        <div class="container">
-            <h1 data-aos="fade-right">Наши Услуги</h1>
-            <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 800px; margin-bottom: 60px;" data-aos="fade-up">
-                Инженерно-техническая служба предоставляет полный спектр услуг по техническому сопровождению лабораторий, научных установок и исследовательской инфраструктуры.
-            </p>
-
-            <div class="services-grid">
-                
-                <div class="service-item" data-aos="fade-up" data-aos-delay="0">
-                    <span class="service-num">01</span>
-                    <h3>Ремонт лабораторного оборудования</h3>
-                    <p>Диагностика и ремонт измерительных приборов, источников питания, осциллографов и другой лабораторной техники. Помогаем восстановить оборудование в короткие сроки, чтобы не прерывать исследовательский процесс.</p>
-                </div>
-
-                <div class="service-item" data-aos="fade-up" data-aos-delay="100">
-                    <span class="service-num">02</span>
-                    <h3>Прототипирование печатных плат</h3>
-                    <p>Разработка и изготовление печатных плат для нужд лабораторий и научных проектов. Инженеры помогут реализовать нестандартные технические решения, которые невозможно приобрести серийно.</p>
-                </div>
-
-                <div class="service-item" data-aos="fade-up" data-aos-delay="200">
-                    <span class="service-num">03</span>
-                    <h3>Механические работы</h3>
-                    <p>Изготовление деталей и конструкций из металла и пластика на заказ — токарные, фрезерные работы и сварка. Выполняем как типовые задачи, так и нестандартные заказы для научных установок.</p>
-                </div>
-
-                <div class="service-item" data-aos="fade-up" data-aos-delay="0">
-                    <span class="service-num">04</span>
-                    <h3>Газовые системы</h3>
-                    <p>Обслуживание газовых линий, подключение и замена баллонов, проверка герметичности систем. Работаем со специальными газами — азотом, аргоном, гелием, водородом и кислородом.</p>
-                </div>
-
-                <div class="service-item" data-aos="fade-up" data-aos-delay="100">
-                    <span class="service-num">05</span>
-                    <h3>Вентиляция и климат-контроль</h3>
-                    <p>Техническое обслуживание вентиляционных установок, вытяжных шкафов и систем кондиционирования. Обеспечиваем поддержание необходимого микроклимата в лабораториях с особыми требованиями.</p>
-                </div>
-
-                <div class="service-item" data-aos="fade-up" data-aos-delay="200">
-                    <span class="service-num">06</span>
-                    <h3>Электрика</h3>
-                    <p>Монтаж, обслуживание и ремонт электрических систем в лабораторных и научных помещениях. Контролируем соответствие электроустановок нормам безопасности.</p>
-                </div>
-
-                <div class="service-item" data-aos="fade-up" data-aos-delay="0">
-                    <span class="service-num">07</span>
-                    <h3>АСУ (Автоматизированные системы)</h3>
-                    <p>Настройка и эксплуатация систем диспетчеризации и мониторинга инженерных сетей. Обеспечиваем непрерывный контроль технических параметров в режиме реального времени.</p>
-                </div>
-
-                <div class="service-item" data-aos="fade-up" data-aos-delay="100">
-                    <span class="service-num">08</span>
-                    <h3>Криогенные системы</h3>
-                    <p>Обслуживание жидкоазотных и жидкогелиевых систем, контроль уровня и заправка криогенных ёмкостей. Поддерживаем бесперебойную работу оборудования для низкотемпературных исследований.</p>
-                </div>
-
-                <div class="service-item" data-aos="fade-up" data-aos-delay="200">
-                    <span class="service-num">09</span>
-                    <h3>Эксплуатация зданий и помещений</h3>
-                    <p>Техническое сопровождение ремонтных работ, адаптация и переоборудование лабораторных пространств под новые задачи. Помогаем реализовать изменения в планировке быстро и в соответствии с нормами безопасности.</p>
-                </div>
-
-            </div>
-            
-            <!-- Call to action -->
-            <div style="margin-top: 80px; padding: 50px; background: var(--construct-black); color: var(--bg-main); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 30px;" data-aos="zoom-in">
-                <div style="flex: 1; min-width: 300px;">
-                    <h2 style="color: var(--bg-main); border-left-color: var(--construct-red); margin-bottom: 15px;">Нужна наша помощь?</h2>
-                    <p style="margin: 0; color: #ccc; font-size: 1.1rem; max-width: 600px;">Оформите заявку на любую из предоставляемых услуг, и профильный специалист свяжется с вами для уточнения деталей.</p>
-                </div>
-                <button class="btn-primary" onclick="openModal()">Подать заявку <i class="fas fa-arrow-right" style="margin-left: 10px;"></i></button>
-            </div>
-
-        </div>
-    </div>
-    <div id="page-team" class="page">
-        <style>
-            .team-grid {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 0;
-                border: 1px solid var(--construct-black);
-            }
-
-            .team-card {
-                padding: 40px;
-                border-right: 1px solid var(--construct-black);
-                border-bottom: 1px solid var(--construct-black);
-                transition: background 0.2s;
-            }
-
-            .team-card:nth-child(3n) {
-                border-right: none;
-            }
-
-            .team-card:nth-child(n+7) {
-                border-bottom: none;
-            }
-
-            .team-card:hover {
-                background-color: #f9fafb;
-            }
-
-            .team-card i {
-                font-size: 2rem;
-                margin-bottom: 20px;
-                color: var(--construct-black);
-                transition: color 0.2s;
-            }
-
-            .team-card:hover i {
-                color: var(--construct-red);
-            }
-
-            @media (max-width: 768px) {
-                .team-grid {
-                    grid-template-columns: 1fr;
-                    border-bottom: none;
-                }
-
-                .team-card {
-                    border-right: none !important;
-                    border-bottom: 1px solid var(--construct-black) !important;
-                }
-
-                .team-card:last-child {
-                    border-bottom: none !important;
-                }
-
-                .mgmt-left {
-                    border-right: none !important;
-                    border-bottom: 1px solid var(--construct-black);
-                }
-            }
-        </style>
-        <div class="container">
-            <h1 data-aos="fade-right">Структура службы</h1>
-
-            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 50px; display: flex; gap: 40px; align-items: center; flex-wrap: wrap;"
-                data-aos="fade-up">
-                <div style="font-size: 6rem; font-weight: 900; color: var(--construct-red); line-height: 1;">15</div>
-                <div style="flex: 1;">
-                    <h2 style="border-left: none; padding-left: 0; margin-bottom: 10px;">Специалистов</h2>
-                    <p style="font-size: 1.1rem; color: var(--text-primary); max-width: 800px; margin: 0;">
-                        ИТС насчитывает 15 квалифицированных специалистов, охватывающих все ключевые технические
-                        направления. Каждое подразделение службы возглавляется старшим специалистом, обеспечивающим
-                        координацию работ и профессиональное наставничество.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Руководство -->
-            <h2 data-aos="fade-right">Руководство службы</h2>
-            <div style="border: 1px solid var(--construct-black); margin-bottom: 60px; background: #f9fafb; padding: 40px;"
-                data-aos="fade-up">
-                <i class="fas fa-user-tie"
-                    style="font-size: 2rem; color: var(--construct-red); margin-bottom: 20px;"></i>
-                <h3 style="text-transform: uppercase;">Главный инженер</h3>
-                <p style="font-size: 0.95rem; margin-bottom: 0;">Осуществляет стратегическое и техническое руководство
-                    всей службой. Отвечает за техническую политику, стандарты обслуживания, взаимодействие с
-                    руководством университета и партнёрами. Координирует работу всех подразделений, принимает решения по
-                    сложным техническим вопросам, участвует в планировании бюджета и закупок оборудования.</p>
-            </div>
-
-            <!-- Административный персонал -->
-            <h2 data-aos="fade-right">Административный персонал</h2>
-            <div style="border: 1px solid var(--construct-black); margin-bottom: 60px; background: #f9fafb; padding: 40px;"
-                data-aos="fade-up">
-                <i class="fas fa-file-invoice-dollar"
-                    style="font-size: 2rem; color: var(--construct-red); margin-bottom: 20px;"></i>
-                <h3 style="text-transform: uppercase;">Менеджер службы</h3>
-                <p style="font-size: 0.95rem;">Менеджер службы отвечает за бюджет ИТС и финансовое планирование. Он
-                    формирует план расходов на предстоящий период, контролирует закупки оборудования, инструментов и
-                    расходных материалов, необходимых для работы службы, а также следит за тем, чтобы все траты
-                    соответствовали утверждённому бюджету.</p>
-                <p style="font-size: 0.95rem;">Помимо этого, менеджер ведёт финансовую отчётность перед руководством
-                    университета — готовит необходимые документы, обосновывает расходы и при необходимости инициирует
-                    запросы на дополнительное финансирование.</p>
-                <p style="font-size: 0.95rem; margin-bottom: 0;">Наличие выделенного менеджера позволяет главному
-                    инженеру и специалистам службы сосредоточиться на технических задачах, не отвлекаясь на
-                    административные и финансовые вопросы.</p>
-            </div>
-
-            <!-- Отделы -->
-            <h2 data-aos="fade-right">Технические подразделения</h2>
-            <div class="team-grid" data-aos="fade-up">
-
-                <div class="team-card">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                        <i class="fas fa-microchip"></i>
-                        <span style="font-weight: 800; color: var(--construct-red); font-size: 1.2rem;">4 чел.</span>
-                    </div>
-                    <h3>КИП и электроника</h3>
-                    <p style="font-size: 0.95rem; margin-bottom: 0;">Диагностика, ремонт и калибровка оборудования.
-                        Прототипирование печатных плат. Работа с микроконтроллерами.<br><br><strong>Состав:</strong>
-                        Старший инженер и 3 инженера КИП.</p>
-                </div>
-
-                <div class="team-card">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                        <i class="fas fa-cogs"></i>
-                        <span style="font-weight: 800; color: var(--construct-red); font-size: 1.2rem;">4 чел.</span>
-                    </div>
-                    <h3>Механический отдел</h3>
-                    <p style="font-size: 0.95rem; margin-bottom: 0;">Обработка металлов и полимеров. Изготовление
-                        нестандартных деталей для научных установок.<br><br><strong>Состав:</strong> Старший механик, 2
-                        механика, мастер-механик по металлу.</p>
-                </div>
-
-                <div class="team-card">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                        <i class="fas fa-fire-flame-simple"></i>
-                        <span style="font-weight: 800; color: var(--construct-red); font-size: 1.2rem;">3 чел.</span>
-                    </div>
-                    <h3>Газовые системы</h3>
-                    <p style="font-size: 0.95rem; margin-bottom: 0;">Техническое обслуживание газопроводов, панелей.
-                        Контроль давления спецгазов.<br><br><strong>Состав:</strong> Старший инженер и 2 инженера.</p>
-                </div>
-
-                <div class="team-card">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                        <i class="fas fa-wind"></i>
-                        <span style="font-weight: 800; color: var(--construct-red); font-size: 1.2rem;">2 чел.</span>
-                    </div>
-                    <h3>Вентиляция и климат</h3>
-                    <p style="font-size: 0.95rem; margin-bottom: 0;">Обслуживание вентиляционных установок, чистых
-                        комнат, боксов безопасности.<br><br><strong>Состав:</strong> Старший инженер и инженер.</p>
-                </div>
-
-                <div class="team-card">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                        <i class="fas fa-network-wired"></i>
-                        <span style="font-weight: 800; color: var(--construct-red); font-size: 1.2rem;">2 чел.</span>
-                    </div>
-                    <h3>АСУ (Автоматизация)</h3>
-                    <p style="font-size: 0.95rem; margin-bottom: 0;">Эксплуатация систем диспетчеризации (SCADA/BMS).
-                        Программирование контроллеров.<br><br><strong>Состав:</strong> Старший инженер и инженер АСУ.
-                    </p>
-                </div>
-
-                <div class="team-card">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                        <i class="fas fa-bolt"></i>
-                        <span style="font-weight: 800; color: var(--construct-red); font-size: 1.2rem;">2 чел.</span>
-                    </div>
-                    <h3>Электрический отдел</h3>
-                    <p style="font-size: 0.95rem; margin-bottom: 0;">Обслуживание силовых цепей и щитов. Мелкий ремонт и
-                        хозяйственно-технические задачи.<br><br><strong>Состав:</strong> Инженер-электрик и
-                        мастер-универсал.</p>
-                </div>
-
-                <div class="team-card">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                        <i class="fas fa-snowflake"></i>
-                        <span style="font-weight: 800; color: var(--construct-red); font-size: 1.2rem;">1 чел.</span>
-                    </div>
-                    <h3>Криогенные системы</h3>
-                    <p style="font-size: 0.95rem; margin-bottom: 0;">Обслуживание и заправка жидким азотом и гелием.
-                        Контроль уровня и техническое сопровождение.<br><br><strong>Состав:</strong> Инженер криогенных
-                        систем.</p>
-                </div>
-
-                <div class="team-card">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                        <i class="fas fa-building"></i>
-                        <span style="font-weight: 800; color: var(--construct-red); font-size: 1.2rem;">1 чел.</span>
-                    </div>
-                    <h3>Эксплуатация зданий</h3>
-                    <p style="font-size: 0.95rem; margin-bottom: 0;">Сопровождение ремонтных работ, переоборудование
-                        лабораторий, контроль норм безопасности.<br><br><strong>Состав:</strong> Инженер по
-                        эксплуатации.</p>
-                </div>
-
-                <div class="team-card" style="background: var(--bg-main);"></div>
-
-            </div>
-
-            <!-- Детальное описание подразделений -->
-            <h2 data-aos="fade-right" style="margin-top: 80px;">Деятельность подразделений</h2>
-
-            <!-- КИП -->
-            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;"
-                data-aos="fade-up">
-                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-microchip"
-                        style="color: var(--construct-red); margin-right: 15px;"></i>Отдел КИП и электроники</h3>
-                <p>Контрольно-измерительные приборы и автоматика — одно из ключевых направлений работы ИТС, напрямую
-                    влияющее на качество научных исследований.</p>
-                <p>Старший инженер КИП (1 специалист) — руководит отделом, распределяет задачи, обеспечивает
-                    методологическую поддержку и контроль качества выполненных работ. Участвует в сложных
-                    диагностических работах и принимает технические решения по ремонту особо ценного оборудования.</p>
-                <p>Инженеры КИП (3 специалиста) выполняют широкий спектр задач:</p>
-                <ul style="margin-left: 20px; margin-bottom: 20px; font-size: 1.1rem; color: var(--text-secondary);">
-                    <li style="margin-bottom: 10px;">Диагностика, ремонт и калибровка лабораторного и научного
-                        оборудования — спектрометров, осциллографов, измерительных стендов, источников питания и другой
-                        аппаратуры</li>
-                    <li style="margin-bottom: 10px;">Прототипирование и разработка печатных плат для нужд лабораторий и
-                        научных проектов</li>
-                    <li style="margin-bottom: 10px;">Монтаж и пайка электронных компонентов, работа с микроконтроллерами
-                        и встраиваемыми системами</li>
-                    <li style="margin-bottom: 10px;">Поддержка исследовательских проектов с технической точки зрения —
-                        инженеры КИП становятся техническими партнёрами учёных</li>
-                </ul>
-                <p>Наличие компетенций по прототипированию печатных плат делает ИТС уникальным ресурсом для
-                    университета: исследовательские группы могут разрабатывать собственные измерительные устройства и
-                    экспериментальные установки, не прибегая к внешним подрядчикам.</p>
-            </div>
-
-            <!-- Механики -->
-            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;"
-                data-aos="fade-up">
-                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-cogs"
-                        style="color: var(--construct-red); margin-right: 15px;"></i>Механический отдел</h3>
-                <p>Механический отдел обеспечивает изготовление, ремонт и обслуживание механических компонентов для
-                    лабораторий и научных установок.</p>
-                <p>Старший механик (1 специалист) — руководит механическим отделом, контролирует качество
-                    изготавливаемых деталей, отвечает за техническое состояние станочного парка и соблюдение норм
-                    промышленной безопасности.</p>
-                <p>Механики (2 специалиста) специализируются на:</p>
-                <ul style="margin-left: 20px; margin-bottom: 20px; font-size: 1.1rem; color: var(--text-secondary);">
-                    <li style="margin-bottom: 10px;">Обработке металлов: фрезерование, токарные работы, сварка,
-                        слесарные работы, изготовление конструкций из стали, алюминия и других металлов</li>
-                    <li style="margin-bottom: 10px;">Работе с пластиком и полимерными материалами: изготовление
-                        корпусов, кронштейнов, лабораторной оснастки из пластиковых материалов</li>
-                </ul>
-                <p>Мастер-механик по металлу (1 специалист) — специализируется на высокоточной металлообработке.
-                    Выполняет сложные заказы по изготовлению нестандартных деталей и узлов для научных установок,
-                    которые невозможно приобрести серийно.</p>
-                <p>Благодаря механическому отделу учёные и инженеры университета имеют возможность в короткие сроки
-                    получить уникальные детали и конструкции, необходимые для реализации исследовательских проектов.</p>
-            </div>
-
-            <!-- Криогенные системы -->
-            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;"
-                data-aos="fade-up">
-                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-snowflake"
-                        style="color: var(--construct-red); margin-right: 15px;"></i>Отдел криогенных систем</h3>
-                <p>Инженер криогенных систем (1 специалист) — отвечает за обслуживание, заправку и техническое
-                    сопровождение криогенного оборудования. Это одно из наиболее узкоспециализированных направлений
-                    службы, требующее особых знаний и строгого соблюдения регламентов безопасности.</p>
-                <p>Криогенные системы широко применяются в физических, химических и биологических лабораториях для
-                    хранения биоматериалов, охлаждения сверхпроводящих установок, проведения низкотемпературных
-                    экспериментов. Инженер по криогенике обеспечивает непрерывность этих процессов, контролирует уровень
-                    жидкого азота и гелия, проводит плановое техническое обслуживание ёмкостей и трубопроводов.</p>
-            </div>
-
-            <!-- Эксплуатация зданий -->
-            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;"
-                data-aos="fade-up">
-                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-building"
-                        style="color: var(--construct-red); margin-right: 15px;"></i>Инженер по эксплуатации зданий</h3>
-                <p>Инженер по эксплуатации зданий отвечает за техническое состояние всех лабораторных и научных
-                    помещений университета. В зону его ответственности входит контроль за соответствием помещений
-                    действующим нормам безопасности и технической документации, а также своевременное выявление и
-                    устранение нарушений.</p>
-                <p>Специалист сопровождает все ремонтные и строительные работы — от составления чертежей и схем до
-                    контроля за их выполнением на месте. При переоборудовании лабораторий он разрабатывает технические
-                    решения и согласовывает их с заинтересованными сторонами.</p>
-                <p>Важная часть работы — взаимодействие с кафедрами и исследовательскими группами. Когда научному
-                    подразделению требуется изменить планировку, расширить рабочее пространство или адаптировать
-                    помещение под новое оборудование, именно этот специалист берёт задачу в работу и доводит её до
-                    результата.</p>
-            </div>
-
-            <!-- Газовые системы -->
-            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;"
-                data-aos="fade-up">
-                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-fire-flame-simple"
-                        style="color: var(--construct-red); margin-right: 15px;"></i>Отдел газовых систем</h3>
-                <p>Безопасная и бесперебойная работа газовых систем является одним из обязательных условий
-                    функционирования химических, физических и биологических лабораторий.</p>
-                <p>Старший инженер газовых систем (1 специалист) — несёт ответственность за общее состояние газовой
-                    инфраструктуры университета, разрабатывает регламенты обслуживания и обеспечивает соответствие всех
-                    систем требованиям безопасности.</p>
-                <p>Инженеры газовых систем (2 специалиста) выполняют:</p>
-                <ul style="margin-left: 20px; margin-bottom: 20px; font-size: 1.1rem; color: var(--text-secondary);">
-                    <li style="margin-bottom: 10px;">Плановое и аварийное техническое обслуживание газопроводов,
-                        вентилей, редукторов и газовых панелей</li>
-                    <li style="margin-bottom: 10px;">Проверку герметичности и технического состояния всей газовой
-                        инфраструктуры</li>
-                    <li style="margin-bottom: 10px;">Подключение и отключение баллонов и централизованных газовых систем
-                    </li>
-                    <li style="margin-bottom: 10px;">Контроль давления и качества подачи специальных газов (азот, аргон,
-                        гелий, водород, кислород и другие)</li>
-                    <li style="margin-bottom: 10px;">Оперативное реагирование на нештатные ситуации и утечки</li>
-                </ul>
-            </div>
-
-            <!-- АСУ -->
-            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;"
-                data-aos="fade-up">
-                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-network-wired"
-                        style="color: var(--construct-red); margin-right: 15px;"></i>Отдел АСУ (Автоматизированные
-                    системы управления)</h3>
-                <p>Старший инженер АСУ (1 специалист) — руководит внедрением и эксплуатацией автоматизированных систем
-                    управления в лабораторной и инженерной инфраструктуре университета.</p>
-                <p>Инженер АСУ (1 специалист) обеспечивает:</p>
-                <ul style="margin-left: 20px; margin-bottom: 20px; font-size: 1.1rem; color: var(--text-secondary);">
-                    <li style="margin-bottom: 10px;">Эксплуатацию и настройку систем диспетчеризации инженерных сетей
-                        (SCADA, BMS)</li>
-                    <li style="margin-bottom: 10px;">Программирование и обслуживание контроллеров, датчиков и
-                        исполнительных устройств</li>
-                    <li style="margin-bottom: 10px;">Мониторинг технических параметров инженерных систем в режиме
-                        реального времени</li>
-                    <li style="margin-bottom: 10px;">Интеграцию нового оборудования в существующую автоматизированную
-                        инфраструктуру</li>
-                    <li style="margin-bottom: 10px;">Обеспечение удалённого контроля и управления инженерными системами
-                    </li>
-                </ul>
-                <p>Автоматизация позволяет ИТС вести непрерывный мониторинг всех критических параметров и реагировать на
-                    отклонения ещё до того, как они превратятся в серьёзные неисправности.</p>
-            </div>
-
-            <!-- Вентиляция -->
-            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;"
-                data-aos="fade-up">
-                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-wind"
-                        style="color: var(--construct-red); margin-right: 15px;"></i>Отдел вентиляции и климат-контроля
-                </h3>
-                <p>Для многих лабораторий — химических, биологических, фармацевтических — точный контроль воздушной
-                    среды является не просто комфортом, а обязательным условием для работы.</p>
-                <p>Старший инженер вентиляции (1 специалист) — отвечает за состояние всей системы вентиляции,
-                    кондиционирования и воздухоподготовки в лабораторных и научных корпусах.</p>
-                <p>Инженер вентиляции (1 специалист) выполняет:</p>
-                <ul style="margin-left: 20px; margin-bottom: 20px; font-size: 1.1rem; color: var(--text-secondary);">
-                    <li style="margin-bottom: 10px;">Плановое обслуживание вентиляционных установок, воздуховодов,
-                        фильтров и клапанов</li>
-                    <li style="margin-bottom: 10px;">Проверку и регулировку воздушных балансов в помещениях с особыми
-                        требованиями (чистые комнаты, вытяжные шкафы, боксы биологической безопасности)</li>
-                    <li style="margin-bottom: 10px;">Техническое обслуживание систем кондиционирования и поддержания
-                        микроклимата</li>
-                    <li style="margin-bottom: 10px;">Устранение неисправностей и аварийное реагирование при сбоях в
-                        системах воздухообмена</li>
-                </ul>
-            </div>
-
-            <!-- Электрика -->
-            <div style="border-top: 2px solid var(--construct-black); padding-top: 40px; margin-bottom: 60px;"
-                data-aos="fade-up">
-                <h3 style="font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-bolt"
-                        style="color: var(--construct-red); margin-right: 15px;"></i>Электрический отдел и техническое
-                    обслуживание</h3>
-                <p>Инженер-электрик (1 специалист) — обеспечивает надёжную работу электрических систем лабораторий и
-                    научных помещений. Проводит монтаж, техническое обслуживание и ремонт электрооборудования,
-                    распределительных щитов, освещения и силовых цепей. Контролирует соответствие электрических
-                    установок требованиям безопасности и нормативной документации.</p>
-                <p>Мастер (1 специалист) — универсальный технический специалист, обеспечивающий оперативное реагирование
-                    на текущие заявки и мелкий ремонт. Выполняет широкий спектр хозяйственно-технических задач:
-                    устранение бытовых неисправностей, мелкий монтаж, помощь другим специалистам в выполнении
-                    комплексных работ.</p>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- МОДАЛЬНОЕ ОКНО ЗАЯВКИ -->
-    <div class="modal-overlay" id="requestModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()">&times;</button>
-            <h3 style="margin-bottom: 30px;">Подать заявку</h3>
-            <form action="mailto:engineeringdesk@nu.edu.kz" method="post" enctype="text/plain" id="emailForm">
-                <div class="form-group">
-                    <label>Ваше ФИО</label>
-                    <input type="text" required placeholder="Иванов И.И.">
-                </div>
-                <div class="form-group">
-                    <label>Корпус и аудитория</label>
-                    <input type="text" required placeholder="Блок 5, каб. 201">
-                </div>
-                <div class="form-group">
-                    <label>Тип заявки</label>
-                    <select required>
-                        <option value="">Выберите направление...</option>
-                        <option>Ремонт оборудования (КИП/Электроника)</option>
-                        <option>Механические работы</option>
-                        <option>Газовые системы</option>
-                        <option>Вентиляция и климат</option>
-                        <option>Электрика</option>
-                        <option>АСУ/Криогеника</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Описание проблемы</label>
-                    <textarea rows="4" required placeholder="Подробно опишите неисправность..."></textarea>
-                </div>
-                <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">Отправить
-                    заявку</button>
-            </form>
-        </div>
-    </div>
-
-    <footer>
-        <div style="display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap;">
-            <p style="margin: 0;">© Инженерно-техническая служба Назарбаев Университета</p>
-            <img src="../../Media/LOGO_NU.png" alt="Подпись" style="height: 35px; filter: invert(1); opacity: 0.7;">
-        </div>
-    </footer>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 800, once: true, offset: 50 });
-
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById('page-' + pageId).classList.add('active');
-            document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
-            const link = document.getElementById('nav-' + pageId);
-            if (link) link.classList.add('active');
-            window.scrollTo(0, 0);
-            setTimeout(() => AOS.refresh(), 100);
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+
+<header class="fixed top-0 w-full z-50 nav-glass border-b-2 border-primary transition-all duration-300" id="site-header">
+<div class="flex justify-between items-center w-full px-edge-margin h-20">
+<div class="font-headline-md text-headline-md font-black text-primary uppercase cursor-pointer" onclick="showPage('home')">ИТС НУ</div>
+<nav class="hidden md:flex gap-2 items-center h-full">
+<a class="nav-link font-label-bold text-label-bold uppercase tracking-wider h-full flex items-center px-4 transition-colors duration-200" href="#" id="nav-home" onclick="showPage('home'); return false;">Главная</a>
+<a class="nav-link font-label-bold text-label-bold uppercase tracking-wider h-full flex items-center px-4 transition-colors duration-200" href="#" id="nav-about" onclick="showPage('about'); return false;">О службе</a>
+<a class="nav-link font-label-bold text-label-bold uppercase tracking-wider h-full flex items-center px-4 transition-colors duration-200" href="#" id="nav-services" onclick="showPage('services'); return false;">Услуги</a>
+<a class="nav-link font-label-bold text-label-bold uppercase tracking-wider h-full flex items-center px-4 transition-colors duration-200" href="#" id="nav-team" onclick="showPage('team'); return false;">Структура</a>
+<a class="font-label-bold text-label-bold uppercase tracking-wider text-on-surface-variant hover:bg-primary hover:text-on-primary h-full flex items-center px-4 transition-colors duration-200" href="https://m100ika.github.io/Instructions/Instruktazh/Instruktazh_main/index.html" target="_blank">Инструкции ↗</a>
+</nav>
+<button class="md:hidden" id="mobileBtn" onclick="toggleMenu()" aria-label="Открыть меню">
+<span class="material-symbols-outlined text-on-surface">menu</span>
+</button>
+</div>
+<nav class="md:hidden flex-col w-full bg-surface border-t border-outline" id="mobileNavLinks" style="display:none;">
+<a class="block font-label-bold uppercase tracking-wider text-on-surface px-edge-margin py-4 border-b border-outline" href="#" onclick="showPage('home'); return false;">Главная</a>
+<a class="block font-label-bold uppercase tracking-wider text-on-surface px-edge-margin py-4 border-b border-outline" href="#" onclick="showPage('about'); return false;">О службе</a>
+<a class="block font-label-bold uppercase tracking-wider text-on-surface px-edge-margin py-4 border-b border-outline" href="#" onclick="showPage('services'); return false;">Услуги</a>
+<a class="block font-label-bold uppercase tracking-wider text-on-surface px-edge-margin py-4 border-b border-outline" href="#" onclick="showPage('team'); return false;">Структура</a>
+<a class="block font-label-bold uppercase tracking-wider text-on-surface px-edge-margin py-4" href="https://m100ika.github.io/Instructions/Instruktazh/Instruktazh_main/index.html" target="_blank">Инструкции ↗</a>
+</nav>
+</header>
+
+<main class="mt-20">
+
+<div id="page-home" class="page active">
+<!-- filled in Tasks 2-4 -->
+</div>
+
+<div id="page-about" class="page">
+<!-- filled in Task 5 -->
+</div>
+
+<div id="page-services" class="page">
+<!-- filled in Task 6 -->
+</div>
+
+<div id="page-team" class="page">
+<!-- filled in Tasks 7-8 -->
+</div>
+
+</main>
+
+<!-- MODAL PLACEHOLDER: real markup added in Task 9 -->
+
+<footer class="w-full bg-surface-variant text-on-surface border-t-2 border-primary">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 px-edge-margin py-12">
+<div class="flex items-center gap-6">
+<img src="../../Media/LOGO_NU.png" alt="Назарбаев Университет" class="h-10 w-10" style="filter: invert(1); opacity: 0.7;">
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm m-0">© Инженерно-техническая служба Назарбаев Университета</p>
+</div>
+<div class="flex flex-col md:items-end justify-center gap-2 text-on-surface-variant text-sm">
+<div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">mail</span> engineeringdesk@nu.edu.kz</div>
+<div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">emergency_home</span> Авария: 1-999 (круглосуточно)</div>
+</div>
+</div>
+<div class="px-edge-margin py-4 border-t border-outline text-[10px] uppercase tracking-[0.3em] text-on-surface-variant/30 text-center">
+Precision engineering • Reliability • Innovation
+</div>
+</footer>
+
+<script>
+function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + pageId).classList.add('active');
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    const link = document.getElementById('nav-' + pageId);
+    if (link) link.classList.add('active');
+    window.scrollTo(0, 0);
+    document.getElementById('mobileNavLinks').style.display = 'none';
+    refreshReveal();
+}
+
+function toggleMenu() {
+    const nav = document.getElementById('mobileNavLinks');
+    nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+}
+
+window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) document.getElementById('mobileNavLinks').style.display = 'none';
+});
+
+function openModal() {
+    const el = document.getElementById('requestModal');
+    if (!el) return;
+    el.classList.remove('hidden');
+    el.classList.add('flex');
+}
+function closeModal() {
+    const el = document.getElementById('requestModal');
+    if (!el) return;
+    el.classList.add('hidden');
+    el.classList.remove('flex');
+}
+
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            const line = entry.target.querySelector('.connector-line');
+            if (line) line.classList.add('active');
         }
+    });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-        function toggleMenu() {
-            const links = document.getElementById('navLinks');
-            links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
-        }
+function refreshReveal() {
+    document.querySelectorAll('.page.active .reveal').forEach(el => revealObserver.observe(el));
+}
+refreshReveal();
 
-        function openModal() { document.getElementById('requestModal').classList.add('active'); }
-        function closeModal() { document.getElementById('requestModal').classList.remove('active'); }
-
-        document.getElementById('requestModal').addEventListener('click', function (e) {
-            if (e.target === this) closeModal();
-        });
-
-        document.getElementById('emailForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            alert("Заявка формируется для отправки на engineeringdesk@nu.edu.kz. (В рабочей версии будет настроен SMTP)");
-            // this.submit(); // Раскомментировать для реальной работы mailto:
-            closeModal();
-        });
-
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) document.getElementById('navLinks').style.display = '';
-        });
-    </script>
+window.addEventListener('scroll', () => {
+    const header = document.getElementById('site-header');
+    if (window.scrollY > 50) {
+        header.classList.remove('nav-glass');
+        header.classList.add('bg-[#111827]', 'shadow-2xl');
+    } else {
+        header.classList.add('nav-glass');
+        header.classList.remove('bg-[#111827]', 'shadow-2xl');
+    }
+});
+</script>
 </body>
-
 </html>
