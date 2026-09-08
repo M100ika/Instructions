@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проверка боксов микробиологической безопасности II класса — Инженер ETS</title>
+    <link rel="icon" type="image/png" href="../../Media/architect_17577028.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --accent: #c9a227;
+            --text: #2d3748;
+            --muted: #718096;
+            --bg: #fafaf9;
+            --card: #ffffff;
+            --border: #e2e8f0;
+            --danger: #c53030;
+            --warning: #d69e2e;
+            --success: #047857;
+        }
+
+        body {
+            font-family: 'PT Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .font-narrow {
+            font-family: 'PT Sans Narrow', sans-serif;
+        }
+
+        .document {
+            background: var(--card);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .section-number {
+            background: linear-gradient(135deg, var(--success) 0%, #065f46 100%);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .header-stripe {
+            background: linear-gradient(90deg, var(--primary) 0%, #2c5282 50%, var(--primary) 100%);
+            height: 4px;
+        }
+
+        .accent-stripe {
+            background: var(--accent);
+            height: 2px;
+        }
+
+        .danger-box {
+            background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+            border-left: 4px solid var(--danger);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fffaf0 0%, #feebc8 100%);
+            border-left: 4px solid var(--warning);
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
+            border-left: 4px solid var(--primary);
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border-left: 4px solid var(--success);
+        }
+
+        @media print {
+            body { background: white; }
+            .document { box-shadow: none; }
+            .lang-switcher { display: none; }
+            #ack-form-section { display: none; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .slide-up {
+            animation: slideUp 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in, .slide-up {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        .logo-main {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+        }
+
+        .logo-jubilee {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+        }
+
+        /* Language switcher */
+        .lang-switcher {
+            display: flex;
+            gap: 4px;
+        }
+
+        .lang-btn {
+            padding: 4px 12px;
+            font-size: 12px;
+            font-family: 'PT Sans Narrow', sans-serif;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.15s;
+            letter-spacing: 0.05em;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* Form */
+        .form-input {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 9px 13px;
+            font-family: 'PT Sans', sans-serif;
+            font-size: 14px;
+            color: var(--text);
+            background: white;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+        }
+
+        .form-submit {
+            background: var(--primary);
+            color: white;
+            font-family: 'PT Sans Narrow', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            padding: 11px 28px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .form-submit:disabled {
+            background: var(--muted);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .form-submit:not(:disabled):hover {
+            background: #2c5282;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 54, 93, 0.3);
+        }
+
+        .status-box {
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+
+        .status-sending {
+            background: #ebf8ff;
+            border: 1px solid #bee3f8;
+            color: #2b6cb0;
+        }
+
+        .status-success {
+            background: #f0fff4;
+            border: 1px solid #9ae6b4;
+            color: #276749;
+        }
+
+        .status-error {
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            color: var(--danger);
+        }
+
+        .step-num {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-8 px-4">
+    <div id="document" class="document max-w-4xl mx-auto rounded-lg overflow-hidden">
+
+        <!-- Header -->
+        <div class="header-stripe"></div>
+        <div class="accent-stripe"></div>
+
+        <div class="px-10 py-8 border-b border-[var(--border)]">
+
+            <!-- Language switcher -->
+            <div class="flex justify-end mb-3">
+                <div class="lang-switcher" role="group">
+                    <button class="lang-btn" data-lang="ru" onclick="setLanguage('ru')">РУС</button>
+                    <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">ENG</button>
+                    <button class="lang-btn" data-lang="kk" onclick="setLanguage('kk')">ҚАЗ</button>
+                </div>
+            </div>
+
+            <!-- Logos -->
+            <div class="logo-container mb-6">
+                <img src="../../Media/ETS_LOGO.png"
+                     alt="Логотип Инженерно-технической службы"
+                     class="logo-main">
+                <img src="../../Media/LOGO_NU.png"
+                     alt="Назарбаев Университет"
+                     class="logo-jubilee">
+            </div>
+
+            <div class="text-center mb-4">
+                <div class="text-xs text-[var(--muted)] uppercase tracking-wider mb-2" data-i18n="deptLabel">
+                    Инженерно-техническая служба
+                </div>
+                <div class="font-narrow text-2xl font-bold text-[var(--primary)] leading-tight" data-i18n="universityName">
+                    НАЗАРБАЕВ УНИВЕРСИТЕТ
+                </div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <div class="inline-block px-4 py-1 bg-[var(--success)] text-white text-xs uppercase tracking-widest rounded mb-4" data-i18n="safetyBadge">
+                    Инструкция по техническому обслуживанию
+                </div>
+                <h1 class="font-narrow text-3xl md:text-4xl font-bold text-[var(--primary)] leading-tight" data-i18n="mainTitle">
+                    ПРОВЕРКА БОКСОВ МИКРОБИОЛОГИЧЕСКОЙ БЕЗОПАСНОСТИ II КЛАССА
+                </h1>
+                <h2 class="font-narrow text-xl md:text-2xl text-[var(--muted)] mt-2" data-i18n="mainSubtitle">
+                    Стандартная рабочая процедура (SOP)
+                </h2>
+                <p class="text-sm text-[var(--muted)] mt-3 max-w-xl mx-auto" data-i18n="introText">
+                    Пожалуйста, внимательно прочтите следующие инструкции и предоставьте свою контактную информацию в подтверждение вашего согласия.
+                </p>
+            </div>
+
+            <div class="flex justify-between mt-8 text-sm text-[var(--muted)]">
+                <div>
+                    <span data-i18n="docNumberLabel">Номер документа:</span>
+                    <span class="font-bold text-[var(--text)]"> ИТ-ОТ-008</span>
+                </div>
+                <div>
+                    <span data-i18n="docDateLabel">Дата утверждения:</span>
+                    <span class="font-bold text-[var(--text)]" id="current-date"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="px-10 py-8 space-y-8">
+
+            <!-- Section 1 -->
+            <section class="slide-up" style="animation-delay: 0.1s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">1</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s1Title">
+                            Общие сведения о проверке боксов
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)]" data-i18n="s1Body">
+                            Периодическая проверка (аттестация) боксов микробиологической безопасности (ББ) II класса — обязательная процедура, подтверждающая, что бокс продолжает обеспечивать защиту персонала, продукта и окружающей среды на уровне, заявленном производителем. Проверку проводит обученный инженер ETS с использованием поверенных средств измерений.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4 mt-4">
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s1FreqLabel">Периодичность проверки</div>
+                                <p class="text-sm" data-i18n="s1FreqText">Полная проверка проводится: при вводе бокса в эксплуатацию; после перемещения на новое место; после ремонта или замены HEPA-фильтра, вентилятора или иных критичных узлов; в плановом порядке — не реже одного раза в 12 месяцев.</p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s1ScopeLabel">Что входит в проверку</div>
+                                <p class="text-sm" data-i18n="s1ScopeText">Испытание HEPA-фильтра на целостность (сканирование на утечки), измерение скорости входящего и нисходящего (ламинарного) потоков воздуха анемометром, проверка сигнализации и блокировок, целостности корпуса и рабочей зоны, УФ-лампы (при наличии) и электробезопасности.</p>
+                            </div>
+                        </div>
+                        <div class="info-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]" data-i18n="s1Info">
+                                Результаты проверки фиксируются в паспорте (сертификате) бокса и журнале технического обслуживания. Бокс, не прошедший проверку, немедленно выводится из эксплуатации до устранения несоответствий.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2 -->
+            <section class="slide-up" style="animation-delay: 0.15s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">2</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s2Title">
+                            Испытание HEPA-фильтра: счётчик частиц SOLAIR 3100 и сканирующий зонд
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)] mb-4" data-i18n="s2Body">
+                            Целостность HEPA-фильтра проверяется методом счёта частиц аэрозоля-вызова с использованием лазерного счётчика частиц SOLAIR 3100 в комплекте со сканирующим (изокинетическим) зондом.
+                        </p>
+
+                        <div class="grid md:grid-cols-2 gap-4 mb-4">
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s2DeviceLabel">Счётчик частиц SOLAIR 3100</div>
+                                <p class="text-sm" data-i18n="s2DeviceText">SOLAIR 3100 — лазерный счётчик дискретных частиц, одновременно регистрирующий частицы по нескольким размерным каналам (0,3; 0,5; 1,0; 5,0 мкм) с расходом пробоотбора 1 куб. фут/мин (28,3 л/мин). Прибор рассчитывает концентрацию частиц в пробе воздуха и позволяет сравнивать концентрацию до и после фильтра.</p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s2ProbeLabel">Сканирующий (изокинетический) зонд</div>
+                                <p class="text-sm" data-i18n="s2ProbeText">Зонд подключается к счётчику вместо стандартного пробоотборника и обеспечивает изокинетический отбор воздуха непосредственно с поверхности фильтра, не искажая структуру потока в точке измерения. Ширина зонда должна соответствовать рекомендациям производителя фильтра.</p>
+                            </div>
+                        </div>
+
+                        <h4 class="font-bold text-sm mb-3 text-[var(--primary)] uppercase tracking-wider" data-i18n="s2MethodTitle">
+                            Порядок испытания
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-3">
+                                <div class="step-num mt-0.5">1</div>
+                                <p class="text-sm" data-i18n="s2Step1">Перед фильтром подать аэрозоль-вызов (полидисперсный масляный аэрозоль PAO/DOP) генератором аэрозоля до достижения равномерной концентрации в подводящем потоке; концентрацию проконтролировать зондом на входе.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="step-num mt-0.5">2</div>
+                                <p class="text-sm" data-i18n="s2Step2">Убедиться, что бокс работает в штатном режиме (включён вентилятор, установлена номинальная скорость воздуха) не менее 5–10 минут для стабилизации потока.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="step-num mt-0.5">3</div>
+                                <p class="text-sm" data-i18n="s2Step3">Медленно перемещать сканирующий зонд по всей площади поверхности фильтра со скоростью не более 5 см/с (≈2 дюйма/с), выдерживая расстояние 2,5–3 см от поверхности, с перекрытием соседних проходов не менее 50% ширины зонда.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="step-num mt-0.5">4</div>
+                                <p class="text-sm" data-i18n="s2Step4">Обязательно сканировать периметр фильтра, гель-прокладку и места сопряжения рамки фильтра с корпусом — именно там чаще всего возникают протечки.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="step-num mt-0.5">5</div>
+                                <p class="text-sm" data-i18n="s2Step5">Зафиксировать любое локальное превышение допустимого уровня проникновения (как правило, 0,01% от концентрации аэрозоля-вызова, если иное не указано производителем/стандартом) как обнаруженную протечку.</p>
+                            </div>
+                        </div>
+
+                        <div class="warning-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]" data-i18n="s2Warning">
+                                <strong>Обнаруженная протечка недопустима:</strong> место протечки маркируется и, при возможности, герметизируется сертифицированным герметиком в объёме, не превышающем установленный стандартом предел, либо фильтр подлежит замене. Повторное сканирование обязательно после устранения дефекта.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3 -->
+            <section class="slide-up" style="animation-delay: 0.2s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">3</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s3Title">
+                            Проверка ламинарных потоков термоанемометром
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)] mb-4" data-i18n="s3Body">
+                            После подтверждения целостности HEPA-фильтра проверяются скорости воздушных потоков, обеспечивающих защитный барьер бокса. Измерения проводятся калиброванным термоанемометром с действующим свидетельством о поверке.
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border-l-4 border-[var(--primary)]">
+                                <h4 class="font-bold text-sm mb-2 text-[var(--primary)] uppercase" data-i18n="s3InflowLabel">
+                                    Входящий поток (Inflow velocity)
+                                </h4>
+                                <p class="text-sm" data-i18n="s3InflowText">
+                                    Измеряется в плоскости открытого рабочего проёма (сэша) в узлах условной сетки по всей его ширине с равным шагом (как правило, 100–150 мм). Входящий поток предотвращает выход аэрозолей из рабочей зоны наружу и является главным барьером защиты персонала.
+                                </p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border-l-4 border-[var(--accent)]">
+                                <h4 class="font-bold text-sm mb-2 text-[var(--accent)] uppercase" data-i18n="s3DownflowLabel">
+                                    Нисходящий (ламинарный) поток (Downflow velocity)
+                                </h4>
+                                <p class="text-sm" data-i18n="s3DownflowText">
+                                    Измеряется в горизонтальной плоскости на высоте около 150 мм над рабочей поверхностью, в узлах сетки, покрывающей всю рабочую зону. Равномерный однонаправленный нисходящий поток защищает продукт и образцы внутри бокса от загрязнения.
+                                </p>
+                            </div>
+                        </div>
+
+                        <p class="text-sm leading-relaxed text-[var(--text)] mt-4" data-i18n="s3GridText">
+                            Количество точек измерения определяется шириной рабочей зоны бокса согласно применяемому стандарту (как правило, не менее 9 точек для узких боксов и больше для широких моделей). Схема точек измерения фиксируется в отчёте с привязкой к серийному номеру бокса.
+                        </p>
+
+                        <div class="info-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]" data-i18n="s3StandardBox">
+                                <strong>Справочные диапазоны для боксов II класса:</strong> входящий поток — не менее 0,40–0,53 м/с; нисходящий поток — в диапазоне 0,25–0,51 м/с. Точные предельные значения всегда берутся из паспорта (сертификата) конкретной модели бокса и действующего ГОСТ — приведённые цифры справочны и не заменяют паспортные данные производителя.
+                            </p>
+                        </div>
+
+                        <p class="text-sm leading-relaxed text-[var(--text)] mt-4" data-i18n="s3Uniformity">
+                            Равномерность нисходящего потока также нормируется: разброс отдельных измерений относительно среднего значения не должен превышать ±20%. Значительное отклонение в отдельных точках указывает на неравномерный износ фильтра, засорение или деформацию перфорированной рабочей поверхности.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4 -->
+            <section class="slide-up" style="animation-delay: 0.25s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">4</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s4Title">
+                            Нормативная база: ГОСТ EN 12469
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)] mb-3" data-i18n="s4Body">
+                            На территории Республики Казахстан действует межгосударственный стандарт <strong>ГОСТ EN 12469-2013</strong> «Оборудование биотехнологическое. Критерии эксплуатационных характеристик для боксов микробиологической (биологической) безопасности», гармонизированный с европейским стандартом EN 12469:2000. Именно этот стандарт устанавливает методы испытаний и предельные значения для входящего и нисходящего потоков, целостности HEPA-фильтров, эффективности сдерживания загрязнений и других эксплуатационных характеристик боксов II класса.
+                        </p>
+                        <p class="text-sm leading-relaxed text-[var(--text)]" data-i18n="s4Additional">
+                            Метод сканирования HEPA-фильтров счётчиком частиц дополнительно опирается на положения ISO 14644-3 (методы испытаний чистых помещений) и руководство производителя счётчика SOLAIR 3100. При расхождении требований приоритет отдаётся действующему на территории РК ГОСТ и паспорту оборудования.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5 -->
+            <section class="slide-up" style="animation-delay: 0.3s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">5</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--danger)] uppercase mb-3" data-i18n="s5Title">
+                            Обязательная дезинфекция перед ремонтом или заменой HEPA-фильтров
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)] mb-4" data-i18n="s5Body">
+                            HEPA-фильтр бокса накапливает на своей поверхности потенциально опасные биологические агенты за весь срок эксплуатации. Любое вскрытие корпуса, ремонт внутренних узлов или замена HEPA-фильтра без предварительной дезинфекции представляет прямую угрозу здоровью инженера.
+                        </p>
+                        <ul class="space-y-2 text-sm mb-4">
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n="s5Item1"><strong>Дезинфицирующий агент:</strong> перед началом любых ремонтных работ или заменой HEPA-фильтра обязательно проводится дезинфекция внутреннего контура бокса парами перекиси водорода (VHP) с использованием 35%-ного раствора H₂O₂, в строгом соответствии с процедурой, описанной в инструктаже «Дезинфекция (VHP)» (ИТ-ОТ-004).</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n="s5Item2"><strong>Подтверждение эффективности:</strong> для контроля эффективности цикла дезинфекции обязательно применяются химические и/или биологические индикаторы, размещаемые в непосредственной близости к фильтрующему отсеку. Замена фильтра или начало ремонтных работ допускается только после получения подтверждённого результата индикаторов.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n="s5Item3"><strong>Оборудование:</strong> дезинфекция выполняется с использованием сертифицированного оборудования (генератора паров перекиси водорода) производства компании Amira, предназначенного для локальной обработки внутреннего контура боксов биологической безопасности без деконтаминации всего помещения.</span>
+                            </li>
+                        </ul>
+                        <div class="danger-box p-4 rounded-r-lg">
+                            <p class="text-sm text-[var(--text)]" data-i18n="s5Danger">
+                                <strong>Запрещается</strong> приступать к разборке корпуса, снятию фильтра или иным работам, связанным с контактом с фильтрующим элементом, до завершения цикла VHP-дезинфекции и получения подтверждающих индикаторов. Несоблюдение данного требования является нарушением техники безопасности.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6 -->
+            <section class="slide-up" style="animation-delay: 0.35s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">6</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s6Title">
+                            Оформление результатов проверки
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)] mb-3" data-i18n="s6Body">
+                            По итогам проверки инженер ETS оформляет отчёт (сертификат) об испытаниях, который включает: серийный номер и место установки бокса, дату проверки, результаты сканирования HEPA-фильтра (карту обнаруженных и устранённых протечек), измеренные значения входящего и нисходящего потоков в каждой точке, использованные средства измерений и сроки их поверки, а также дату следующей плановой проверки.
+                        </p>
+                        <ul class="text-sm space-y-2 list-disc list-inside">
+                            <li data-i18n="s6Item1"><strong>Маркировка бокса:</strong> на корпус бокса наносится наклейка с датой проведённой и следующей плановой проверки.</li>
+                            <li data-i18n="s6Item2"><strong>Передача документов:</strong> копия отчёта передаётся руководству лаборатории и хранится в архиве ETS в течение установленного срока.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Digital Acknowledgement Form -->
+        <div id="ack-form-section" class="px-10 py-8 border-t border-[var(--border)] bg-[var(--bg)]">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-8 h-8 rounded-full bg-[var(--primary)] text-white flex items-center justify-center flex-shrink-0">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                </div>
+                <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase" data-i18n="formTitle">
+                    Цифровое подтверждение ознакомления
+                </h3>
+            </div>
+
+            <form id="ack-form" class="space-y-5 max-w-2xl" onsubmit="return false;">
+
+                <!-- Full Name -->
+                <div>
+                    <label for="form-fullname" class="block text-sm font-bold text-[var(--text)] mb-1" data-i18n="formNameLabel">ФИО</label>
+                    <input type="text" id="form-fullname" class="form-input" required
+                           data-i18n-placeholder="formNamePlaceholder"
+                           placeholder="Фамилия Имя Отчество"
+                           oninput="checkFormValidity()">
+                </div>
+
+                <!-- Position / Department -->
+                <div>
+                    <label for="form-position" class="block text-sm font-bold text-[var(--text)] mb-1" data-i18n="formPositionLabel">Должность / отдел</label>
+                    <input type="text" id="form-position" class="form-input" required
+                           data-i18n-placeholder="formPositionPlaceholder"
+                           placeholder="Напр.: Инженер, ETS"
+                           oninput="checkFormValidity()">
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label for="form-email" class="block text-sm font-bold text-[var(--text)] mb-1" data-i18n="formEmailLabel">Электронная почта</label>
+                    <input type="email" id="form-email" class="form-input" required
+                           data-i18n-placeholder="formEmailPlaceholder"
+                           placeholder="email@nu.edu.kz"
+                           oninput="checkFormValidity()">
+                </div>
+
+                <!-- Consent checkbox -->
+                <div class="flex items-start gap-3 p-4 bg-white rounded-lg border border-[var(--border)]">
+                    <input type="checkbox" id="form-consent"
+                           style="margin-top:2px; width:16px; height:16px; flex-shrink:0; accent-color: var(--primary);"
+                           onchange="checkFormValidity()">
+                    <label for="form-consent" class="text-sm text-[var(--text)] cursor-pointer" data-i18n="formConsentLabel">
+                        Я ознакомился(лась) с инструкцией и обязуюсь её соблюдать
+                    </label>
+                </div>
+
+                <!-- Submit button -->
+                <button type="button" id="form-submit" class="form-submit" disabled onclick="submitForm()">
+                    <span data-i18n="formSubmitBtn">ОТПРАВИТЬ ПОДТВЕРЖДЕНИЕ</span>
+                </button>
+            </form>
+
+            <!-- Status messages -->
+            <div id="status-sending" class="status-box status-sending" style="display:none;" data-i18n="formSending">Отправка…</div>
+            <div id="status-success" class="status-box status-success" style="display:none;" data-i18n="formSuccess">Подтверждение записано ✓</div>
+            <div id="status-error"   class="status-box status-error"   style="display:none;" data-i18n="formError">Ошибка отправки — попробуйте ещё раз</div>
+        </div>
+
+        <!-- Footer -->
+        <div class="accent-stripe"></div>
+        <div class="header-stripe"></div>
+    </div>
+
+    <script>
+        // ─── CONFIG ──────────────────────────────────────────────────────────────
+        // TODO: deploy Code.gs as a Google Apps Script Web App bound to a new
+        // spreadsheet, then paste the deployment URL below (replace the placeholder).
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxnwPoS-TofAEztMEyNvAlho6qUPWu8oSQGDPZ1gnOed0kGfA4ER-X0CPxDe4wI3sbnfA/exec";
+
+        // ─── TRANSLATIONS ────────────────────────────────────────────────────────
+        const translations = {
+            ru: {
+                pageTitle:        "Проверка боксов микробиологической безопасности II класса — Инженер ETS",
+                deptLabel:        "Инженерно-техническая служба",
+                universityName:   "НАЗАРБАЕВ УНИВЕРСИТЕТ",
+                safetyBadge:      "Инструкция по техническому обслуживанию",
+                mainTitle:        "ПРОВЕРКА БОКСОВ МИКРОБИОЛОГИЧЕСКОЙ БЕЗОПАСНОСТИ II КЛАССА",
+                mainSubtitle:     "Стандартная рабочая процедура (SOP)",
+                introText:        "Пожалуйста, внимательно прочтите следующие инструкции и предоставьте свою контактную информацию в подтверждение вашего согласия.",
+                docNumberLabel:   "Номер документа:",
+                docDateLabel:     "Дата утверждения:",
+
+                s1Title:          "Общие сведения о проверке боксов",
+                s1Body:           "Периодическая проверка (аттестация) боксов микробиологической безопасности (ББ) II класса — обязательная процедура, подтверждающая, что бокс продолжает обеспечивать защиту персонала, продукта и окружающей среды на уровне, заявленном производителем. Проверку проводит обученный инженер ETS с использованием поверенных средств измерений.",
+                s1FreqLabel:      "Периодичность проверки",
+                s1FreqText:       "Полная проверка проводится: при вводе бокса в эксплуатацию; после перемещения на новое место; после ремонта или замены HEPA-фильтра, вентилятора или иных критичных узлов; в плановом порядке — не реже одного раза в 12 месяцев.",
+                s1ScopeLabel:     "Что входит в проверку",
+                s1ScopeText:      "Испытание HEPA-фильтра на целостность (сканирование на утечки), измерение скорости входящего и нисходящего (ламинарного) потоков воздуха анемометром, проверка сигнализации и блокировок, целостности корпуса и рабочей зоны, УФ-лампы (при наличии) и электробезопасности.",
+                s1Info:           "Результаты проверки фиксируются в паспорте (сертификате) бокса и журнале технического обслуживания. Бокс, не прошедший проверку, немедленно выводится из эксплуатации до устранения несоответствий.",
+
+                s2Title:          "Испытание HEPA-фильтра: счётчик частиц SOLAIR 3100 и сканирующий зонд",
+                s2Body:           "Целостность HEPA-фильтра проверяется методом счёта частиц аэрозоля-вызова с использованием лазерного счётчика частиц SOLAIR 3100 в комплекте со сканирующим (изокинетическим) зондом.",
+                s2DeviceLabel:    "Счётчик частиц SOLAIR 3100",
+                s2DeviceText:     "SOLAIR 3100 — лазерный счётчик дискретных частиц, одновременно регистрирующий частицы по нескольким размерным каналам (0,3; 0,5; 1,0; 5,0 мкм) с расходом пробоотбора 1 куб. фут/мин (28,3 л/мин). Прибор рассчитывает концентрацию частиц в пробе воздуха и позволяет сравнивать концентрацию до и после фильтра.",
+                s2ProbeLabel:     "Сканирующий (изокинетический) зонд",
+                s2ProbeText:      "Зонд подключается к счётчику вместо стандартного пробоотборника и обеспечивает изокинетический отбор воздуха непосредственно с поверхности фильтра, не искажая структуру потока в точке измерения. Ширина зонда должна соответствовать рекомендациям производителя фильтра.",
+                s2MethodTitle:    "Порядок испытания",
+                s2Step1:          "Перед фильтром подать аэрозоль-вызов (полидисперсный масляный аэрозоль PAO/DOP) генератором аэрозоля до достижения равномерной концентрации в подводящем потоке; концентрацию проконтролировать зондом на входе.",
+                s2Step2:          "Убедиться, что бокс работает в штатном режиме (включён вентилятор, установлена номинальная скорость воздуха) не менее 5–10 минут для стабилизации потока.",
+                s2Step3:          "Медленно перемещать сканирующий зонд по всей площади поверхности фильтра со скоростью не более 5 см/с (≈2 дюйма/с), выдерживая расстояние 2,5–3 см от поверхности, с перекрытием соседних проходов не менее 50% ширины зонда.",
+                s2Step4:          "Обязательно сканировать периметр фильтра, гель-прокладку и места сопряжения рамки фильтра с корпусом — именно там чаще всего возникают протечки.",
+                s2Step5:          "Зафиксировать любое локальное превышение допустимого уровня проникновения (как правило, 0,01% от концентрации аэрозоля-вызова, если иное не указано производителем/стандартом) как обнаруженную протечку.",
+                s2Warning:        "<strong>Обнаруженная протечка недопустима:</strong> место протечки маркируется и, при возможности, герметизируется сертифицированным герметиком в объёме, не превышающем установленный стандартом предел, либо фильтр подлежит замене. Повторное сканирование обязательно после устранения дефекта.",
+
+                s3Title:          "Проверка ламинарных потоков термоанемометром",
+                s3Body:           "После подтверждения целостности HEPA-фильтра проверяются скорости воздушных потоков, обеспечивающих защитный барьер бокса. Измерения проводятся калиброванным термоанемометром с действующим свидетельством о поверке.",
+                s3InflowLabel:    "Входящий поток (Inflow velocity)",
+                s3InflowText:     "Измеряется в плоскости открытого рабочего проёма (сэша) в узлах условной сетки по всей его ширине с равным шагом (как правило, 100–150 мм). Входящий поток предотвращает выход аэрозолей из рабочей зоны наружу и является главным барьером защиты персонала.",
+                s3DownflowLabel:  "Нисходящий (ламинарный) поток (Downflow velocity)",
+                s3DownflowText:   "Измеряется в горизонтальной плоскости на высоте около 150 мм над рабочей поверхностью, в узлах сетки, покрывающей всю рабочую зону. Равномерный однонаправленный нисходящий поток защищает продукт и образцы внутри бокса от загрязнения.",
+                s3GridText:       "Количество точек измерения определяется шириной рабочей зоны бокса согласно применяемому стандарту (как правило, не менее 9 точек для узких боксов и больше для широких моделей). Схема точек измерения фиксируется в отчёте с привязкой к серийному номеру бокса.",
+                s3StandardBox:    "<strong>Справочные диапазоны для боксов II класса:</strong> входящий поток — не менее 0,40–0,53 м/с; нисходящий поток — в диапазоне 0,25–0,51 м/с. Точные предельные значения всегда берутся из паспорта (сертификата) конкретной модели бокса и действующего ГОСТ — приведённые цифры справочны и не заменяют паспортные данные производителя.",
+                s3Uniformity:     "Равномерность нисходящего потока также нормируется: разброс отдельных измерений относительно среднего значения не должен превышать ±20%. Значительное отклонение в отдельных точках указывает на неравномерный износ фильтра, засорение или деформацию перфорированной рабочей поверхности.",
+
+                s4Title:          "Нормативная база: ГОСТ EN 12469",
+                s4Body:           "На территории Республики Казахстан действует межгосударственный стандарт <strong>ГОСТ EN 12469-2013</strong> «Оборудование биотехнологическое. Критерии эксплуатационных характеристик для боксов микробиологической (биологической) безопасности», гармонизированный с европейским стандартом EN 12469:2000. Именно этот стандарт устанавливает методы испытаний и предельные значения для входящего и нисходящего потоков, целостности HEPA-фильтров, эффективности сдерживания загрязнений и других эксплуатационных характеристик боксов II класса.",
+                s4Additional:     "Метод сканирования HEPA-фильтров счётчиком частиц дополнительно опирается на положения ISO 14644-3 (методы испытаний чистых помещений) и руководство производителя счётчика SOLAIR 3100. При расхождении требований приоритет отдаётся действующему на территории РК ГОСТ и паспорту оборудования.",
+
+                s5Title:          "Обязательная дезинфекция перед ремонтом или заменой HEPA-фильтров",
+                s5Body:           "HEPA-фильтр бокса накапливает на своей поверхности потенциально опасные биологические агенты за весь срок эксплуатации. Любое вскрытие корпуса, ремонт внутренних узлов или замена HEPA-фильтра без предварительной дезинфекции представляет прямую угрозу здоровью инженера.",
+                s5Item1:          "<strong>Дезинфицирующий агент:</strong> перед началом любых ремонтных работ или заменой HEPA-фильтра обязательно проводится дезинфекция внутреннего контура бокса парами перекиси водорода (VHP) с использованием 35%-ного раствора H₂O₂, в строгом соответствии с процедурой, описанной в инструктаже «Дезинфекция (VHP)» (ИТ-ОТ-004).",
+                s5Item2:          "<strong>Подтверждение эффективности:</strong> для контроля эффективности цикла дезинфекции обязательно применяются химические и/или биологические индикаторы, размещаемые в непосредственной близости к фильтрующему отсеку. Замена фильтра или начало ремонтных работ допускается только после получения подтверждённого результата индикаторов.",
+                s5Item3:          "<strong>Оборудование:</strong> дезинфекция выполняется с использованием сертифицированного оборудования (генератора паров перекиси водорода) производства компании Amira, предназначенного для локальной обработки внутреннего контура боксов биологической безопасности без деконтаминации всего помещения.",
+                s5Danger:         "<strong>Запрещается</strong> приступать к разборке корпуса, снятию фильтра или иным работам, связанным с контактом с фильтрующим элементом, до завершения цикла VHP-дезинфекции и получения подтверждающих индикаторов. Несоблюдение данного требования является нарушением техники безопасности.",
+
+                s6Title:          "Оформление результатов проверки",
+                s6Body:           "По итогам проверки инженер ETS оформляет отчёт (сертификат) об испытаниях, который включает: серийный номер и место установки бокса, дату проверки, результаты сканирования HEPA-фильтра (карту обнаруженных и устранённых протечек), измеренные значения входящего и нисходящего потоков в каждой точке, использованные средства измерений и сроки их поверки, а также дату следующей плановой проверки.",
+                s6Item1:          "<strong>Маркировка бокса:</strong> на корпус бокса наносится наклейка с датой проведённой и следующей плановой проверки.",
+                s6Item2:          "<strong>Передача документов:</strong> копия отчёта передаётся руководству лаборатории и хранится в архиве ETS в течение установленного срока.",
+
+                formTitle:              "Цифровое подтверждение ознакомления",
+                formNameLabel:          "ФИО",
+                formNamePlaceholder:    "Фамилия Имя Отчество",
+                formPositionLabel:      "Должность / отдел",
+                formPositionPlaceholder:"Напр.: Инженер, ETS",
+                formEmailLabel:         "Электронная почта",
+                formEmailPlaceholder:   "email@nu.edu.kz",
+                formConsentLabel:       "Я ознакомился(лась) с инструкцией и обязуюсь её соблюдать",
+                formSubmitBtn:          "ОТПРАВИТЬ ПОДТВЕРЖДЕНИЕ",
+                formSending:            "Отправка…",
+                formSuccess:            "Подтверждение записано ✓",
+                formError:              "Ошибка отправки — попробуйте ещё раз",
+            },
+
+            en: {
+                pageTitle:        "Class II Biosafety Cabinet Verification — ETS Engineer",
+                deptLabel:        "Engineering and Technical Services",
+                universityName:   "NAZARBAYEV UNIVERSITY",
+                safetyBadge:      "Maintenance Instruction",
+                mainTitle:        "VERIFICATION OF CLASS II MICROBIOLOGICAL SAFETY CABINETS",
+                mainSubtitle:     "Standard Operating Procedure (SOP)",
+                introText:        "Please read the following instructions carefully and provide your contact information to confirm your acknowledgement.",
+                docNumberLabel:   "Document number:",
+                docDateLabel:     "Approval date:",
+
+                s1Title:          "General Overview of Cabinet Verification",
+                s1Body:           "Periodic verification (certification) of Class II microbiological (biological) safety cabinets is a mandatory procedure confirming that the cabinet continues to provide protection for personnel, product, and the environment at the level declared by the manufacturer. Verification is carried out by a trained ETS engineer using calibrated measuring instruments.",
+                s1FreqLabel:      "Verification Frequency",
+                s1FreqText:       "A full verification is performed: when a cabinet is commissioned; after it is relocated; after repair or replacement of the HEPA filter, fan, or other critical components; and on a scheduled basis — at least once every 12 months.",
+                s1ScopeLabel:     "Verification Scope",
+                s1ScopeText:      "HEPA filter integrity testing (leak scan), measurement of inflow and downflow (laminar) air velocities with an anemometer, checks of alarms and interlocks, cabinet enclosure and work zone integrity, UV lamp (if fitted), and electrical safety.",
+                s1Info:           "Verification results are recorded in the cabinet's certificate/logbook and the maintenance log. A cabinet that fails verification is immediately taken out of service until the non-conformities are corrected.",
+
+                s2Title:          "HEPA Filter Testing: SOLAIR 3100 Particle Counter and Scanning Probe",
+                s2Body:           "HEPA filter integrity is verified by the particle-counting method using challenge aerosol, performed with the SOLAIR 3100 laser particle counter fitted with a scanning (isokinetic) probe.",
+                s2DeviceLabel:    "SOLAIR 3100 Particle Counter",
+                s2DeviceText:     "The SOLAIR 3100 is a laser discrete particle counter that simultaneously records particles across several size channels (0.3, 0.5, 1.0, 5.0 microns) with a sample flow rate of 1 CFM (28.3 L/min). The instrument calculates particle concentration in the air sample and is used to compare upstream and downstream concentrations across the filter.",
+                s2ProbeLabel:     "Scanning (Isokinetic) Probe",
+                s2ProbeText:      "The probe connects to the counter in place of the standard sample inlet and provides isokinetic sampling directly at the filter face without distorting the airflow at the measurement point. Probe width must match the filter manufacturer's recommendations.",
+                s2MethodTitle:    "Test Procedure",
+                s2Step1:          "Introduce a challenge aerosol (polydisperse oil aerosol, PAO/DOP) upstream of the filter using an aerosol generator until a uniform concentration is achieved in the upstream airflow; verify the upstream concentration with the probe.",
+                s2Step2:          "Confirm the cabinet is operating in normal mode (fan running, rated airflow set) for at least 5–10 minutes to allow the airflow to stabilize.",
+                s2Step3:          "Slowly move the scanning probe across the entire filter face at a speed not exceeding 5 cm/s (≈2 in/s), maintaining a distance of 2.5–3 cm from the surface, with adjacent passes overlapping by at least 50% of the probe width.",
+                s2Step4:          "Always scan the filter perimeter, the gel seal, and the joints between the filter frame and the housing — these are the most common leak locations.",
+                s2Step5:          "Record any local penetration exceeding the acceptable limit (typically 0.01% of the challenge aerosol concentration, unless otherwise specified by the manufacturer/standard) as a detected leak.",
+                s2Warning:        "<strong>A detected leak is not acceptable:</strong> the location is marked and, where possible, sealed with a certified sealant within the limit permitted by the standard, or the filter must be replaced. Re-scanning is mandatory after the defect is corrected.",
+
+                s3Title:          "Verification of Laminar Airflow with a Thermal Anemometer",
+                s3Body:           "Once HEPA filter integrity is confirmed, the air velocities that form the cabinet's protective barrier are verified. Measurements are taken with a calibrated thermal anemometer holding a valid calibration certificate.",
+                s3InflowLabel:    "Inflow Velocity",
+                s3InflowText:     "Measured across the plane of the open sash opening at grid points spanning its full width, evenly spaced (typically 100–150 mm apart). Inflow prevents aerosols from escaping the work zone and is the primary barrier protecting personnel.",
+                s3DownflowLabel:  "Downflow (Laminar) Velocity",
+                s3DownflowText:   "Measured on a horizontal plane approximately 150 mm above the work surface, at grid points covering the entire work zone. A uniform, unidirectional downflow protects the product and samples inside the cabinet from contamination.",
+                s3GridText:       "The number of measurement points is determined by the width of the cabinet's work zone per the applicable standard (typically at least 9 points for narrow cabinets, more for wider models). The measurement grid is recorded in the report against the cabinet's serial number.",
+                s3StandardBox:    "<strong>Typical reference ranges for Class II cabinets:</strong> inflow velocity — not less than 0.40–0.53 m/s; downflow velocity — in the range of 0.25–0.51 m/s. Exact limits must always be taken from the certificate/nameplate of the specific cabinet model and the applicable GOST — the figures above are for reference only and do not replace the manufacturer's data.",
+                s3Uniformity:     "Downflow uniformity is also regulated: the spread of individual readings around the average must not exceed ±20%. A significant deviation at individual points indicates uneven filter wear, clogging, or deformation of the perforated work surface.",
+
+                s4Title:          "Regulatory Basis: GOST EN 12469",
+                s4Body:           "In the Republic of Kazakhstan, the interstate standard <strong>GOST EN 12469-2013</strong>, \"Biotechnology equipment — Performance criteria for microbiological (biological) safety cabinets,\" harmonized with the European standard EN 12469:2000, is in effect. This standard establishes the test methods and limiting values for inflow and downflow velocities, HEPA filter integrity, containment effectiveness, and other performance characteristics of Class II cabinets.",
+                s4Additional:     "The particle-counting scan method for HEPA filters additionally relies on ISO 14644-3 (cleanroom test methods) and the SOLAIR 3100 manufacturer's guidance. Where requirements conflict, priority is given to the GOST in effect in Kazakhstan and the equipment's certificate/nameplate.",
+
+                s5Title:          "Mandatory Decontamination Before Repair or Replacement of HEPA Filters",
+                s5Body:           "Over its service life, a cabinet's HEPA filter accumulates potentially hazardous biological agents on its surface. Opening the housing, repairing internal components, or replacing the HEPA filter without prior decontamination poses a direct hazard to the engineer's health.",
+                s5Item1:          "<strong>Decontamination Agent:</strong> before starting any repair work or HEPA filter replacement, the cabinet's internal circuit must be decontaminated with vaporized hydrogen peroxide (VHP) using a 35% H₂O₂ solution, strictly following the procedure described in the \"VHP Decontamination\" briefing (Document No. ИТ-ОТ-004).",
+                s5Item2:          "<strong>Confirmation of Efficacy:</strong> chemical and/or biological indicators must be used to confirm the effectiveness of the decontamination cycle, placed in the immediate vicinity of the filter compartment. Filter replacement or repair work may begin only after a confirmed indicator result is obtained.",
+                s5Item3:          "<strong>Equipment:</strong> decontamination is performed using certified vaporized hydrogen peroxide generator equipment manufactured by Amira, designed for local treatment of the internal circuit of biosafety cabinets without decontaminating the entire room.",
+                s5Danger:         "<strong>It is prohibited</strong> to begin disassembling the housing, removing the filter, or performing any work involving contact with the filter element before the VHP decontamination cycle is complete and confirming indicators have been obtained. Failure to comply constitutes a safety violation.",
+
+                s6Title:          "Documentation of Verification Results",
+                s6Body:           "Following verification, the ETS engineer prepares a test report (certificate) that includes: the cabinet's serial number and installation location, verification date, HEPA filter scan results (a map of leaks found and corrected), measured inflow and downflow values at each point, the measuring instruments used and their calibration due dates, and the date of the next scheduled verification.",
+                s6Item1:          "<strong>Cabinet Labeling:</strong> a label showing the verification date and the next scheduled verification date is affixed to the cabinet housing.",
+                s6Item2:          "<strong>Document Handover:</strong> a copy of the report is provided to laboratory management and retained in the ETS archive for the established retention period.",
+
+                formTitle:              "Digital Acknowledgement",
+                formNameLabel:          "Full Name",
+                formNamePlaceholder:    "First name Last name",
+                formPositionLabel:      "Position / Department",
+                formPositionPlaceholder:"e.g., Engineer, ETS",
+                formEmailLabel:         "Email",
+                formEmailPlaceholder:   "email@nu.edu.kz",
+                formConsentLabel:       "I have read the instruction and commit to following it",
+                formSubmitBtn:          "SUBMIT ACKNOWLEDGEMENT",
+                formSending:            "Sending…",
+                formSuccess:            "Acknowledgement recorded ✓",
+                formError:              "Submission error — please try again",
+            },
+
+            kk: {
+                pageTitle:        "II класс микробиологиялық қауіпсіздік боксын тексеру — ETS инженері", // CHECK
+                deptLabel:        "Инженерлік-техникалық қызмет",
+                universityName:   "НАЗАРБАЕВ УНИВЕРСИТЕТІ",
+                safetyBadge:      "Техникалық қызмет көрсету нұсқаулығы", // CHECK
+                mainTitle:        "II КЛАСТАҒЫ МИКРОБИОЛОГИЯЛЫҚ ҚАУІПСІЗДІК БОКСТАРЫН ТЕКСЕРУ", // CHECK
+                mainSubtitle:     "Стандартты жұмыс процедурасы (SOP)",
+                introText:        "Төмендегі нұсқауларды мұқият оқып шығыңыз және танысуыңызды растау үшін байланыс ақпаратыңызды көрсетіңіз.",
+                docNumberLabel:   "Құжат нөмірі:",
+                docDateLabel:     "Бекіту күні:",
+
+                s1Title:          "Бокстарды тексеру туралы жалпы мәліметтер", // CHECK
+                s1Body:           "II кластағы микробиологиялық (биологиялық) қауіпсіздік бокстарын мерзімді тексеру (аттестациялау) — боксты өндіруші көрсеткен деңгейде персоналды, өнімді және қоршаған ортаны қорғауды жалғастыратынын растайтын міндетті процедура. Тексеруді тексерілген өлшеу құралдарын пайдаланып, оқытылған ETS инженері жүргізеді.", // CHECK
+                s1FreqLabel:      "Тексеру мерзімділігі", // CHECK
+                s1FreqText:       "Толық тексеру мына жағдайларда жүргізіледі: боксты пайдалануға берген кезде; оны жаңа орынға ауыстырғаннан кейін; HEPA-фильтрді, желдеткішті немесе басқа маңызды тораптарды жөндеуден немесе ауыстырудан кейін; жоспарлы түрде — кемінде 12 айда бір рет.", // CHECK
+                s1ScopeLabel:     "Тексеруге не кіреді", // CHECK
+                s1ScopeText:      "HEPA-фильтрдің тұтастығын сынау (ағып кетуін сканерлеу), анемометрмен кіретін және түсетін (ламинарлы) ауа ағындарының жылдамдығын өлшеу, дабыл мен блоктауларды, корпус пен жұмыс аймағының тұтастығын, УК-лампасын (болған жағдайда) және электр қауіпсіздігін тексеру.", // CHECK
+                s1Info:           "Тексеру нәтижелері боксың паспортында (сертификатында) және техникалық қызмет көрсету журналында тіркеледі. Тексеруден өтпеген бокс сәйкессіздіктер жойылғанша дереу пайдаланудан шығарылады.", // CHECK
+
+                s2Title:          "HEPA-фильтрді сынау: SOLAIR 3100 бөлшек санауышы және сканерлеуші зонд", // CHECK
+                s2Body:           "HEPA-фильтрдің тұтастығы SOLAIR 3100 лазерлік бөлшек санауышын сканерлеуші (изокинетикалық) зондпен бірге пайдаланып, шақыру аэрозолінің бөлшектерін санау әдісімен тексеріледі.", // CHECK
+                s2DeviceLabel:    "SOLAIR 3100 бөлшек санауышы", // CHECK
+                s2DeviceText:     "SOLAIR 3100 — бірнеше өлшемдік арналар бойынша (0,3; 0,5; 1,0; 5,0 мкм) бөлшектерді бір мезгілде тіркейтін, үлгі алу шығыны 1 текше фут/мин (28,3 л/мин) болатын лазерлік дискретті бөлшек санауышы. Құрал ауа үлгісіндегі бөлшектер концентрациясын есептейді және фильтрдің алдындағы және кейінгі концентрацияны салыстыруға мүмкіндік береді.", // CHECK
+                s2ProbeLabel:     "Сканерлеуші (изокинетикалық) зонд", // CHECK
+                s2ProbeText:      "Зонд стандартты үлгі алғышының орнына санауышқа қосылады және өлшеу нүктесіндегі ағын құрылымын бұрмаламай, ауаны тікелей фильтр бетінен изокинетикалық түрде алуды қамтамасыз етеді. Зондтың ені фильтр өндірушісінің ұсыныстарына сәйкес болуы тиіс.", // CHECK
+                s2MethodTitle:    "Сынау тәртібі", // CHECK
+                s2Step1:          "Фильтр алдында аэрозоль генераторымен беруші ағында біркелкі концентрацияға жеткенше шақыру аэрозолін (полидисперсті майлы аэрозоль PAO/DOP) беру; кірістегі концентрацияны зондпен тексеру.", // CHECK
+                s2Step2:          "Ағынды тұрақтандыру үшін боксың кемінде 5–10 минут бойы қалыпты режимде (желдеткіш қосулы, номиналды ауа жылдамдығы орнатылған) жұмыс істеп тұрғанына көз жеткізу.", // CHECK
+                s2Step3:          "Сканерлеуші зондты фильтр бетінің бүкіл ауданы бойымен жылдамдығы 5 см/с-тан (≈2 дюйм/с) аспайтындай, беттен 2,5–3 см қашықтықты сақтай отырып, көрші өтулердің зонд енінің кемінде 50%-ы қабаттасатындай баяу жылжыту.", // CHECK
+                s2Step4:          "Фильтр периметрін, гель тығыздағышын және фильтр жақтауының корпуспен түйісу орындарын міндетті түрде сканерлеу — көбіне ағып кету осы жерлерде болады.", // CHECK
+                s2Step5:          "Рұқсат етілген өту деңгейінің кез келген жергілікті асып кетуін (өндіруші/стандартта өзгеше көрсетілмесе, әдетте шақыру аэрозолі концентрациясының 0,01%-ы) анықталған ағып кету ретінде тіркеу.", // CHECK
+                s2Warning:        "<strong>Анықталған ағып кетуге жол берілмейді:</strong> ағып кету орны белгіленеді және мүмкіндігінше стандартпен белгіленген шектен аспайтын көлемде сертификатталған герметикпен жабылады, немесе фильтр ауыстырылуы тиіс. Ақауды жойғаннан кейін қайта сканерлеу міндетті.", // CHECK
+
+                s3Title:          "Термоанемометрмен ламинарлы ағындарды тексеру", // CHECK
+                s3Body:           "HEPA-фильтрдің тұтастығы расталғаннан кейін боксың қорғаныш тосқауылын қамтамасыз ететін ауа ағындарының жылдамдығы тексеріледі. Өлшеулер жарамды тексеру куәлігі бар калибрленген термоанемометрмен жүргізіледі.", // CHECK
+                s3InflowLabel:    "Кіретін ағын (Inflow velocity)", // CHECK
+                s3InflowText:     "Ашық жұмыс саңылауының (сэштің) жазықтығында оның бүкіл ені бойымен бірдей қадаммен (әдетте 100–150 мм) орналасқан шартты тор түйіндерінде өлшенеді. Кіретін ағын аэрозольдердің жұмыс аймағынан сыртқа шығуына жол бермейді және персоналды қорғаудың басты тосқауылы болып табылады.", // CHECK
+                s3DownflowLabel:  "Түсетін (ламинарлы) ағын (Downflow velocity)", // CHECK
+                s3DownflowText:   "Жұмыс бетінен шамамен 150 мм биіктікте, бүкіл жұмыс аймағын қамтитын тор түйіндерінде көлденең жазықтықта өлшенеді. Біркелкі, бір бағытты түсетін ағын боксың ішіндегі өнім мен үлгілерді ластанудан қорғайды.", // CHECK
+                s3GridText:       "Өлшеу нүктелерінің саны қолданылатын стандартқа сәйкес боксың жұмыс аймағының еніне байланысты анықталады (әдетте тар бокстар үшін кемінде 9 нүкте, кең модельдер үшін көбірек). Өлшеу нүктелерінің схемасы боксың сериялық нөміріне сілтеме жасалып, есепте тіркеледі.", // CHECK
+                s3StandardBox:    "<strong>II кластағы бокстар үшін анықтамалық диапазондар:</strong> кіретін ағын — кемінде 0,40–0,53 м/с; түсетін ағын — 0,25–0,51 м/с аралығында. Нақты шекті мәндер әрқашан боксың нақты моделінің паспортынан (сертификатынан) және қолданыстағы ГОСТ-тан алынады — жоғарыдағы сандар анықтамалық сипатта және өндірушінің паспорттық деректерін алмастырмайды.", // CHECK
+                s3Uniformity:     "Түсетін ағынның біркелкілігі де нормаланады: жеке өлшеулердің орташа мәннен ауытқуы ±20%-дан аспауы тиіс. Жеке нүктелердегі айтарлықтай ауытқу фильтрдің біркелкі емес тозуын, бітелуін немесе тесілген жұмыс бетінің деформациясын көрсетеді.", // CHECK
+
+                s4Title:          "Нормативтік база: ГОСТ EN 12469", // CHECK
+                s4Body:           "Қазақстан Республикасының аумағында EN 12469:2000 еуропалық стандартымен үйлестірілген <strong>ГОСТ EN 12469-2013</strong> «Биотехнологиялық жабдық. Микробиологиялық (биологиялық) қауіпсіздік бокстарына арналған пайдалану сипаттамаларының критерийлері» мемлекетаралық стандарты қолданылады. Дәл осы стандарт кіретін және түсетін ағындар, HEPA-фильтрлердің тұтастығы, ластануды ұстап тұру тиімділігі және II кластағы бокстардың басқа пайдалану сипаттамалары үшін сынау әдістері мен шекті мәндерді белгілейді.", // CHECK
+                s4Additional:     "HEPA-фильтрлерді бөлшек санауышымен сканерлеу әдісі қосымша түрде ISO 14644-3 (таза үй-жайларды сынау әдістері) ережелеріне және SOLAIR 3100 санауышының өндіруші нұсқаулығына негізделеді. Талаптар сәйкес келмеген жағдайда ҚР аумағында қолданыстағы ГОСТ пен жабдықтың паспорты басым болады.", // CHECK
+
+                s5Title:          "HEPA-фильтрлерді жөндеу немесе ауыстыру алдында міндетті зарарсыздандыру", // CHECK
+                s5Body:           "Боксың HEPA-фильтрі бүкіл пайдалану мерзімі ішінде өз бетінде әлеуетті қауіпті биологиялық агенттерді жинақтайды. Алдын ала зарарсыздандырусыз корпусты ашу, ішкі тораптарды жөндеу немесе HEPA-фильтрді ауыстыру инженердің денсаулығына тікелей қауіп төндіреді.", // CHECK
+                s5Item1:          "<strong>Зарарсыздандыру агенті:</strong> кез келген жөндеу жұмыстарын бастамас немесе HEPA-фильтрді ауыстырмас бұрын, боксың ішкі контурын сутегі асқын тотығының буымен (VHP) 35%-тік H₂O₂ ерітіндісін пайдаланып, «Зарарсыздандыру (VHP)» нұсқаулығында (ИТ-ОТ-004 құжаты) сипатталған процедураға қатаң сәйкес зарарсыздандыру міндетті түрде жүргізіледі.", // CHECK
+                s5Item2:          "<strong>Тиімділікті растау:</strong> зарарсыздандыру циклінің тиімділігін бақылау үшін фильтр бөлімшесіне жақын орналастырылатын химиялық және/немесе биологиялық индикаторлар міндетті түрде қолданылады. Фильтрді ауыстыру немесе жөндеу жұмыстарын бастауға тек индикаторлардың расталған нәтижесі алынғаннан кейін ғана рұқсат етіледі.", // CHECK
+                s5Item3:          "<strong>Жабдық:</strong> зарарсыздандыру бүкіл үй-жайды зарарсыздандырусыз биологиялық қауіпсіздік бокстарының ішкі контурын жергілікті өңдеуге арналған, Amira компаниясы өндірген сертификатталған жабдықты (сутегі асқын тотығы буының генераторын) пайдаланып жүргізіледі.", // CHECK
+                s5Danger:         "<strong>VHP-зарарсыздандыру циклі аяқталып, растайтын индикаторлар алынғанға дейін</strong> корпусты бөлшектеуге, фильтрді алуға немесе фильтрлеуші элементпен байланысты басқа жұмыстарды жүргізуге кірісуге тыйым салынады. Бұл талапты орындамау қауіпсіздік техникасын бұзу болып табылады.", // CHECK
+
+                s6Title:          "Тексеру нәтижелерін ресімдеу", // CHECK
+                s6Body:           "Тексеру қорытындысы бойынша ETS инженері сынақ туралы есеп (сертификат) ресімдейді, оған мыналар кіреді: боксың сериялық нөмірі мен орнату орны, тексеру күні, HEPA-фильтрді сканерлеу нәтижелері (анықталған және жойылған ағып кетулер картасы), әр нүктедегі кіретін және түсетін ағындардың өлшенген мәндері, пайдаланылған өлшеу құралдары және олардың тексерілу мерзімдері, сондай-ақ келесі жоспарлы тексеру күні.", // CHECK
+                s6Item1:          "<strong>Боксты таңбалау:</strong> боксың корпусына өткізілген және келесі жоспарлы тексеру күні көрсетілген жапсырма жабыстырылады.", // CHECK
+                s6Item2:          "<strong>Құжаттарды беру:</strong> есептің көшірмесі зертхана басшылығына беріледі және белгіленген мерзім ішінде ETS мұрағатында сақталады.", // CHECK
+
+                formTitle:              "Электрондық растау",
+                formNameLabel:          "Тегі, аты, әкесінің аты",
+                formNamePlaceholder:    "Тегіңіз Атыңыз",
+                formPositionLabel:      "Лауазымы / бөлімше",
+                formPositionPlaceholder:"Мысалы: Инженер, ETS",
+                formEmailLabel:         "Электрондық пошта",
+                formEmailPlaceholder:   "email@nu.edu.kz",
+                formConsentLabel:       "Мен нұсқаулықпен танысып, оны сақтауға міндеттенемін",
+                formSubmitBtn:          "РАСТАУДЫ ЖІБЕРУ",
+                formSending:            "Жіберілуде…",
+                formSuccess:            "Растау тіркелді ✓",
+                formError:              "Жіберу қатесі — қайталап көріңіз",
+            },
+        };
+
+        // ─── STATE ───────────────────────────────────────────────────────────────
+        let currentLang = localStorage.getItem('lang') || 'ru';
+        let currentStatus = null; // 'sending' | 'success' | 'error' | null
+
+        // ─── LANGUAGE ────────────────────────────────────────────────────────────
+        function applyLanguage(lang) {
+            const t = translations[lang];
+
+            document.documentElement.lang = lang;
+            document.title = t.pageTitle;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (t[key] !== undefined) el.innerHTML = t[key];
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.dataset.i18nPlaceholder;
+                if (t[key] !== undefined) el.placeholder = t[key];
+            });
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            updateDate(lang);
+
+            // Re-apply current status text after language switch
+            if (currentStatus) showStatus(currentStatus);
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            applyLanguage(lang);
+        }
+
+        function updateDate(lang) {
+            const locales = { ru: 'ru-RU', en: 'en-GB', kk: 'kk-KZ' };
+            const el = document.getElementById('current-date');
+            if (!el) return;
+            try {
+                el.textContent = ' ' + new Date().toLocaleDateString(locales[lang] || 'ru-RU', {
+                    day: '2-digit', month: 'long', year: 'numeric'
+                });
+            } catch (e) {
+                el.textContent = ' ' + new Date().toLocaleDateString('ru-RU', {
+                    day: '2-digit', month: 'long', year: 'numeric'
+                });
+            }
+        }
+
+        // ─── FORM ────────────────────────────────────────────────────────────────
+        function checkFormValidity() {
+            const name     = document.getElementById('form-fullname').value.trim();
+            const position = document.getElementById('form-position').value.trim();
+            const email    = document.getElementById('form-email').value.trim();
+            const consent  = document.getElementById('form-consent').checked;
+            const emailOk  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+            const btn = document.getElementById('form-submit');
+            btn.disabled = !(name && position && email && emailOk && consent);
+        }
+
+        function showStatus(id) {
+            ['sending', 'success', 'error'].forEach(s => {
+                document.getElementById('status-' + s).style.display = (s === id) ? 'block' : 'none';
+            });
+            currentStatus = id;
+        }
+
+        function hideStatus() {
+            ['sending', 'success', 'error'].forEach(s => {
+                document.getElementById('status-' + s).style.display = 'none';
+            });
+            currentStatus = null;
+        }
+
+        async function submitForm() {
+            const fullName   = document.getElementById('form-fullname').value.trim();
+            const position   = document.getElementById('form-position').value.trim();
+            const email      = document.getElementById('form-email').value.trim();
+            const lang       = currentLang;
+            const clientTime = new Date().toISOString();
+
+            const btn = document.getElementById('form-submit');
+            btn.disabled = true;
+            showStatus('sending');
+
+            const body = new URLSearchParams({ fullName, position, email, lang, clientTime });
+
+            try {
+                await fetch(WEB_APP_URL, {
+                    method:  'POST',
+                    mode:    'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body:    body.toString(),
+                });
+                showStatus('success');
+                // Lock form after success to prevent duplicates
+                document.getElementById('ack-form').querySelectorAll('input').forEach(el => el.disabled = true);
+            } catch (err) {
+                showStatus('error');
+                btn.disabled = false;
+            }
+        }
+
+        // ─── INIT ────────────────────────────────────────────────────────────────
+        applyLanguage(currentLang);
+
+        // Intersection Observer for scroll animations
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!prefersReducedMotion) {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+            document.querySelectorAll('.slide-up').forEach(el => {
+                el.style.animationPlayState = 'paused';
+                observer.observe(el);
+            });
+        }
+    </script>
+</body>
+</html>

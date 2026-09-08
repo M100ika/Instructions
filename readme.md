@@ -12,3 +12,4 @@
 5. ДОПУСК К РАБОТЕ НА ПАРОВЫХ АВТОКЛАВАХ SYSTEC VX-150 И DX-23 https://m100ika.github.io/Instructions/Instruktazh/autoclaves/index.html
 6. ДОПУСК К РАБОТЕ НА ЛАЗЕРНОМ СТАНКЕ LPKF PROTOLASER U4 https://m100ika.github.io/Instructions/Instruktazh/LPKF/index.html
 7. ДОПУСК К РАБОТЕ НА УСТАНОВКЕ МЕТАЛЛИЗАЦИИ LPKF CONTAC S4 https://m100ika.github.io/Instructions/Instruktazh/LPKF/contac-s4.html
+8. ПРОВЕРКА БОКСОВ МИКРОБИОЛОГИЧЕСКОЙ БЕЗОПАСНОСТИ II КЛАССА https://m100ika.github.io/Instructions/Instruktazh/biosafety_cabinets/index.html
