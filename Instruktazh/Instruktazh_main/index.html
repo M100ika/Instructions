@@ -121,6 +121,10 @@
         .card-decontamination { --card-accent: var(--danger); }
         .card-decontamination .card-icon-wrapper { background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%); }
         .card-decontamination .card-icon-wrapper svg { color: var(--danger); }
+
+        .card-autoclave { --card-accent: #6b46c1; }
+        .card-autoclave .card-icon-wrapper { background: linear-gradient(135deg, #faf5ff 0%, #e9d8fd 100%); }
+        .card-autoclave .card-icon-wrapper svg { color: #6b46c1; }
         
         .status-badge {
             display: inline-flex;
@@ -426,7 +430,45 @@
                         </div>
                     </div>
                 </a>
-                
+
+                <!-- Допуск к автоклавам -->
+                <a href="https://m100ika.github.io/Instructions/Instruktazh/autoclaves/index.html"
+                   class="card-link animate-fade-in delay-400">
+                    <div class="instruction-card card-autoclave h-full">
+                        <div class="p-6">
+                            <div class="card-icon-wrapper mb-5">
+                                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M10 2h4"></path>
+                                    <path d="M12 14v-4"></path>
+                                    <circle cx="12" cy="14" r="8"></circle>
+                                </svg>
+                            </div>
+                            <h4 class="font-narrow text-lg font-bold text-[var(--text)] text-center mb-3">
+                                Допуск к автоклавам
+                            </h4>
+                            <p class="text-sm text-[var(--muted)] text-center mb-4">
+                                Работа на Systec VX-150 и DX-23
+                            </p>
+                            <div class="flex items-center justify-center gap-2 text-xs text-[var(--muted)]">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                                ИТ-ОТ-005
+                            </div>
+                        </div>
+                        <div class="px-6 py-4 bg-[var(--bg)] border-t border-[var(--border)]">
+                            <div class="flex items-center justify-center gap-2 text-sm font-medium" style="color:#6b46c1;">
+                                <span>Открыть документ</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
             </div>
         </section>
         

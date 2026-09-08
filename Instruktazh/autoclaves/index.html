@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Допуск к работе на автоклавах Systec — Инженер КИП</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --accent: #c9a227;
+            --text: #2d3748;
+            --muted: #718096;
+            --bg: #fafaf9;
+            --card: #ffffff;
+            --border: #e2e8f0;
+            --danger: #c53030;
+            --warning: #d69e2e;
+        }
+
+        body {
+            font-family: 'PT Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .font-narrow {
+            font-family: 'PT Sans Narrow', sans-serif;
+        }
+
+        .document {
+            background: var(--card);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .section-number {
+            background: linear-gradient(135deg, var(--danger) 0%, #9b2c2c 100%);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .header-stripe {
+            background: linear-gradient(90deg, var(--primary) 0%, #2c5282 50%, var(--primary) 100%);
+            height: 4px;
+        }
+
+        .accent-stripe {
+            background: var(--accent);
+            height: 2px;
+        }
+
+        .danger-box {
+            background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+            border-left: 4px solid var(--danger);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fffaf0 0%, #feebc8 100%);
+            border-left: 4px solid var(--warning);
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
+            border-left: 4px solid var(--primary);
+        }
+
+        @media print {
+            body { background: white; }
+            .document { box-shadow: none; }
+            .lang-switcher { display: none; }
+            #ack-form-section { display: none; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .slide-up {
+            animation: slideUp 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in, .slide-up {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        .logo-main {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+        }
+
+        .logo-jubilee {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+        }
+
+        /* Language switcher */
+        .lang-switcher {
+            display: flex;
+            gap: 4px;
+        }
+
+        .lang-btn {
+            padding: 4px 12px;
+            font-size: 12px;
+            font-family: 'PT Sans Narrow', sans-serif;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.15s;
+            letter-spacing: 0.05em;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* Form */
+        .form-input {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 9px 13px;
+            font-family: 'PT Sans', sans-serif;
+            font-size: 14px;
+            color: var(--text);
+            background: white;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+        }
+
+        .form-submit {
+            background: var(--primary);
+            color: white;
+            font-family: 'PT Sans Narrow', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            padding: 11px 28px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .form-submit:disabled {
+            background: var(--muted);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .form-submit:not(:disabled):hover {
+            background: #2c5282;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 54, 93, 0.3);
+        }
+
+        .status-box {
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+
+        .status-sending {
+            background: #ebf8ff;
+            border: 1px solid #bee3f8;
+            color: #2b6cb0;
+        }
+
+        .status-success {
+            background: #f0fff4;
+            border: 1px solid #9ae6b4;
+            color: #276749;
+        }
+
+        .status-error {
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            color: var(--danger);
+        }
+
+        .equipment-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 14px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .equipment-option input {
+            margin-top: 2px;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            accent-color: var(--primary);
+        }
+    </style>
+</head>
+<body class="min-h-screen py-8 px-4">
+    <div id="document" class="document max-w-4xl mx-auto rounded-lg overflow-hidden">
+
+        <!-- Header -->
+        <div class="header-stripe"></div>
+        <div class="accent-stripe"></div>
+
+        <div class="px-10 py-8 border-b border-[var(--border)]">
+
+            <!-- Language switcher -->
+            <div class="flex justify-end mb-3">
+                <div class="lang-switcher" role="group">
+                    <button class="lang-btn" data-lang="ru" onclick="setLanguage('ru')">РУС</button>
+                    <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">ENG</button>
+                    <button class="lang-btn" data-lang="kk" onclick="setLanguage('kk')">ҚАЗ</button>
+                </div>
+            </div>
+
+            <!-- Logos -->
+            <div class="logo-container mb-6">
+                <img src="https://z-cdn-media.chatglm.cn/files/0353fdbc-58ab-4f59-a7fd-85df90be9f4c.png?auth_key=1877374705-48b17b9768224eb4baa8edebe7b70d95-0-ca8685bf276b897f8ce93f00103a1821"
+                     alt="Логотип Инженерно-технической службы"
+                     class="logo-main">
+                <img src="https://z-cdn-media.chatglm.cn/files/fb25d888-4762-44e8-9189-ce08374a23f9.png?auth_key=1877540789-73669ef81d984f34b5589dea86900e76-0-aa01884582084149a5c6dbaa54d14073"
+                     alt="15 лет Назарбаев Университет"
+                     class="logo-jubilee">
+            </div>
+
+            <div class="text-center mb-4">
+                <div class="text-xs text-[var(--muted)] uppercase tracking-wider mb-2" data-i18n="deptLabel">
+                    Инженерно-техническая служба
+                </div>
+                <div class="font-narrow text-2xl font-bold text-[var(--primary)] leading-tight" data-i18n="universityName">
+                    НАЗАРБАЕВ УНИВЕРСИТЕТ
+                </div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <div class="inline-block px-4 py-1 bg-[var(--danger)] text-white text-xs uppercase tracking-widest rounded mb-4" data-i18n="safetyBadge">
+                    Инструкция по технике безопасности
+                </div>
+                <h1 class="font-narrow text-3xl md:text-4xl font-bold text-[var(--primary)] leading-tight" data-i18n="mainTitle">
+                    ДОПУСК К РАБОТЕ НА ПАРОВЫХ АВТОКЛАВАХ SYSTEC VX-150 И DX-23
+                </h1>
+                <h2 class="font-narrow text-xl md:text-2xl text-[var(--muted)] mt-2" data-i18n="mainSubtitle">
+                    Инструктаж по эксплуатации оборудования
+                </h2>
+                <p class="text-sm text-[var(--muted)] mt-3 max-w-xl mx-auto" data-i18n="introText">
+                    Допуск к самостоятельной работе на автоклавах предоставляется Инженерно-технической службой (ETS) только после прохождения данного инструктажа. Пожалуйста, внимательно прочтите инструкцию и подтвердите ознакомление, указав свои контактные данные.
+                </p>
+            </div>
+
+            <div class="flex justify-between mt-8 text-sm text-[var(--muted)]">
+                <div>
+                    <span data-i18n="docNumberLabel">Номер документа:</span>
+                    <span class="font-bold text-[var(--text)]"> ИТ-ОТ-005</span>
+                </div>
+                <div>
+                    <span data-i18n="docDateLabel">Дата утверждения:</span>
+                    <span class="font-bold text-[var(--text)]" id="current-date"></span>
+                </div>
+            </div>
+
+            <div class="mt-4 text-center text-sm text-[var(--muted)]" data-i18n-html="contactLine">
+                Заявки и вопросы по работе автоклавов: <a href="mailto:engineeringdesk@nu.edu.kz" class="font-bold text-[var(--primary)]">engineeringdesk@nu.edu.kz</a>
+            </div>
+            <div class="mt-2 text-center text-sm text-[var(--muted)]" data-i18n-html="manualLine">
+                Полное руководство по эксплуатации (PDF): <a href="https://drive.google.com/file/d/1tk3-sKMwD4C0rWGfrHuE77L3c6habxvi/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="font-bold text-[var(--primary)]">открыть manual</a>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="px-10 py-8 space-y-8">
+
+            <!-- Section 1 -->
+            <section class="slide-up" style="animation-delay: 0.1s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">1</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s1Title">
+                            Автоклавы, к которым предоставляется допуск
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)]" data-i18n="s1Body">
+                            В кабинете установлены три паровых автоклава производства Systec, находящихся на балансе и обслуживании Инженерно-технической службы (ETS). Допуск к самостоятельной работе на любом из них выдаётся ETS только после прохождения данного инструктажа и цифрового подтверждения ознакомления.
+                        </p>
+                        <div class="grid md:grid-cols-3 gap-4 mt-4">
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s1Eq1Title">Systec VX-150 (основной)</div>
+                                <p class="text-sm" data-i18n="s1Eq1Text">Вертикальный автоклав с верхней загрузкой, объём камеры 150 л. Используется для стерилизации питательных сред, растворов, лабораторной посуды и инструментов.</p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s1Eq2Title">Systec VX-150 (для отходов)</div>
+                                <p class="text-sm" data-i18n="s1Eq2Text">Автоклав той же модели, выделенный отдельно и промаркированный для обеззараживания биологически опасных отходов. Не используется для стерилизации чистых материалов.</p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border border-[var(--border)]">
+                                <div class="text-xs uppercase tracking-wider text-[var(--muted)] mb-2" data-i18n="s1Eq3Title">Systec DX-23</div>
+                                <p class="text-sm" data-i18n="s1Eq3Text">Автоклав с фронтальной (передней) загрузкой, камера меньшего объёма. Используется для стерилизации небольших партий посуды, инструментов и сред.</p>
+                            </div>
+                        </div>
+                        <div class="danger-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]" data-i18n-html="s1Danger">
+                                <strong>Важно:</strong> каждый автоклав предназначен только для указанного типа загрузки. Смешивание «чистых» стерилизационных циклов и циклов обеззараживания биологически опасных отходов на одном аппарате запрещено.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2 -->
+            <section class="slide-up" style="animation-delay: 0.15s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">2</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s2Title">
+                            Общие требования техники безопасности
+                        </h3>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item1"><strong>Класс опасности:</strong> автоклав — сосуд, работающий под давлением с насыщенным паром температурой до ~134°C и давлением до ~3 бар. Нарушение правил эксплуатации может привести к ожогам, ошпариванию и травмам, вызванным избыточным давлением.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item2"><strong>Только для обученного персонала:</strong> к самостоятельной работе допускаются только лица, прошедшие настоящий инструктаж и получившие допуск ETS. Допуск персональный и не может быть передан третьим лицам.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item3"><strong>Средства защиты:</strong> при загрузке и выгрузке камеры обязательно использование термостойких перчаток и защитного экрана или очков.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item4"><strong>Запрещённые материалы:</strong> запрещается автоклавировать герметично закрытые сосуды, легковоспламеняющиеся, летучие, коррозионные, взрывоопасные и радиоактивные вещества, если это прямо не предусмотрено инструкцией по конкретному материалу.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item5"><strong>Заполнение сосудов:</strong> жидкости заливать не более чем на 2/3 объёма сосуда; крышки не закручивать герметично — оставлять неплотно закрытыми, чтобы избежать разрыва сосуда при нагреве.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item6"><strong>Защитные устройства:</strong> запрещается блокировать, снимать или модифицировать предохранительный клапан, замок-блокировку двери и температурный ограничитель (Safety Temperature Limiter, STL) — это заводские устройства защиты, обеспечивающие безопасность работы.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item7"><strong>Запрет на форсирование двери:</strong> запрещается вскрывать или форсировать дверь автоклава во время цикла либо до полного сброса давления и остывания камеры. Блокировка двери снимается автоматически только при достижении безопасного уровня давления и температуры.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item8"><strong>Присутствие при работе:</strong> не оставлять работающий автоклав без присмотра в помещении, где может находиться посторонний персонал. При необходимости покинуть кабинет — предупредить коллег о работающем цикле.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[var(--danger)] font-bold">•</span>
+                                <span data-i18n-html="s2Item9"><strong>Только в штатных корзинах:</strong> загрузка камеры без штатной корзины/лотка запрещена. Прямой контакт пластиковой тары или любых других предметов со стенками камеры повреждает её покрытие и выводит камеру из строя.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3 -->
+            <section class="slide-up" style="animation-delay: 0.2s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">3</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s3Title">
+                            Порядок работы
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">1</div>
+                                <p class="text-sm" data-i18n-html="s3Step1"><strong>Проверка перед началом:</strong> уровень воды в резервуаре/парогенераторе, чистота уплотнителя двери, отсутствие посторонних предметов в камере.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">2</div>
+                                <p class="text-sm" data-i18n-html="s3Step2"><strong>Подбор загрузки:</strong> использовать только тот автоклав, который соответствует типу материала — среды, посуда и инструменты загружаются в основной VX-150 или DX-23; биологически опасные отходы — только в автоклав для отходов.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">3</div>
+                                <p class="text-sm" data-i18n-html="s3Step3"><strong>Загрузка камеры:</strong> только в штатной корзине, без прямого контакта тары или иных предметов со стенками камеры; устойчивое размещение сосудов с зазорами для свободной циркуляции пара; крышки — неплотно закрыты; отходы — в сертифицированных автоклавируемых пакетах с индикаторной лентой, без переполнения.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">4</div>
+                                <p class="text-sm" data-i18n-html="s3Step4"><strong>Выбор программы и запуск:</strong> на сенсорной панели управления выбрать программу, соответствующую типу загрузки (среды/растворы, твёрдые материалы и инструменты, отходы), закрыть и заблокировать дверь, запустить цикл.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">5</div>
+                                <p class="text-sm" data-i18n-html="s3Step5"><strong>Контроль цикла:</strong> следить за индикацией на дисплее. При появлении сообщения об ошибке и включении красного индикатора ERROR — не пытаться самостоятельно сбросить или перезапустить цикл, вызвать инженера ETS.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">6</div>
+                                <p class="text-sm" data-i18n-html="s3Step6"><strong>Завершение и выгрузка:</strong> дождаться завершения цикла охлаждения/сброса давления и автоматической разблокировки двери. Открывать дверь только после этого. Извлекать содержимое в термостойких перчатках, давая жидкостям отстояться несколько минут во избежание вскипания при перемешивании.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">7</div>
+                                <p class="text-sm" data-i18n-html="s3Step7"><strong>После работы:</strong> зафиксировать проведённый цикл в журнале эксплуатации; по окончании работы выключить автоклав главным выключателем, если дальнейшее использование не планируется.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4 -->
+            <section class="slide-up" style="animation-delay: 0.25s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">4</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s4Title">
+                            Назначение программ автоклавирования
+                        </h3>
+                        <p class="text-sm leading-relaxed text-[var(--text)] mb-3" data-i18n="s4Intro">
+                            На панели управления каждого автоклава доступно несколько программ. Важно выбирать программу, соответствующую типу загрузки:
+                        </p>
+                        <div class="space-y-3">
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border-l-4 border-[var(--primary)]">
+                                <h4 class="font-bold text-sm mb-1 text-[var(--primary)]" data-i18n="s4LiquidsTitle">Программа для жидкостей и сред</h4>
+                                <p class="text-sm" data-i18n="s4LiquidsText">Медленный, контролируемый сброс давления. Предназначена для стерилизации питательных сред, растворов и буферов — предотвращает вскипание и выброс жидкости при разгерметизации камеры. Доступна на основном VX-150 и DX-23.</p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border-l-4 border-[var(--primary)]">
+                                <h4 class="font-bold text-sm mb-1 text-[var(--primary)]" data-i18n="s4SolidsTitle">Программа для твёрдых материалов и инструментов</h4>
+                                <p class="text-sm" data-i18n="s4SolidsText">Быстрый сброс давления (при необходимости — с сушкой). Предназначена для стерилизации лабораторной посуды, инструментов и сухих материалов. Доступна на основном VX-150 и DX-23.</p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border-l-4 border-[var(--danger)]">
+                                <h4 class="font-bold text-sm mb-1 text-[var(--danger)]" data-i18n="s4WasteTitle">Программа для отходов</h4>
+                                <p class="text-sm" data-i18n="s4WasteText">Предназначена для обеззараживания биологически опасных отходов перед утилизацией. Доступна исключительно на автоклаве, выделенном для отходов.</p>
+                            </div>
+                        </div>
+                        <div class="warning-box p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-[var(--text)]" data-i18n-html="s4Note">
+                                Выбор программы, не соответствующей типу загрузки, может привести к порче материала, разрушению сосудов или неполному обеззараживанию отходов. При сомнениях в выборе программы — уточнить у инженера ETS (<a href="mailto:engineeringdesk@nu.edu.kz" class="font-bold">engineeringdesk@nu.edu.kz</a>) до запуска цикла.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5 -->
+            <section class="slide-up" style="animation-delay: 0.3s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">5</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s5Title">
+                            Особенности отдельных моделей
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border-l-4 border-[var(--primary)]">
+                                <p class="text-sm" data-i18n-html="s5Vx"><strong>Systec VX-150 (оба аппарата):</strong> верхняя загрузка с помощью лифта/корзины. Соблюдать осторожность при подъёме и опускании корзины, не наклоняться над открытой камерой.</p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border-l-4 border-[var(--primary)]">
+                                <p class="text-sm" data-i18n-html="s5Dx"><strong>Systec DX-23:</strong> фронтальная (передняя) дверь и органы управления отличаются от VX-150. Перед каждым включением обязательно проверять уровень воды в резервуаре — включение при недостаточном уровне воды может вывести из строя парогенератор. Перед первой самостоятельной работой на DX-23 необходимо отдельно ознакомиться с расположением элементов управления именно этой модели.</p>
+                            </div>
+                            <div class="bg-[var(--bg)] p-4 rounded-lg border-l-4 border-[var(--danger)]">
+                                <p class="text-sm" data-i18n-html="s5Waste"><strong>Автоклав для отходов:</strong> промаркирован отдельно (табличка/цветная маркировка) и используется исключительно по назначению — обеззараживание биологически опасных отходов. Использование этого автоклава для стерилизации чистых материалов, а также использование основного VX-150 или DX-23 для отходов запрещено в любом направлении. После каждого цикла обеззараженные отходы утилизируются по установленной процедуре; для контроля эффективности используются индикаторы стерилизации.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6 -->
+            <section class="slide-up" style="animation-delay: 0.35s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">6</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s6Title">
+                            Действия при неисправностях и аварийных ситуациях
+                        </h3>
+                        <div class="warning-box p-4 rounded-r-lg space-y-2">
+                            <p class="text-sm" data-i18n-html="s6Item1"><strong>Сообщение об ошибке:</strong> при появлении ошибки на дисплее и включении красного индикатора ERROR самостоятельный сброс или перезапуск цикла запрещён — немедленно вызвать инженера ETS.</p>
+                            <p class="text-sm" data-i18n-html="s6Item2"><strong>Утечка пара или воды, посторонний шум или запах гари:</strong> прекратить использование, не пытаться устранить неисправность самостоятельно, немедленно уведомить ETS.</p>
+                            <p class="text-sm" data-i18n-html="s6Item3"><strong>Дверь не разблокируется после завершения цикла:</strong> не применять силу — это может свидетельствовать о неисправности замка-блокировки или температурного ограничителя. Обратиться в ETS.</p>
+                            <p class="text-sm" data-i18n-html="s6Item4"><strong>Заявки, не требующие экстренного вмешательства</strong> (плановое обслуживание, вопросы по допуску и эксплуатации), направляются на <a href="mailto:engineeringdesk@nu.edu.kz" class="font-bold">engineeringdesk@nu.edu.kz</a>.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7 -->
+            <section class="slide-up" style="animation-delay: 0.4s;">
+                <div class="flex items-start gap-4">
+                    <div class="section-number">7</div>
+                    <div class="flex-1">
+                        <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase mb-3" data-i18n="s7Title">
+                            Порядок получения допуска
+                        </h3>
+                        <div class="info-box p-4 rounded-r-lg">
+                            <p class="text-sm text-[var(--text)]" data-i18n-html="s7Body">
+                                Допуск к самостоятельной работе на автоклавах предоставляется ETS индивидуально, по результатам прохождения настоящего инструктажа и цифрового подтверждения ознакомления. Допуск является персональным и не может быть передан другому сотруднику. ETS вправе отозвать допуск при нарушении правил эксплуатации или техники безопасности, а также назначить повторный инструктаж при изменении процедур или оборудования. Заявки на допуск и вопросы по планированию работ с автоклавами направляются на <a href="mailto:engineeringdesk@nu.edu.kz" class="font-bold text-[var(--primary)]">engineeringdesk@nu.edu.kz</a>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Digital Acknowledgement Form -->
+        <div id="ack-form-section" class="px-10 py-8 border-t border-[var(--border)] bg-[var(--bg)]">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-8 h-8 rounded-full bg-[var(--primary)] text-white flex items-center justify-center flex-shrink-0">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                </div>
+                <h3 class="font-narrow text-lg font-bold text-[var(--primary)] uppercase" data-i18n="formTitle">
+                    Цифровое подтверждение ознакомления и запрос допуска
+                </h3>
+            </div>
+
+            <form id="ack-form" class="space-y-5 max-w-2xl" onsubmit="return false;">
+
+                <!-- Full Name -->
+                <div>
+                    <label for="form-fullname" class="block text-sm font-bold text-[var(--text)] mb-1" data-i18n="formNameLabel">ФИО</label>
+                    <input type="text" id="form-fullname" class="form-input" required
+                           data-i18n-placeholder="formNamePlaceholder"
+                           placeholder="Фамилия Имя Отчество"
+                           oninput="checkFormValidity()">
+                </div>
+
+                <!-- Position / Department -->
+                <div>
+                    <label for="form-position" class="block text-sm font-bold text-[var(--text)] mb-1" data-i18n="formPositionLabel">Должность / отдел</label>
+                    <input type="text" id="form-position" class="form-input" required
+                           data-i18n-placeholder="formPositionPlaceholder"
+                           placeholder="Напр.: Научный сотрудник, Лаборатория биологии"
+                           oninput="checkFormValidity()">
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label for="form-email" class="block text-sm font-bold text-[var(--text)] mb-1" data-i18n="formEmailLabel">Электронная почта</label>
+                    <input type="email" id="form-email" class="form-input" required
+                           data-i18n-placeholder="formEmailPlaceholder"
+                           placeholder="email@nu.edu.kz"
+                           oninput="checkFormValidity()">
+                </div>
+
+                <!-- Equipment checkboxes -->
+                <div>
+                    <label class="block text-sm font-bold text-[var(--text)] mb-2" data-i18n="formEquipmentLabel">
+                        Автоклав(ы), к которым запрашивается допуск
+                    </label>
+                    <div class="space-y-2">
+                        <label class="equipment-option">
+                            <input type="checkbox" class="form-equipment" value="Systec VX-150 (основной)" onchange="checkFormValidity()">
+                            <span class="text-sm text-[var(--text)]" data-i18n="eq1Label">Systec VX-150 (основной)</span>
+                        </label>
+                        <label class="equipment-option">
+                            <input type="checkbox" class="form-equipment" value="Systec VX-150 (для отходов)" onchange="checkFormValidity()">
+                            <span class="text-sm text-[var(--text)]" data-i18n="eq2Label">Systec VX-150 (для отходов)</span>
+                        </label>
+                        <label class="equipment-option">
+                            <input type="checkbox" class="form-equipment" value="Systec DX-23" onchange="checkFormValidity()">
+                            <span class="text-sm text-[var(--text)]" data-i18n="eq3Label">Systec DX-23</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Consent checkbox -->
+                <div class="flex items-start gap-3 p-4 bg-white rounded-lg border border-[var(--border)]">
+                    <input type="checkbox" id="form-consent"
+                           style="margin-top:2px; width:16px; height:16px; flex-shrink:0; accent-color: var(--primary);"
+                           onchange="checkFormValidity()">
+                    <label for="form-consent" class="text-sm text-[var(--text)] cursor-pointer" data-i18n="formConsentLabel">
+                        Я ознакомился(лась) с инструкцией по эксплуатации автоклавов и обязуюсь соблюдать изложенные правила техники безопасности
+                    </label>
+                </div>
+
+                <!-- Submit button -->
+                <button type="button" id="form-submit" class="form-submit" disabled onclick="submitForm()">
+                    <span data-i18n="formSubmitBtn">ОТПРАВИТЬ ПОДТВЕРЖДЕНИЕ</span>
+                </button>
+            </form>
+
+            <!-- Status messages -->
+            <div id="status-sending" class="status-box status-sending" style="display:none;" data-i18n="formSending">Отправка…</div>
+            <div id="status-success" class="status-box status-success" style="display:none;" data-i18n="formSuccess">Подтверждение записано ✓</div>
+            <div id="status-error"   class="status-box status-error"   style="display:none;" data-i18n="formError">Ошибка отправки — попробуйте ещё раз</div>
+        </div>
+
+        <!-- Footer -->
+        <div class="accent-stripe"></div>
+        <div class="header-stripe"></div>
+    </div>
+
+    <script>
+        // ─── CONFIG ──────────────────────────────────────────────────────────────
+        const WEB_APP_URL = "ВСТАВЬТЕ_СЮДА_URL_ВЕБ_ПРИЛОЖЕНИЯ";
+
+        // ─── TRANSLATIONS ────────────────────────────────────────────────────────
+        const translations = {
+            ru: {
+                pageTitle:        "Допуск к работе на автоклавах Systec — Инженер КИП",
+                deptLabel:        "Инженерно-техническая служба",
+                universityName:   "НАЗАРБАЕВ УНИВЕРСИТЕТ",
+                safetyBadge:      "Инструкция по технике безопасности",
+                mainTitle:        "ДОПУСК К РАБОТЕ НА ПАРОВЫХ АВТОКЛАВАХ SYSTEC VX-150 И DX-23",
+                mainSubtitle:     "Инструктаж по эксплуатации оборудования",
+                introText:        "Допуск к самостоятельной работе на автоклавах предоставляется Инженерно-технической службой (ETS) только после прохождения данного инструктажа. Пожалуйста, внимательно прочтите инструкцию и подтвердите ознакомление, указав свои контактные данные.",
+                docNumberLabel:   "Номер документа:",
+                docDateLabel:     "Дата утверждения:",
+                contactLine:      "Заявки и вопросы по работе автоклавов: <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold text-[var(--primary)]\">engineeringdesk@nu.edu.kz</a>",
+                manualLine:       "Полное руководство по эксплуатации (PDF): <a href=\"https://drive.google.com/file/d/1tk3-sKMwD4C0rWGfrHuE77L3c6habxvi/view?usp=sharing\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"font-bold text-[var(--primary)]\">открыть manual</a>",
+
+                s1Title:    "Автоклавы, к которым предоставляется допуск",
+                s1Body:     "В кабинете установлены три паровых автоклава производства Systec, находящихся на балансе и обслуживании Инженерно-технической службы (ETS). Допуск к самостоятельной работе на любом из них выдаётся ETS только после прохождения данного инструктажа и цифрового подтверждения ознакомления.",
+                s1Eq1Title: "Systec VX-150 (основной)",
+                s1Eq1Text:  "Вертикальный автоклав с верхней загрузкой, объём камеры 150 л. Используется для стерилизации питательных сред, растворов, лабораторной посуды и инструментов.",
+                s1Eq2Title: "Systec VX-150 (для отходов)",
+                s1Eq2Text:  "Автоклав той же модели, выделенный отдельно и промаркированный для обеззараживания биологически опасных отходов. Не используется для стерилизации чистых материалов.",
+                s1Eq3Title: "Systec DX-23",
+                s1Eq3Text:  "Автоклав с фронтальной (передней) загрузкой, камера меньшего объёма. Используется для стерилизации небольших партий посуды, инструментов и сред.",
+                s1Danger:   "<strong>Важно:</strong> каждый автоклав предназначен только для указанного типа загрузки. Смешивание «чистых» стерилизационных циклов и циклов обеззараживания биологически опасных отходов на одном аппарате запрещено.",
+
+                s2Title: "Общие требования техники безопасности",
+                s2Item1: "<strong>Класс опасности:</strong> автоклав — сосуд, работающий под давлением с насыщенным паром температурой до ~134°C и давлением до ~3 бар. Нарушение правил эксплуатации может привести к ожогам, ошпариванию и травмам, вызванным избыточным давлением.",
+                s2Item2: "<strong>Только для обученного персонала:</strong> к самостоятельной работе допускаются только лица, прошедшие настоящий инструктаж и получившие допуск ETS. Допуск персональный и не может быть передан третьим лицам.",
+                s2Item3: "<strong>Средства защиты:</strong> при загрузке и выгрузке камеры обязательно использование термостойких перчаток и защитного экрана или очков.",
+                s2Item4: "<strong>Запрещённые материалы:</strong> запрещается автоклавировать герметично закрытые сосуды, легковоспламеняющиеся, летучие, коррозионные, взрывоопасные и радиоактивные вещества, если это прямо не предусмотрено инструкцией по конкретному материалу.",
+                s2Item5: "<strong>Заполнение сосудов:</strong> жидкости заливать не более чем на 2/3 объёма сосуда; крышки не закручивать герметично — оставлять неплотно закрытыми, чтобы избежать разрыва сосуда при нагреве.",
+                s2Item6: "<strong>Защитные устройства:</strong> запрещается блокировать, снимать или модифицировать предохранительный клапан, замок-блокировку двери и температурный ограничитель (Safety Temperature Limiter, STL) — это заводские устройства защиты, обеспечивающие безопасность работы.",
+                s2Item7: "<strong>Запрет на форсирование двери:</strong> запрещается вскрывать или форсировать дверь автоклава во время цикла либо до полного сброса давления и остывания камеры. Блокировка двери снимается автоматически только при достижении безопасного уровня давления и температуры.",
+                s2Item8: "<strong>Присутствие при работе:</strong> не оставлять работающий автоклав без присмотра в помещении, где может находиться посторонний персонал. При необходимости покинуть кабинет — предупредить коллег о работающем цикле.",
+                s2Item9: "<strong>Только в штатных корзинах:</strong> загрузка камеры без штатной корзины/лотка запрещена. Прямой контакт пластиковой тары или любых других предметов со стенками камеры повреждает её покрытие и выводит камеру из строя.",
+
+                s3Title: "Порядок работы",
+                s3Step1: "<strong>Проверка перед началом:</strong> уровень воды в резервуаре/парогенераторе, чистота уплотнителя двери, отсутствие посторонних предметов в камере.",
+                s3Step2: "<strong>Подбор загрузки:</strong> использовать только тот автоклав, который соответствует типу материала — среды, посуда и инструменты загружаются в основной VX-150 или DX-23; биологически опасные отходы — только в автоклав для отходов.",
+                s3Step3: "<strong>Загрузка камеры:</strong> только в штатной корзине, без прямого контакта тары или иных предметов со стенками камеры; устойчивое размещение сосудов с зазорами для свободной циркуляции пара; крышки — неплотно закрыты; отходы — в сертифицированных автоклавируемых пакетах с индикаторной лентой, без переполнения.",
+                s3Step4: "<strong>Выбор программы и запуск:</strong> на сенсорной панели управления выбрать программу, соответствующую типу загрузки (среды/растворы, твёрдые материалы и инструменты, отходы), закрыть и заблокировать дверь, запустить цикл.",
+                s3Step5: "<strong>Контроль цикла:</strong> следить за индикацией на дисплее. При появлении сообщения об ошибке и включении красного индикатора ERROR — не пытаться самостоятельно сбросить или перезапустить цикл, вызвать инженера ETS.",
+                s3Step6: "<strong>Завершение и выгрузка:</strong> дождаться завершения цикла охлаждения/сброса давления и автоматической разблокировки двери. Открывать дверь только после этого. Извлекать содержимое в термостойких перчатках, давая жидкостям отстояться несколько минут во избежание вскипания при перемешивании.",
+                s3Step7: "<strong>После работы:</strong> зафиксировать проведённый цикл в журнале эксплуатации; по окончании работы выключить автоклав главным выключателем, если дальнейшее использование не планируется.",
+
+                s4Title:       "Назначение программ автоклавирования",
+                s4Intro:       "На панели управления каждого автоклава доступно несколько программ. Важно выбирать программу, соответствующую типу загрузки:",
+                s4LiquidsTitle:"Программа для жидкостей и сред",
+                s4LiquidsText: "Медленный, контролируемый сброс давления. Предназначена для стерилизации питательных сред, растворов и буферов — предотвращает вскипание и выброс жидкости при разгерметизации камеры. Доступна на основном VX-150 и DX-23.",
+                s4SolidsTitle: "Программа для твёрдых материалов и инструментов",
+                s4SolidsText:  "Быстрый сброс давления (при необходимости — с сушкой). Предназначена для стерилизации лабораторной посуды, инструментов и сухих материалов. Доступна на основном VX-150 и DX-23.",
+                s4WasteTitle:  "Программа для отходов",
+                s4WasteText:   "Предназначена для обеззараживания биологически опасных отходов перед утилизацией. Доступна исключительно на автоклаве, выделенном для отходов.",
+                s4Note:        "Выбор программы, не соответствующей типу загрузки, может привести к порче материала, разрушению сосудов или неполному обеззараживанию отходов. При сомнениях в выборе программы — уточнить у инженера ETS (<a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold\">engineeringdesk@nu.edu.kz</a>) до запуска цикла.",
+
+                s5Title: "Особенности отдельных моделей",
+                s5Vx:    "<strong>Systec VX-150 (оба аппарата):</strong> верхняя загрузка с помощью лифта/корзины. Соблюдать осторожность при подъёме и опускании корзины, не наклоняться над открытой камерой.",
+                s5Dx:    "<strong>Systec DX-23:</strong> фронтальная (передняя) дверь и органы управления отличаются от VX-150. Перед каждым включением обязательно проверять уровень воды в резервуаре — включение при недостаточном уровне воды может вывести из строя парогенератор. Перед первой самостоятельной работой на DX-23 необходимо отдельно ознакомиться с расположением элементов управления именно этой модели.",
+                s5Waste: "<strong>Автоклав для отходов:</strong> промаркирован отдельно (табличка/цветная маркировка) и используется исключительно по назначению — обеззараживание биологически опасных отходов. Использование этого автоклава для стерилизации чистых материалов, а также использование основного VX-150 или DX-23 для отходов запрещено в любом направлении. После каждого цикла обеззараженные отходы утилизируются по установленной процедуре; для контроля эффективности используются индикаторы стерилизации.",
+
+                s6Title: "Действия при неисправностях и аварийных ситуациях",
+                s6Item1: "<strong>Сообщение об ошибке:</strong> при появлении ошибки на дисплее и включении красного индикатора ERROR самостоятельный сброс или перезапуск цикла запрещён — немедленно вызвать инженера ETS.",
+                s6Item2: "<strong>Утечка пара или воды, посторонний шум или запах гари:</strong> прекратить использование, не пытаться устранить неисправность самостоятельно, немедленно уведомить ETS.",
+                s6Item3: "<strong>Дверь не разблокируется после завершения цикла:</strong> не применять силу — это может свидетельствовать о неисправности замка-блокировки или температурного ограничителя. Обратиться в ETS.",
+                s6Item4: "<strong>Заявки, не требующие экстренного вмешательства</strong> (плановое обслуживание, вопросы по допуску и эксплуатации), направляются на <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold\">engineeringdesk@nu.edu.kz</a>.",
+
+                s7Title: "Порядок получения допуска",
+                s7Body:  "Допуск к самостоятельной работе на автоклавах предоставляется ETS индивидуально, по результатам прохождения настоящего инструктажа и цифрового подтверждения ознакомления. Допуск является персональным и не может быть передан другому сотруднику. ETS вправе отозвать допуск при нарушении правил эксплуатации или техники безопасности, а также назначить повторный инструктаж при изменении процедур или оборудования. Заявки на допуск и вопросы по планированию работ с автоклавами направляются на <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold text-[var(--primary)]\">engineeringdesk@nu.edu.kz</a>.",
+
+                formTitle:              "Цифровое подтверждение ознакомления и запрос допуска",
+                formNameLabel:          "ФИО",
+                formNamePlaceholder:    "Фамилия Имя Отчество",
+                formPositionLabel:      "Должность / отдел",
+                formPositionPlaceholder:"Напр.: Научный сотрудник, Лаборатория биологии",
+                formEmailLabel:         "Электронная почта",
+                formEmailPlaceholder:   "email@nu.edu.kz",
+                formEquipmentLabel:     "Автоклав(ы), к которым запрашивается допуск",
+                eq1Label:               "Systec VX-150 (основной)",
+                eq2Label:               "Systec VX-150 (для отходов)",
+                eq3Label:               "Systec DX-23",
+                formConsentLabel:       "Я ознакомился(лась) с инструкцией по эксплуатации автоклавов и обязуюсь соблюдать изложенные правила техники безопасности",
+                formSubmitBtn:          "ОТПРАВИТЬ ПОДТВЕРЖДЕНИЕ",
+                formSending:            "Отправка…",
+                formSuccess:            "Подтверждение записано ✓",
+                formError:              "Ошибка отправки — попробуйте ещё раз",
+            },
+
+            en: {
+                pageTitle:        "Autoclave Access Briefing — ETS",
+                deptLabel:        "Engineering and Technical Services",
+                universityName:   "NAZARBAYEV UNIVERSITY",
+                safetyBadge:      "Safety Instruction",
+                mainTitle:        "ACCESS AUTHORIZATION FOR SYSTEC VX-150 AND DX-23 STEAM AUTOCLAVES",
+                mainSubtitle:     "Equipment Operation Briefing",
+                introText:        "Authorization to operate the autoclaves independently is granted by Engineering and Technical Services (ETS) only after completing this briefing. Please read the instructions carefully and confirm your acknowledgement by providing your contact information.",
+                docNumberLabel:   "Document number:",
+                docDateLabel:     "Approval date:",
+                contactLine:      "Requests and questions regarding autoclave operation: <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold text-[var(--primary)]\">engineeringdesk@nu.edu.kz</a>",
+                manualLine:       "Full operating manual (PDF): <a href=\"https://drive.google.com/file/d/1tk3-sKMwD4C0rWGfrHuE77L3c6habxvi/view?usp=sharing\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"font-bold text-[var(--primary)]\">open manual</a>",
+
+                s1Title:    "Autoclaves Covered by This Authorization",
+                s1Body:     "The room is equipped with three Systec steam autoclaves owned and maintained by Engineering and Technical Services (ETS). Authorization to operate any of them independently is granted by ETS only after completing this briefing and submitting the digital acknowledgement.",
+                s1Eq1Title: "Systec VX-150 (standard)",
+                s1Eq1Text:  "Top-loading vertical autoclave with a 150 L chamber. Used to sterilize culture media, solutions, laboratory glassware and instruments.",
+                s1Eq2Title: "Systec VX-150 (waste)",
+                s1Eq2Text:  "Same model, dedicated and labelled exclusively for decontaminating biohazardous waste. Must not be used to sterilize clean materials.",
+                s1Eq3Title: "Systec DX-23",
+                s1Eq3Text:  "Front-loading autoclave with a smaller chamber. Used to sterilize small batches of glassware, instruments and media.",
+                s1Danger:   "<strong>Important:</strong> each autoclave is intended only for its designated load type. Mixing \"clean\" sterilization cycles with biohazardous waste decontamination cycles on the same unit is prohibited.",
+
+                s2Title: "General Safety Requirements",
+                s2Item1: "<strong>Hazard class:</strong> an autoclave is a pressure vessel operating with saturated steam at temperatures up to ~134°C and pressures up to ~3 bar. Failure to follow operating rules can result in burns, scalding, and pressure-related injuries.",
+                s2Item2: "<strong>Trained personnel only:</strong> only individuals who have completed this briefing and received ETS authorization may operate the equipment independently. Authorization is personal and may not be transferred to a third party.",
+                s2Item3: "<strong>Protective equipment:</strong> heat-resistant gloves and a protective face shield or goggles must be worn when loading and unloading the chamber.",
+                s2Item4: "<strong>Prohibited materials:</strong> do not autoclave sealed containers or flammable, volatile, corrosive, explosive, or radioactive substances unless explicitly permitted by the material-specific instructions.",
+                s2Item5: "<strong>Filling vessels:</strong> fill liquids no more than 2/3 of the container volume; do not seal caps tightly — leave them loosely closed to prevent the vessel from bursting during heating.",
+                s2Item6: "<strong>Safety devices:</strong> do not block, remove, or modify the safety valve, the door interlock, or the Safety Temperature Limiter (STL) — these are factory-installed protective devices essential to safe operation.",
+                s2Item7: "<strong>No forcing the door:</strong> do not open or force the door during a cycle or before the chamber has fully depressurized and cooled. The door interlock releases automatically only once safe pressure and temperature levels are reached.",
+                s2Item8: "<strong>Attended operation:</strong> do not leave a running autoclave unattended in a room accessible to other personnel. If you must leave the room, inform your colleagues that a cycle is in progress.",
+                s2Item9: "<strong>Baskets are mandatory:</strong> loading the chamber without the standard basket/tray is prohibited. Direct contact of plastic containers or any other items with the chamber walls damages its lining and puts the chamber out of service.",
+
+                s3Title: "Operating Procedure",
+                s3Step1: "<strong>Pre-start check:</strong> water level in the reservoir/steam generator, cleanliness of the door gasket, and absence of foreign objects in the chamber.",
+                s3Step2: "<strong>Selecting the correct unit:</strong> use only the autoclave that matches the load type — media, glassware and instruments go into the standard VX-150 or the DX-23; biohazardous waste goes only into the waste autoclave.",
+                s3Step3: "<strong>Loading the chamber:</strong> use the standard basket only — do not let containers or other items touch the chamber walls directly; place containers securely with gaps for free steam circulation; caps left loosely closed; waste packed in certified autoclave bags with indicator tape, not overfilled.",
+                s3Step4: "<strong>Selecting the program and starting:</strong> on the touch control panel, select the program matching the load type (media/solutions, solid materials and instruments, waste), close and lock the door, and start the cycle.",
+                s3Step5: "<strong>Monitoring the cycle:</strong> watch the display indications. If an error message appears and the red ERROR indicator lights up, do not attempt to reset or restart the cycle yourself — call an ETS engineer.",
+                s3Step6: "<strong>Completion and unloading:</strong> wait for the cooling/depressurization cycle to finish and the door to unlock automatically. Only then open the door. Remove the contents wearing heat-resistant gloves, allowing liquids to settle for several minutes to avoid delayed boiling when disturbed.",
+                s3Step7: "<strong>After use:</strong> log the completed cycle in the operating logbook; switch off the autoclave at the main switch once further use is not planned.",
+
+                s4Title:       "Purpose of the Sterilization Programs",
+                s4Intro:       "Each autoclave's control panel offers several programs. It is essential to select the program that matches the load type:",
+                s4LiquidsTitle:"Program for Liquids and Media",
+                s4LiquidsText: "Slow, controlled depressurization. Used to sterilize culture media, solutions and buffers — prevents boil-over and liquid ejection when the chamber depressurizes. Available on the standard VX-150 and the DX-23.",
+                s4SolidsTitle: "Program for Solid Materials and Instruments",
+                s4SolidsText:  "Fast depressurization (with drying if needed). Used to sterilize laboratory glassware, instruments and dry materials. Available on the standard VX-150 and the DX-23.",
+                s4WasteTitle:  "Program for Waste",
+                s4WasteText:   "Used to decontaminate biohazardous waste before disposal. Available exclusively on the autoclave designated for waste.",
+                s4Note:        "Selecting a program that does not match the load type can damage the material, rupture containers, or leave waste incompletely decontaminated. If in doubt about which program to use, check with an ETS engineer (<a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold\">engineeringdesk@nu.edu.kz</a>) before starting the cycle.",
+
+                s5Title: "Model-Specific Notes",
+                s5Vx:    "<strong>Systec VX-150 (both units):</strong> top loading via a lift/basket. Take care when raising and lowering the basket, and do not lean over an open chamber.",
+                s5Dx:    "<strong>Systec DX-23:</strong> the front-loading door and controls differ from the VX-150. Always check the water level in the reservoir before switching the unit on — starting it with an insufficient water level can damage the steam generator. Before operating the DX-23 independently for the first time, familiarize yourself separately with this model's control layout.",
+                s5Waste: "<strong>Waste autoclave:</strong> separately labelled (sign/color coding) and used solely for its intended purpose — decontaminating biohazardous waste. Using this unit to sterilize clean materials, or using the standard VX-150 or DX-23 for waste, is prohibited in either direction. After each cycle, decontaminated waste is disposed of per the established procedure; sterilization indicators are used to verify effectiveness.",
+
+                s6Title: "Faults and Emergency Procedures",
+                s6Item1: "<strong>Error message:</strong> if an error appears on the display and the red ERROR indicator lights up, do not reset or restart the cycle yourself — call an ETS engineer immediately.",
+                s6Item2: "<strong>Steam or water leak, unusual noise, or burning smell:</strong> stop using the unit, do not attempt to fix the fault yourself, and notify ETS immediately.",
+                s6Item3: "<strong>Door does not unlock after the cycle ends:</strong> do not force it — this may indicate a fault in the door interlock or the temperature limiter. Contact ETS.",
+                s6Item4: "<strong>Non-urgent requests</strong> (planned maintenance, access questions, general operating questions) should be sent to <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold\">engineeringdesk@nu.edu.kz</a>.",
+
+                s7Title: "Authorization Process",
+                s7Body:  "Authorization to operate the autoclaves independently is granted by ETS on an individual basis, after completion of this briefing and submission of the digital acknowledgement. Authorization is personal and may not be transferred to another employee. ETS may revoke authorization for violations of operating or safety rules, and may require a refresher briefing if procedures or equipment change. Access requests and scheduling questions regarding the autoclaves should be sent to <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold text-[var(--primary)]\">engineeringdesk@nu.edu.kz</a>.",
+
+                formTitle:              "Digital Acknowledgement and Access Request",
+                formNameLabel:          "Full Name",
+                formNamePlaceholder:    "First name Last name",
+                formPositionLabel:      "Position / Department",
+                formPositionPlaceholder:"e.g., Researcher, Biology Lab",
+                formEmailLabel:         "Email",
+                formEmailPlaceholder:   "email@nu.edu.kz",
+                formEquipmentLabel:     "Autoclave(s) for which access is requested",
+                eq1Label:               "Systec VX-150 (standard)",
+                eq2Label:               "Systec VX-150 (waste)",
+                eq3Label:               "Systec DX-23",
+                formConsentLabel:       "I have read the autoclave operating instructions and commit to following the safety rules described above",
+                formSubmitBtn:          "SUBMIT ACKNOWLEDGEMENT",
+                formSending:            "Sending…",
+                formSuccess:            "Acknowledgement recorded ✓",
+                formError:              "Submission error — please try again",
+            },
+
+            kk: {
+                pageTitle:        "Автоклавтарға рұқсат алу нұсқаулығы — ETS", // CHECK
+                deptLabel:        "Инженерлік-техникалық қызмет",
+                universityName:   "НАЗАРБАЕВ УНИВЕРСИТЕТІ",
+                safetyBadge:      "Қауіпсіздік техникасы нұсқаулығы",
+                mainTitle:        "SYSTEC VX-150 ЖӘНЕ DX-23 БУЛЫ АВТОКЛАВТАРЫНДА ЖҰМЫС ІСТЕУГЕ РҰҚСАТ", // CHECK
+                mainSubtitle:     "Жабдықты пайдалану жөніндегі нұсқаулық", // CHECK
+                introText:        "Автоклавтарда дербес жұмыс істеуге рұқсатты Инженерлік-техникалық қызмет (ETS) осы нұсқаулықтан өткеннен кейін ғана береді. Нұсқаулықты мұқият оқып шығып, байланыс деректеріңізді көрсету арқылы танысқаныңызды растаңыз.", // CHECK
+                docNumberLabel:   "Құжат нөмірі:",
+                docDateLabel:     "Бекіту күні:",
+                contactLine:      "Автоклавтардың жұмысына қатысты өтінімдер мен сұрақтар: <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold text-[var(--primary)]\">engineeringdesk@nu.edu.kz</a>", // CHECK
+                manualLine:       "Толық пайдалану жөніндегі нұсқаулық (PDF): <a href=\"https://drive.google.com/file/d/1tk3-sKMwD4C0rWGfrHuE77L3c6habxvi/view?usp=sharing\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"font-bold text-[var(--primary)]\">manualды ашу</a>", // CHECK
+
+                s1Title:    "Рұқсат берілетін автоклавтар", // CHECK
+                s1Body:     "Кабинетте Инженерлік-техникалық қызметтің (ETS) теңгерімінде және қызмет көрсетуінде тұрған Systec фирмасының үш булы автоклавы орнатылған. Олардың кез келгенінде дербес жұмыс істеуге рұқсатты ETS осы нұсқаулықтан өтіп, танысуды электрондық түрде растағаннан кейін ғана береді.", // CHECK
+                s1Eq1Title: "Systec VX-150 (негізгі)",
+                s1Eq1Text:  "Жоғарыдан тиелетін тік автоклав, камера көлемі 150 л. Қоректік орталарды, ерітінділерді, зертханалық ыдыс-аяқ пен құралдарды стерилдеуге арналған.", // CHECK
+                s1Eq2Title: "Systec VX-150 (қалдықтарға арналған)",
+                s1Eq2Text:  "Сол үлгідегі автоклав, биологиялық қауіпті қалдықтарды зарарсыздандыруға арналған бөлек белгіленген аппарат. Таза материалдарды стерилдеу үшін пайдаланылмайды.", // CHECK
+                s1Eq3Title: "Systec DX-23",
+                s1Eq3Text:  "Алдынан тиелетін автоклав, камера көлемі кішірек. Ыдыс-аяқ, құралдар мен орталардың шағын партияларын стерилдеуге арналған.", // CHECK
+                s1Danger:   "<strong>Маңызды:</strong> әрбір автоклав тек көрсетілген тиеу түріне арналған. «Таза» стерилдеу циклдары мен биологиялық қауіпті қалдықтарды зарарсыздандыру циклдарын бір аппаратта араластыруға тыйым салынады.", // CHECK
+
+                s2Title: "Жалпы қауіпсіздік техникасы талаптары", // CHECK
+                s2Item1: "<strong>Қауіп класы:</strong> автоклав — температурасы ~134°C-қа және қысымы ~3 барға дейінгі қаныққан бумен жұмыс істейтін қысымды ыдыс. Пайдалану ережелерін бұзу күйіктерге, шала пісуге және артық қысымнан болатын жарақаттарға әкелуі мүмкін.", // CHECK
+                s2Item2: "<strong>Тек оқытылған персонал үшін:</strong> дербес жұмыс істеуге тек осы нұсқаулықтан өтіп, ETS рұқсатын алған адамдар ғана жіберіледі. Рұқсат жеке болып табылады және үшінші тұлғаларға берілмейді.", // CHECK
+                s2Item3: "<strong>Қорғаныш құралдары:</strong> камераны тиеу және түсіру кезінде жылуға төзімді қолғап пен қорғаныш экраны немесе көзілдірік міндетті түрде киілуі тиіс.", // CHECK
+                s2Item4: "<strong>Тыйым салынған материалдар:</strong> материалға арналған арнайы нұсқаулықта тікелей рұқсат етілмесе, герметикалы жабылған ыдыстарды, тез тұтанатын, ұшпа, коррозиялық, жарылғыш және радиоактивті заттарды автоклавтауға тыйым салынады.", // CHECK
+                s2Item5: "<strong>Ыдыстарды толтыру:</strong> сұйықтықтарды ыдыс көлемінің 2/3 бөлігінен артық құймаңыз; қақпақтарды герметикалы бекітпеңіз — қыздыру кезінде ыдыстың жарылып кетуін болдырмау үшін бос қалдырыңыз.", // CHECK
+                s2Item6: "<strong>Қорғаныш құрылғылары:</strong> сақтандырғыш клапанды, есік құлпын және температуралық шектеуішті (Safety Temperature Limiter, STL) бұғаттауға, алып тастауға немесе өзгертуге тыйым салынады — бұл қауіпсіз жұмысты қамтамасыз ететін зауыттық қорғаныш құрылғылары.", // CHECK
+                s2Item7: "<strong>Есікті мәжбүрлеп ашуға тыйым:</strong> цикл барысында немесе камера толық қысымсызданып, суымайынша есікті ашуға немесе мәжбүрлеуге тыйым салынады. Есік құлпы қауіпсіз қысым мен температураға жеткенде ғана автоматты түрде ашылады.", // CHECK
+                s2Item8: "<strong>Жұмыс кезінде қадағалау:</strong> бөгде персонал кіре алатын бөлмеде жұмыс істеп тұрған автоклавты қараусыз қалдырмаңыз. Кабинеттен шығу қажет болса, әріптестеріңізге циклдің жүріп жатқаны туралы ескертіңіз.", // CHECK
+                s2Item9: "<strong>Тек штаттық себеттермен:</strong> камераны штаттық себет/науасыз тиеуге тыйым салынады. Пластикалық ыдыстың немесе кез келген басқа заттың камера қабырғаларымен тікелей жанасуы оның қаптамасын бүлдіреді және камераны істен шығарады.", // CHECK
+
+                s3Title: "Жұмыс тәртібі", // CHECK
+                s3Step1: "<strong>Бастамас бұрын тексеру:</strong> резервуардағы/бу генераторындағы су деңгейі, есік тығыздағышының тазалығы, камерада бөгде заттардың жоқтығы.", // CHECK
+                s3Step2: "<strong>Тиеуді таңдау:</strong> тек материал түріне сәйкес келетін автоклавты пайдаланыңыз — орталар, ыдыс-аяқ пен құралдар негізгі VX-150 немесе DX-23-ке тиеледі; биологиялық қауіпті қалдықтар тек қалдықтарға арналған автоклавқа тиеледі.", // CHECK
+                s3Step3: "<strong>Камераны тиеу:</strong> тек штаттық себетте, ыдыстың немесе басқа заттардың камера қабырғаларымен тікелей жанаспауын қадағалап; бу еркін айналуы үшін саңылаулар қалдырып, ыдыстарды тұрақты орналастырыңыз; қақпақтар бос жабылған күйде қалдырылады; қалдықтар индикатор лентасы бар сертификатталған автоклавтық қаптарға, шамадан тыс толтырылмай салынады.", // CHECK
+                s3Step4: "<strong>Бағдарламаны таңдау және іске қосу:</strong> сенсорлық басқару панелінде тиеу түріне сәйкес бағдарламаны таңдаңыз (орталар/ерітінділер, қатты материалдар мен құралдар, қалдықтар), есікті жабып, бұғаттап, циклді іске қосыңыз.", // CHECK
+                s3Step5: "<strong>Циклді бақылау:</strong> дисплейдегі көрсеткіштерді бақылаңыз. Дисплейде қате туралы хабарлама пайда болып, қызыл ERROR индикаторы жанса — циклді өз бетіңізше қалпына келтіруге немесе қайта іске қосуға болмайды, ETS инженерін шақырыңыз.", // CHECK
+                s3Step6: "<strong>Аяқтау және түсіру:</strong> салқындату/қысымды түсіру циклінің аяқталуын және есіктің автоматты түрде ашылуын күтіңіз. Есікті тек содан кейін ғана ашыңыз. Мазмұнын жылуға төзімді қолғаппен алыңыз, сұйықтықтардың араласқанда кенеттен қайнап кетуін болдырмау үшін бірнеше минут тұндырыңыз.", // CHECK
+                s3Step7: "<strong>Жұмыстан кейін:</strong> өткізілген циклді пайдалану журналына тіркеңіз; әрі қарай пайдалану жоспарланбаса, автоклавты негізгі ажыратқышпен өшіріңіз.", // CHECK
+
+                s4Title:       "Автоклавтау бағдарламаларының мақсаты", // CHECK
+                s4Intro:       "Әр автоклавтың басқару панелінде бірнеше бағдарлама қолжетімді. Тиеу түріне сәйкес бағдарламаны таңдау маңызды:", // CHECK
+                s4LiquidsTitle:"Сұйықтықтар мен орталарға арналған бағдарлама", // CHECK
+                s4LiquidsText: "Баяу, бақыланатын қысымды түсіру. Қоректік орталарды, ерітінділер мен буферлерді стерилдеуге арналған — камера қысымсызданғанда сұйықтықтың қайнап кетуін және шашырауын болдырмайды. Негізгі VX-150 мен DX-23-те қолжетімді.", // CHECK
+                s4SolidsTitle: "Қатты материалдар мен құралдарға арналған бағдарлама", // CHECK
+                s4SolidsText:  "Жылдам қысымды түсіру (қажет болса — кептірумен). Зертханалық ыдыс-аяқты, құралдарды және құрғақ материалдарды стерилдеуге арналған. Негізгі VX-150 мен DX-23-те қолжетімді.", // CHECK
+                s4WasteTitle:  "Қалдықтарға арналған бағдарлама", // CHECK
+                s4WasteText:   "Утилизациялау алдында биологиялық қауіпті қалдықтарды зарарсыздандыруға арналған. Тек қалдықтарға арналған автоклавта ғана қолжетімді.", // CHECK
+                s4Note:        "Тиеу түріне сәйкес келмейтін бағдарламаны таңдау материалдың бүлінуіне, ыдыстардың жарылуына немесе қалдықтардың толық зарарсызданбауына әкелуі мүмкін. Бағдарламаны таңдауға күмәніңіз болса, циклді бастамас бұрын ETS инженерінен (<a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold\">engineeringdesk@nu.edu.kz</a>) сұраңыз.", // CHECK
+
+                s5Title: "Жеке үлгілердің ерекшеліктері", // CHECK
+                s5Vx:    "<strong>Systec VX-150 (екі аппарат та):</strong> лифт/себет арқылы жоғарыдан тиеу. Себетті көтеру және түсіру кезінде абай болыңыз, ашық камераның үстіне еңкеймеңіз.", // CHECK
+                s5Dx:    "<strong>Systec DX-23:</strong> алдыңғы есігі мен басқару элементтері VX-150-ден өзгеше. Әр қосу алдында резервуардағы су деңгейін міндетті түрде тексеріңіз — су деңгейі жеткіліксіз кезде қосу бу генераторын істен шығаруы мүмкін. DX-23-те алғаш рет дербес жұмыс істемес бұрын осы үлгінің басқару элементтерінің орналасуымен бөлек танысу қажет.", // CHECK
+                s5Waste: "<strong>Қалдықтарға арналған автоклав:</strong> бөлек белгіленген (тақтайша/түсті маркировка) және тек өз мақсаты бойынша — биологиялық қауіпті қалдықтарды зарарсыздандыру үшін қолданылады. Осы автоклавты таза материалдарды стерилдеу үшін, сондай-ақ негізгі VX-150 немесе DX-23-ті қалдықтар үшін пайдалануға екі бағытта да тыйым салынады. Әрбір циклден кейін зарарсыздандырылған қалдықтар белгіленген тәртіп бойынша утилизацияланады; тиімділікті бақылау үшін стерилдеу индикаторлары қолданылады.", // CHECK
+
+                s6Title: "Ақаулар мен төтенше жағдайлардағы әрекеттер", // CHECK
+                s6Item1: "<strong>Қате туралы хабарлама:</strong> дисплейде қате пайда болып, қызыл ERROR индикаторы жанғанда циклді өз бетіңізше қалпына келтіруге немесе қайта іске қосуға тыйым салынады — дереу ETS инженерін шақырыңыз.", // CHECK
+                s6Item2: "<strong>Бу немесе су ағуы, бөгде шу немесе күйік иісі:</strong> пайдалануды тоқтатыңыз, ақауды өз бетіңізше жоюға тырыспаңыз, дереу ETS-ке хабарлаңыз.", // CHECK
+                s6Item3: "<strong>Цикл аяқталғаннан кейін есік ашылмайды:</strong> күш қолданбаңыз — бұл есік құлпының немесе температуралық шектеуіштің ақаулығын білдіруі мүмкін. ETS-ке хабарласыңыз.", // CHECK
+                s6Item4: "<strong>Жедел араласуды қажет етпейтін өтінімдер</strong> (жоспарлы қызмет көрсету, рұқсат және пайдалану бойынша сұрақтар) <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold\">engineeringdesk@nu.edu.kz</a> мекенжайына жіберіледі.", // CHECK
+
+                s7Title: "Рұқсат алу тәртібі", // CHECK
+                s7Body:  "Автоклавтарда дербес жұмыс істеуге рұқсатты ETS осы нұсқаулықтан өту және танысуды электрондық түрде растау нәтижелері бойынша жеке тәртіппен береді. Рұқсат жеке болып табылады және басқа қызметкерге берілмейді. ETS пайдалану немесе қауіпсіздік техникасы ережелерін бұзған жағдайда рұқсатты кері қайтарып алуға, сондай-ақ рәсімдер немесе жабдық өзгерген кезде қайта нұсқаулық тағайындауға құқылы. Автоклавтарға рұқсат алу және жұмыстарды жоспарлау бойынша өтінімдер <a href=\"mailto:engineeringdesk@nu.edu.kz\" class=\"font-bold text-[var(--primary)]\">engineeringdesk@nu.edu.kz</a> мекенжайына жіберіледі.", // CHECK
+
+                formTitle:              "Танысуды электрондық растау және рұқсатқа өтінім", // CHECK
+                formNameLabel:          "Тегі, аты, әкесінің аты",
+                formNamePlaceholder:    "Тегіңіз Атыңыз",
+                formPositionLabel:      "Лауазымы / бөлімше",
+                formPositionPlaceholder:"Мысалы: Зерттеуші, Биология зертханасы",
+                formEmailLabel:         "Электрондық пошта",
+                formEmailPlaceholder:   "email@nu.edu.kz",
+                formEquipmentLabel:     "Рұқсат сұралатын автоклав(тар)", // CHECK
+                eq1Label:               "Systec VX-150 (негізгі)",
+                eq2Label:               "Systec VX-150 (қалдықтарға арналған)",
+                eq3Label:               "Systec DX-23",
+                formConsentLabel:       "Мен автоклавтарды пайдалану жөніндегі нұсқаулықпен таныстым және жоғарыда көрсетілген қауіпсіздік техникасы ережелерін сақтауға міндеттенемін", // CHECK
+                formSubmitBtn:          "РАСТАУДЫ ЖІБЕРУ",
+                formSending:            "Жіберілуде…", // CHECK
+                formSuccess:            "Растау тіркелді ✓", // CHECK
+                formError:              "Жіберу қатесі — қайталап көріңіз", // CHECK
+            },
+        };
+
+        // ─── STATE ───────────────────────────────────────────────────────────────
+        let currentLang = localStorage.getItem('lang') || 'ru';
+        let currentStatus = null; // 'sending' | 'success' | 'error' | null
+
+        // ─── LANGUAGE ────────────────────────────────────────────────────────────
+        function applyLanguage(lang) {
+            const t = translations[lang];
+
+            document.documentElement.lang = lang;
+            document.title = t.pageTitle;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (t[key] !== undefined) el.textContent = t[key];
+            });
+
+            document.querySelectorAll('[data-i18n-html]').forEach(el => {
+                const key = el.dataset.i18nHtml;
+                if (t[key] !== undefined) el.innerHTML = t[key];
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.dataset.i18nPlaceholder;
+                if (t[key] !== undefined) el.placeholder = t[key];
+            });
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            updateDate(lang);
+
+            // Re-apply current status text after language switch
+            if (currentStatus) showStatus(currentStatus);
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            applyLanguage(lang);
+        }
+
+        function updateDate(lang) {
+            const locales = { ru: 'ru-RU', en: 'en-GB', kk: 'kk-KZ' };
+            const el = document.getElementById('current-date');
+            if (!el) return;
+            try {
+                el.textContent = ' ' + new Date().toLocaleDateString(locales[lang] || 'ru-RU', {
+                    day: '2-digit', month: 'long', year: 'numeric'
+                });
+            } catch (e) {
+                el.textContent = ' ' + new Date().toLocaleDateString('ru-RU', {
+                    day: '2-digit', month: 'long', year: 'numeric'
+                });
+            }
+        }
+
+        // ─── FORM ────────────────────────────────────────────────────────────────
+        function checkFormValidity() {
+            const name      = document.getElementById('form-fullname').value.trim();
+            const position  = document.getElementById('form-position').value.trim();
+            const email     = document.getElementById('form-email').value.trim();
+            const consent   = document.getElementById('form-consent').checked;
+            const emailOk   = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            const equipment = document.querySelectorAll('.form-equipment:checked').length > 0;
+
+            const btn = document.getElementById('form-submit');
+            btn.disabled = !(name && position && email && emailOk && equipment && consent);
+        }
+
+        function showStatus(id) {
+            ['sending', 'success', 'error'].forEach(s => {
+                document.getElementById('status-' + s).style.display = (s === id) ? 'block' : 'none';
+            });
+            currentStatus = id;
+        }
+
+        function hideStatus() {
+            ['sending', 'success', 'error'].forEach(s => {
+                document.getElementById('status-' + s).style.display = 'none';
+            });
+            currentStatus = null;
+        }
+
+        async function submitForm() {
+            const fullName   = document.getElementById('form-fullname').value.trim();
+            const position   = document.getElementById('form-position').value.trim();
+            const email      = document.getElementById('form-email').value.trim();
+            const equipment  = Array.from(document.querySelectorAll('.form-equipment:checked')).map(el => el.value).join(', ');
+            const lang       = currentLang;
+            const clientTime = new Date().toISOString();
+
+            const btn = document.getElementById('form-submit');
+            btn.disabled = true;
+            showStatus('sending');
+
+            const body = new URLSearchParams({ fullName, position, email, equipment, lang, clientTime });
+
+            try {
+                await fetch(WEB_APP_URL, {
+                    method:  'POST',
+                    mode:    'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body:    body.toString(),
+                });
+                showStatus('success');
+                // Lock form after success to prevent duplicates
+                document.getElementById('ack-form').querySelectorAll('input').forEach(el => el.disabled = true);
+            } catch (err) {
+                showStatus('error');
+                btn.disabled = false;
+            }
+        }
+
+        // ─── INIT ────────────────────────────────────────────────────────────────
+        applyLanguage(currentLang);
+
+        // Intersection Observer for scroll animations
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!prefersReducedMotion) {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+            document.querySelectorAll('.slide-up').forEach(el => {
+                el.style.animationPlayState = 'paused';
+                observer.observe(el);
+            });
+        }
+    </script>
+</body>
+</html>
