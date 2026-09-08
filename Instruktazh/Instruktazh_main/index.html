@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Инструктажи по охране труда - Инженер КИП</title>
+    <link rel="icon" type="image/png" href="../../Media/Icon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -236,6 +237,147 @@
         .footer-link:hover {
             color: var(--primary);
         }
+
+        /* Search & filter toolbar */
+        .search-wrapper {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 13px 44px 13px 44px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-family: 'PT Sans', sans-serif;
+            font-size: 15px;
+            color: var(--text);
+            background: var(--card);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            pointer-events: none;
+        }
+
+        .search-clear {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            background: none;
+            border: none;
+            color: var(--muted);
+            cursor: pointer;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            display: none;
+        }
+
+        .search-clear:hover {
+            color: var(--danger);
+            background: var(--bg);
+        }
+
+        .search-clear.visible {
+            display: flex;
+        }
+
+        .filter-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .filter-chip {
+            padding: 7px 16px;
+            font-size: 13px;
+            font-family: 'PT Sans Narrow', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .filter-chip:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-chip.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .results-count {
+            font-size: 13px;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        .category-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .cat-general { background: #ebf8ff; color: var(--primary); }
+        .cat-equipment { background: #faf5ff; color: #6b46c1; }
+        .cat-biosafety { background: #fff5f5; color: var(--danger); }
+
+        .card-link.hidden-card {
+            display: none;
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 56px 24px;
+        }
+
+        .no-results.visible {
+            display: block;
+        }
+
+        .reset-filters-btn {
+            font-family: 'PT Sans Narrow', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 20px;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
+        .reset-filters-btn:hover {
+            border-color: var(--primary);
+        }
     </style>
 </head>
 <body class="pattern-bg">
@@ -250,7 +392,7 @@
         <section class="hero-bg rounded-2xl p-8 md:p-12 mb-12 animate-fade-in">
             <!-- Logos -->
             <div class="flex items-center justify-center gap-8 md:gap-12 mb-8">
-                <img src="https://z-cdn-media.chatglm.cn/files/0353fdbc-58ab-4f59-a7fd-85df90be9f4c.png?auth_key=1877374705-48b17b9768224eb4baa8edebe7b70d95-0-ca8685bf276b897f8ce93f00103a1821" 
+                <img src="../../Media/ETS_LOGO.png" 
                      alt="Логотип Инженерно-технической службы" 
                      class="logo-main">
                 <img src="../../Media/LOGO_NU.png" 
@@ -287,14 +429,43 @@
                     Актуальная версия
                 </div>
             </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                
+
+            <!-- Search & category filters -->
+            <div class="mb-8 space-y-4 animate-fade-in delay-100">
+                <div class="search-wrapper">
+                    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="search-input" class="search-input" placeholder="Поиск по названию, описанию или номеру документа… (/)" autocomplete="off">
+                    <button type="button" id="search-clear" class="search-clear" aria-label="Очистить поиск">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div class="filter-chips" id="category-filters">
+                        <button type="button" class="filter-chip active" data-category="all">Все</button>
+                        <button type="button" class="filter-chip" data-category="general">Общие инструктажи</button>
+                        <button type="button" class="filter-chip" data-category="equipment">Допуск к оборудованию</button>
+                        <button type="button" class="filter-chip" data-category="biosafety">Биобезопасность</button>
+                    </div>
+                    <div class="results-count" id="results-count"></div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" id="cards-grid">
+
                 <!-- Вводный инструктаж -->
-                <a href="https://m100ika.github.io/Instructions/Instruktazh/Vvodnii_instruktazh/index.html" 
-                   class="card-link animate-fade-in delay-200">
+                <a href="https://m100ika.github.io/Instructions/Instruktazh/Vvodnii_instruktazh/index.html"
+                   class="card-link animate-fade-in delay-200" data-category="general">
                     <div class="instruction-card card-vvodnii h-full">
                         <div class="p-6">
+                            <div class="text-center mb-3">
+                                <span class="category-tag cat-general">Общий инструктаж</span>
+                            </div>
                             <div class="card-icon-wrapper mb-5">
                                 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
@@ -329,10 +500,13 @@
                 </a>
                 
                 <!-- Первичный инструктаж -->
-                <a href="https://m100ika.github.io/Instructions/Instruktazh/pervichnii_instruktazh/index.html" 
-                   class="card-link animate-fade-in delay-300">
+                <a href="https://m100ika.github.io/Instructions/Instruktazh/pervichnii_instruktazh/index.html"
+                   class="card-link animate-fade-in delay-300" data-category="general">
                     <div class="instruction-card card-pervichnii h-full">
                         <div class="p-6">
+                            <div class="text-center mb-3">
+                                <span class="category-tag cat-general">Общий инструктаж</span>
+                            </div>
                             <div class="card-icon-wrapper mb-5">
                                 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="12" cy="12" r="10"></circle>
@@ -367,10 +541,13 @@
                 </a>
                 
                 <!-- Повторный инструктаж -->
-                <a href="https://m100ika.github.io/Instructions/Instruktazh/povtornii_intruktazh/index.html" 
-                   class="card-link animate-fade-in delay-400">
+                <a href="https://m100ika.github.io/Instructions/Instruktazh/povtornii_intruktazh/index.html"
+                   class="card-link animate-fade-in delay-400" data-category="general">
                     <div class="instruction-card card-povtornii h-full">
                         <div class="p-6">
+                            <div class="text-center mb-3">
+                                <span class="category-tag cat-general">Общий инструктаж</span>
+                            </div>
                             <div class="card-icon-wrapper mb-5">
                                 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="23 4 23 10 17 10"></polyline>
@@ -404,10 +581,13 @@
                 </a>
                 
                 <!-- Дезинфекция (VHP) -->
-                <a href="https://m100ika.github.io/Instructions/Instruktazh/decontamination/index.html" 
-                   class="card-link animate-fade-in delay-400">
+                <a href="https://m100ika.github.io/Instructions/Instruktazh/decontamination/index.html"
+                   class="card-link animate-fade-in delay-400" data-category="biosafety">
                     <div class="instruction-card card-decontamination h-full">
                         <div class="p-6">
+                            <div class="text-center mb-3">
+                                <span class="category-tag cat-biosafety">Биобезопасность</span>
+                            </div>
                             <div class="card-icon-wrapper mb-5">
                                 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
@@ -441,9 +621,12 @@
 
                 <!-- Допуск к автоклавам -->
                 <a href="https://m100ika.github.io/Instructions/Instruktazh/autoclaves/index.html"
-                   class="card-link animate-fade-in delay-400">
+                   class="card-link animate-fade-in delay-400" data-category="equipment">
                     <div class="instruction-card card-autoclave h-full">
                         <div class="p-6">
+                            <div class="text-center mb-3">
+                                <span class="category-tag cat-equipment">Допуск к оборудованию</span>
+                            </div>
                             <div class="card-icon-wrapper mb-5">
                                 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M10 2h4"></path>
@@ -479,9 +662,12 @@
 
                 <!-- Допуск к LPKF ProtoLaser U4 -->
                 <a href="https://m100ika.github.io/Instructions/Instruktazh/LPKF/index.html"
-                   class="card-link animate-fade-in delay-400">
+                   class="card-link animate-fade-in delay-400" data-category="equipment">
                     <div class="instruction-card card-lpkf h-full">
                         <div class="p-6">
+                            <div class="text-center mb-3">
+                                <span class="category-tag cat-equipment">Допуск к оборудованию</span>
+                            </div>
                             <div class="card-icon-wrapper mb-5">
                                 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path>
@@ -515,9 +701,12 @@
 
                 <!-- Допуск к LPKF Contac S4 -->
                 <a href="https://m100ika.github.io/Instructions/Instruktazh/LPKF/contac-s4.html"
-                   class="card-link animate-fade-in delay-400">
+                   class="card-link animate-fade-in delay-400" data-category="equipment">
                     <div class="instruction-card card-contac h-full">
                         <div class="p-6">
+                            <div class="text-center mb-3">
+                                <span class="category-tag cat-equipment">Допуск к оборудованию</span>
+                            </div>
                             <div class="card-icon-wrapper mb-5">
                                 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M3 22h18"></path>
@@ -554,8 +743,19 @@
                 </a>
 
             </div>
+
+            <!-- Empty state -->
+            <div class="no-results" id="no-results">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 16px;">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <p class="text-[var(--text)] font-medium mb-1">Ничего не найдено</p>
+                <p class="text-sm text-[var(--muted)]">Попробуйте изменить запрос или сбросить фильтры</p>
+                <button type="button" class="reset-filters-btn" id="reset-filters">Сбросить фильтры</button>
+            </div>
         </section>
-        
+
         <!-- Info Section -->
         <section class="animate-fade-in delay-400">
             <div class="bg-[var(--card)] rounded-xl border border-[var(--border)] p-6 md:p-8">
@@ -645,6 +845,73 @@
                 }
             });
         });
+
+        // ─── SEARCH & CATEGORY FILTERS ──────────────────────────────────────
+        const searchInput  = document.getElementById('search-input');
+        const searchClear  = document.getElementById('search-clear');
+        const filterChips  = document.querySelectorAll('.filter-chip');
+        const resetBtn     = document.getElementById('reset-filters');
+        const noResults    = document.getElementById('no-results');
+        const resultsCount = document.getElementById('results-count');
+        const cards        = document.querySelectorAll('#cards-grid .card-link');
+
+        let activeCategory = 'all';
+
+        function applyFilters() {
+            const query = searchInput.value.trim().toLowerCase();
+            searchClear.classList.toggle('visible', query.length > 0);
+
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const matchesCategory = activeCategory === 'all' || card.dataset.category === activeCategory;
+                const matchesSearch = !query || card.textContent.toLowerCase().includes(query);
+                const show = matchesCategory && matchesSearch;
+                card.classList.toggle('hidden-card', !show);
+                if (show) visibleCount++;
+            });
+
+            noResults.classList.toggle('visible', visibleCount === 0);
+            resultsCount.textContent = `Показано ${visibleCount} из ${cards.length}`;
+        }
+
+        searchInput.addEventListener('input', applyFilters);
+
+        searchClear.addEventListener('click', () => {
+            searchInput.value = '';
+            applyFilters();
+            searchInput.focus();
+        });
+
+        filterChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                filterChips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                activeCategory = chip.dataset.category;
+                applyFilters();
+            });
+        });
+
+        resetBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            activeCategory = 'all';
+            filterChips.forEach(c => c.classList.toggle('active', c.dataset.category === 'all'));
+            applyFilters();
+        });
+
+        // "/" focuses the search field, Escape clears it
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '/' && document.activeElement !== searchInput) {
+                e.preventDefault();
+                searchInput.focus();
+            } else if (e.key === 'Escape' && document.activeElement === searchInput) {
+                searchInput.value = '';
+                applyFilters();
+                searchInput.blur();
+            }
+        });
+
+        applyFilters();
     </script>
 </body>
 </html>
