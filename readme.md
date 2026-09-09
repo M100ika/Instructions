@@ -20,3 +20,4 @@
 1. LPKF U4 - https://docs.google.com/spreadsheets/d/1KspiDa4AvZkloeopcTrkLREnTowOx0Khg7cRXjzpbic/edit?gid=235548576#gid=235548576
 2. LPKF Contact S4 - https://docs.google.com/spreadsheets/d/1MfdOPjefG7KZ1--VGEJNzeBKqs8oF92_5cB9JkuBou8/edit?gid=1041515687#gid=1041515687
 3. C4 616 Autoclave - https://docs.google.com/spreadsheets/d/1M8oWCe0yqsR4spwBHVQXflUGzY0_Pjw5Yx6merQn4BU/edit?gid=1056417782#gid=1056417782
+4. BSC II - https://docs.google.com/spreadsheets/d/1GVjSVG469tFbBRGpEdk44bjxV6UFIsgadwslY6-hOs4/edit?gid=1159636417#gid=1159636417
