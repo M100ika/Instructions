@@ -1,280 +1,81 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ИТС — Распределение заявок</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #222; }
-
-  .header { background: #1a3a6b; color: white; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
-  .header h1 { font-size: 16px; font-weight: 500; }
-  .header-right { display: flex; align-items: center; gap: 12px; }
-  .conn-badge { font-size: 11px; padding: 3px 10px; border-radius: 10px; background: rgba(255,255,255,0.15); }
-  .conn-badge.ok { background: rgba(58,156,95,0.4); }
-
-  .toolbar { background: white; border-bottom: 1px solid #e0e0e0; padding: 0.75rem 1.5rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-  .toolbar label { font-size: 13px; color: #555; }
-  .toolbar select { font-size: 13px; padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; background: white; }
-  .btn { border: none; padding: 7px 16px; border-radius: 6px; font-size: 13px; cursor: pointer; font-weight: 500; }
-  .btn-primary { background: #1a3a6b; color: white; }
-  .btn-primary:hover { background: #2255a4; }
-  .status-text { font-size: 12px; color: #888; margin-left: auto; }
-
-  .container { padding: 1.5rem; max-width: 1200px; margin: 0 auto; }
-
-  .summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.5rem; }
-  .summary-card { background: white; border-radius: 8px; padding: 1rem 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.07); }
-  .summary-card .num { font-size: 26px; font-weight: 500; color: #1a3a6b; }
-  .summary-card .lbl { font-size: 11px; color: #888; margin-top: 3px; }
-
-  .loading { text-align: center; padding: 3rem; color: #888; font-size: 14px; }
-
-  table { width: 100%; background: white; border-radius: 8px; border-collapse: collapse; box-shadow: 0 1px 3px rgba(0,0,0,0.07); font-size: 13px; }
-  thead { background: #f0f4fa; }
-  th { padding: 10px 12px; text-align: left; font-weight: 600; color: #1a3a6b; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid #e0e0e0; white-space: nowrap; }
-  td { padding: 9px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: #fafbff; }
-
-  .ticket-num { font-weight: 600; color: #1a3a6b; font-size: 12px; white-space: nowrap; }
-  .ticket-title { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .ticket-service { font-size: 11px; color: #666; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .owner-badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 500; background: #e6f1fb; color: #185fa5; white-space: nowrap; }
-  .date { font-size: 11px; color: #999; white-space: nowrap; }
-  .phone { font-size: 11px; color: #444; }
-
-  /* Блок назначения */
-  .assign-wrap { display: flex; align-items: center; gap: 6px; }
-  .assign-select { font-size: 12px; padding: 4px 8px; border: 1px solid #ddd; border-radius: 5px; background: white; min-width: 110px; }
-  .btn-send { border: none; padding: 5px 10px; border-radius: 5px; font-size: 12px; cursor: pointer; font-weight: 500; background: #2AABEE; color: white; white-space: nowrap; transition: opacity 0.15s; }
-  .btn-send:hover { opacity: 0.85; }
-  .btn-send:disabled { background: #ccc; cursor: not-allowed; }
-  .btn-sent { background: #3a9c5f !important; }
-  .btn-no-tg { background: #e0e0e0; color: #888; cursor: not-allowed; }
-
-  .toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: #1a3a6b; color: white; padding: 10px 18px; border-radius: 8px; font-size: 13px; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; max-width: 300px; }
-  .toast.show { opacity: 1; }
-  .toast.error { background: #c0392b; }
-</style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#17324d"><title>Заявки — Рабочий кабинет ИТС НУ</title>
+<link rel="icon" href="../Media/energy_13712033.png"><link rel="stylesheet" href="assets/dispatch.css">
+<script src="assets/dispatch-demo.js" defer></script><script src="assets/dispatch.js" defer></script>
 </head>
 <body>
-
-<div class="header">
-  <h1>ИТС НУ — Распределение заявок</h1>
-  <div class="header-right">
-    <span class="conn-badge" id="conn-badge">Не подключено</span>
+<a href="#workspace" class="skip-link">Перейти к заявкам</a>
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol><symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="icon-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/></symbol><symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol><symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol><symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol><symbol id="icon-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4m6-4v4M9 18v4m6-4v4M2 9h4m-4 6h4m12-6h4m-4 6h4"/><path d="M10 10h4v4h-4z"/></symbol><symbol id="icon-wrench" viewBox="0 0 24 24"><path d="M14 6a5 5 0 0 0-6 6l-5 5a2.8 2.8 0 0 0 4 4l5-5a5 5 0 0 0 6-6l-3 3-4-4 3-3Z"/></symbol><symbol id="icon-gas" viewBox="0 0 24 24"><rect x="7" y="6" width="10" height="16" rx="4"/><path d="M10 6V2h4v4M8 12h8"/></symbol><symbol id="icon-wind" viewBox="0 0 24 24"><path d="M3 8h12a3 3 0 1 0-3-3M3 12h16a3 3 0 1 1-3 3M3 16h6a3 3 0 1 1-3 3"/></symbol><symbol id="icon-bolt" viewBox="0 0 24 24"><path d="m13 2-9 12h7l-1 8 10-13h-8l1-7Z"/></symbol><symbol id="icon-snow" viewBox="0 0 24 24"><path d="M12 2v20M3.3 7l17.4 10M3.3 17 20.7 7M9 3l3 3 3-3M9 21l3-3 3 3M3 10l4-1-1-4m12 14-1-4 4-1M3 14l4 1-1 4M18 5l-1 4 4 1"/></symbol><symbol id="icon-monitor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="13" rx="2"/><path d="M12 16v5m-5 0h10M6 11l3-4 4 5 4-5"/></symbol><symbol id="icon-building" viewBox="0 0 24 24"><path d="M4 22V4h16v18M2 22h20M8 8h2m4 0h2M8 12h2m4 0h2M10 22v-6h4v6"/></symbol><symbol id="icon-queue" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></symbol><symbol id="icon-book" viewBox="0 0 24 24"><path d="M12 5c-3-2-6-2-10-1v15c4-1 7-1 10 1 3-2 6-2 10-1V4c-4-1-7-1-10 1Zm0 0v15"/></symbol><symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 22v-3a8 8 0 0 1 16 0v3"/></symbol><symbol id="icon-refresh" viewBox="0 0 24 24"><path d="M20 7a9 9 0 1 0 1 8M20 2v6h-6"/></symbol><symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="icon-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7ZM11 13 22 2"/></symbol><symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.1"/></symbol><symbol id="icon-home" viewBox="0 0 24 24"><path d="m3 10 9-8 9 8v11h-7v-7h-4v7H3V10Z"/></symbol></defs></svg>
+<div class="workspace">
+<aside class="sidebar" aria-label="Рабочий кабинет">
+  <a class="brand" href="../MainPage/Main/index.html"><span class="brand-mark"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-chip"/></svg></span><span><strong>ИТС НУ</strong><small>Назарбаев Университет</small></span></a>
+  <p class="nav-caption">Рабочее пространство</p>
+  <nav class="workspace-nav" aria-label="Разделы кабинета">
+    <a href="#workspace" aria-current="page" aria-label="Заявки"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-queue"/></svg><span>Заявки</span><span class="nav-count" id="nav-count">—</span></a>
+    <a href="../Instruktazh/Instruktazh_main/index.html" aria-label="Инструкции"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-book"/></svg><span>Инструкции</span></a>
+    <a href="../MainPage/Main/index.html" aria-label="Главная сайта"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-home"/></svg><span>Главная сайта</span></a>
+  </nav>
+  <div class="sidebar-foot"><strong>Engineering Desk</strong><p>Единая очередь заявок инженерно-технической службы.</p><button class="text-button" data-source>Источник данных <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-arrow"/></svg></button></div>
+</aside>
+<div class="workspace-main">
+  <header class="workspace-header"><div class="breadcrumb"><span>Рабочий кабинет</span><span>/</span><strong>Заявки</strong></div><div class="profile"><span class="profile-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-user"/></svg></span><span><strong id="profile-role">Старший инженер</strong><small id="profile-caption">Предпросмотр интерфейса</small></span></div></header>
+  <main class="workspace-content" id="workspace" tabindex="-1">
+    <div class="preview-bar"><p id="mode-description"><strong>Демонстрация интерфейса.</strong> Заявки вымышлены. Действия не отправляют сообщения и не изменяют Znuny.</p><label id="role-control">Вид для роли <select id="preview-role" aria-label="Роль в демонстрации"><option value="senior">Старший инженер</option><option value="engineer">Инженер</option></select></label><button class="button button-secondary" id="back-to-demo" hidden>Вернуться к демо</button></div>
+    <div class="page-heading"><div><h1>Заявки</h1><p id="page-subtitle">Распределяйте работу и держите команду в курсе.</p></div><div class="heading-actions"><span class="connection" id="connection">Демонстрационные данные</span><button class="button button-secondary" id="refresh"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-refresh"/></svg> Обновить</button></div></div>
+    <div class="connection-error" id="connection-error" role="alert" hidden></div>
+    <section class="stats" aria-label="Сводка по загруженным заявкам">
+      <div class="stat-card"><span class="stat-label">Открытые заявки</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-queue"/></svg><strong class="stat-value" id="stat-total">—</strong><span class="stat-foot" id="stat-total-note">В демонстрационной очереди</span></div>
+      <div class="stat-card attention"><span class="stat-label">Без исполнителя</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-clock"/></svg><strong class="stat-value" id="stat-unassigned">—</strong><span class="stat-foot" id="stat-unassigned-note">Ожидают распределения</span></div>
+      <div class="stat-card"><span class="stat-label">С исполнителем</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-user"/></svg><strong class="stat-value" id="stat-assigned">—</strong><span class="stat-foot" id="stat-assigned-note">В загруженной очереди</span></div>
+      <div class="stat-card"><span class="stat-label">Уведомления</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-send"/></svg><strong class="stat-value" id="stat-notified">0</strong><span class="stat-foot" id="stat-notified-note">Смоделировано в этой сессии</span></div>
+    </section>
+    <section class="queue-card" aria-label="Очередь заявок">
+      <div class="queue-top"><div class="queue-tabs" role="group" aria-label="Фильтр по назначению"><button class="queue-tab" data-scope="all" aria-pressed="true">Все заявки <span id="count-all">0</span></button><button class="queue-tab" data-scope="unassigned" aria-pressed="false">Без исполнителя <span id="count-unassigned">0</span></button><button class="queue-tab" data-scope="assigned" aria-pressed="false">Назначенные <span id="count-assigned">0</span></button></div><button class="text-button" data-source>Источник данных <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-arrow"/></svg></button></div>
+      <div class="filter-bar">
+        <div class="filter-field"><label for="search">Поиск по заявкам</label><input id="search" type="search" placeholder="Номер, тема, заявитель…" autocomplete="off"></div>
+        <div class="filter-field"><label for="service-filter">Направление</label><select id="service-filter"><option value="">Все направления</option></select></div>
+        <div class="filter-field"><label for="senior-filter">Ответственный старший</label><select id="senior-filter"><option value="">Все старшие инженеры</option></select></div>
+      </div>
+      <div class="queue-meta"><span id="result-count" role="status" aria-live="polite">Загрузка…</span><div class="sort-control"><label for="sort-order">Порядок:</label><select id="sort-order"><option value="oldest">Сначала старые</option><option value="newest">Сначала новые</option><option value="number">По номеру</option></select><button class="text-button" id="reset-filters" hidden>Сбросить</button></div></div>
+      <div id="ticket-content" aria-busy="false"></div>
+      <div class="queue-footer"><span id="load-note">Демонстрационные данные</span><div class="pagination"><button id="previous-page" aria-label="Предыдущая страница">←</button><span id="page-number">1 / 1</span><button id="next-page" aria-label="Следующая страница">→</button></div></div>
+    </section>
+    <p class="info-note"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-info"/></svg><span id="queue-note">Назначение исполнителя и уведомление в Telegram — отдельные действия. Демонстрационные изменения сохраняются до перезагрузки страницы.</span></p>
+    <button class="button button-secondary source-mobile" data-source>Источник данных</button>
+    <noscript><p class="connection-error">Для просмотра заявок включите JavaScript. <a href="../MainPage/Main/index.html">Вернуться на главную</a>.</p></noscript>
+  </main>
+</div>
+</div>
+<dialog class="drawer" id="ticket-drawer" aria-labelledby="drawer-title">
+  <div class="drawer-heading"><div class="dialog-header"><h2 id="drawer-title">Заявка</h2><button class="close-button" data-close aria-label="Закрыть карточку"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-close"/></svg></button></div><p id="drawer-topic"></p></div>
+  <div class="drawer-body">
+    <span class="badge blue" id="drawer-state">Открыта</span>
+    <dl class="ticket-fields" id="ticket-fields"></dl>
+    <h3>Описание обращения</h3><p class="description-box" id="ticket-description"></p>
+    <a class="text-button" id="znuny-link" href="https://support.nu.edu.kz" target="_blank" rel="noopener noreferrer" hidden>Открыть в Znuny ↗</a>
+    <section class="assign-panel" id="assign-panel" aria-labelledby="assign-title">
+      <h3 id="assign-title">Распределение заявки</h3>
+      <div class="field"><label for="assignee">Исполнитель</label><select id="assignee"><option value="">Выберите инженера</option></select></div>
+      <p class="field-hint" id="assignee-note"></p>
+      <div class="assign-actions"><button class="button button-primary" id="assign-button">Назначить</button><button class="button button-secondary" id="telegram-button"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-send"/></svg> Telegram</button></div>
+      <p class="field-hint" id="assignment-feedback" role="status" aria-live="polite"></p>
+    </section>
+    <p class="read-only-note" id="readonly-note" hidden></p>
+    <hr class="section-divider"><h3 id="history-title">История заявки · демо</h3><ol class="history" id="ticket-history"></ol>
   </div>
-</div>
-
-<div class="toolbar">
-  <label>Старший инженер:</label>
-  <select id="senior-filter">
-    <option value="">Все заявки</option>
-    <option value="17">Maxat Suieubayev</option>
-    <option value="16">Askar Sharipov</option>
-    <option value="18">Ramazan Abdrakhmanov</option>
-    <option value="19">Temirbek Sarsembekov</option>
-  </select>
-  <button class="btn btn-primary" onclick="loadTickets()">Обновить</button>
-  <span class="status-text" id="status-text">Нажмите «Обновить»</span>
-</div>
-
-<div class="container">
-  <div class="summary">
-    <div class="summary-card"><div class="num" id="total-count">—</div><div class="lbl">Всего открытых в очереди</div></div>
-    <div class="summary-card"><div class="num" id="shown-count">—</div><div class="lbl">Показано заявок</div></div>
-    <div class="summary-card"><div class="num" id="sent-count">0</div><div class="lbl">Отправлено сегодня</div></div>
-  </div>
-  <div id="content" class="loading">Нажмите «Обновить» для загрузки заявок из Znuny</div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-// Адрес локального Flask-сервера по умолчанию. 
-// После развертывания бэкенда на выделенной виртуальной машине (VM) укажите здесь её адрес, например: "https://its-api.nu.edu.kz"
-const API = "http://localhost:5000";
-
-let allTickets = [];
-let seniors = [];
-let sentCount = 0;
-
-// Загружаем список старших при старте
-async function loadSeniors() {
-  try {
-    const r = await fetch(`${API}/seniors`);
-    const data = await r.json();
-    seniors = data.seniors;
-  } catch(e) {
-    console.error("Не удалось загрузить список инженеров", e);
-  }
-}
-
-async function loadTickets() {
-  const status = document.getElementById("status-text");
-  const content = document.getElementById("content");
-  status.textContent = "Загрузка...";
-  content.innerHTML = '<div class="loading">Загружаем заявки из Znuny...</div>';
-
-  try {
-    const r = await fetch(`${API}/tickets`);
-    const data = await r.json();
-    if (data.error) throw new Error(data.error);
-
-    allTickets = data.tickets;
-    document.getElementById("total-count").textContent = data.total;
-    document.getElementById("conn-badge").textContent = "✓ Подключено";
-    document.getElementById("conn-badge").classList.add("ok");
-    status.textContent = `Загружено ${allTickets.length} заявок`;
-    renderTable();
-  } catch(e) {
-    content.innerHTML = `<div class="loading" style="color:#c0392b">Ошибка: ${e.message}<br><small>Убедитесь что сервер запущен: python its_server.py</small></div>`;
-    status.textContent = "Ошибка подключения";
-  }
-}
-
-function getSubordinates(ownerID) {
-  const senior = seniors.find(s => s.owner_id === ownerID);
-  return senior ? senior.subordinates : [];
-}
-
-function renderTable() {
-  const filterOwner = document.getElementById("senior-filter").value;
-  let tickets = allTickets;
-  if (filterOwner) tickets = tickets.filter(t => String(t.owner_id) === filterOwner);
-
-  document.getElementById("shown-count").textContent = tickets.length;
-
-  if (!tickets.length) {
-    document.getElementById("content").innerHTML = '<div class="loading">Заявок не найдено</div>';
-    return;
-  }
-
-  const rows = tickets.map(t => {
-    const subs = getSubordinates(t.owner_id);
-    let assignBlock = "";
-
-    if (subs.length > 0) {
-      const options = subs.map(s => {
-        const disabled = !s.chat_id ? 'data-no-tg="true"' : '';
-        const label = s.chat_id ? s.name : `${s.name} (нет TG)`;
-        return `<option value='${JSON.stringify(s).replace(/'/g, "&apos;")}' ${disabled}>${label}</option>`;
-      }).join("");
-
-      assignBlock = `
-        <div class="assign-wrap">
-          <select class="assign-select" id="sel-${t.ticket_id}">${options}</select>
-          <button class="btn-send" id="btn-${t.ticket_id}" onclick="sendTicket(${t.ticket_id})">
-            📤 Назначить
-          </button>
-        </div>`;
-    } else {
-      assignBlock = `<span style="font-size:11px;color:#aaa">Нет подчинённых</span>`;
-    }
-
-    return `
-      <tr>
-        <td><span class="ticket-num">#${t.ticket_number}</span></td>
-        <td><div class="ticket-title" title="${escHtml(t.title)}">${escHtml(t.title)}</div></td>
-        <td><div class="ticket-service" title="${escHtml(t.service||'')}">${escHtml(t.service||'—')}</div></td>
-        <td style="font-size:12px">${t.customer || '—'}</td>
-        <td class="phone">${t.phone || '—'}</td>
-        <td><span class="owner-badge">${ownerShort(t.owner_id)}</span></td>
-        <td class="date">${formatDate(t.created)}</td>
-        <td>${assignBlock}</td>
-      </tr>`;
-  }).join("");
-
-  document.getElementById("content").innerHTML = `
-    <table>
-      <thead>
-        <tr>
-          <th>№</th><th>Тема</th><th>Услуга</th><th>Заявитель</th><th>Телефон</th><th>Старший</th><th>Дата</th><th>Назначить</th>
-        </tr>
-      </thead>
-      <tbody>${rows}</tbody>
-    </table>`;
-}
-
-async function sendTicket(ticketId) {
-  const ticket = allTickets.find(t => t.ticket_id === ticketId);
-  const sel = document.getElementById(`sel-${ticketId}`);
-  const btn = document.getElementById(`btn-${ticketId}`);
-
-  let engineer;
-  try {
-    engineer = JSON.parse(sel.value.replace(/&apos;/g, "'"));
-  } catch(e) {
-    showToast("Ошибка выбора инженера", true);
-    return;
-  }
-
-  if (!engineer.chat_id) {
-    showToast(`У ${engineer.name} нет Telegram`, true);
-    return;
-  }
-
-  btn.disabled = true;
-  btn.textContent = "Отправка...";
-
-  try {
-    const r = await fetch(`${API}/send`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ticket,
-        engineer_name: engineer.name,
-        chat_id: engineer.chat_id
-      })
-    });
-    const data = await r.json();
-
-    if (data.success) {
-      btn.textContent = `✓ → ${engineer.name}`;
-      btn.classList.add("btn-sent");
-      sentCount++;
-      document.getElementById("sent-count").textContent = sentCount;
-      showToast(`Заявка #${ticket.ticket_number} отправлена → ${engineer.name}`);
-    } else {
-      btn.disabled = false;
-      btn.textContent = "📤 Назначить";
-      showToast(data.error || "Ошибка отправки", true);
-    }
-  } catch(e) {
-    btn.disabled = false;
-    btn.textContent = "📤 Назначить";
-    showToast("Ошибка: " + e.message, true);
-  }
-}
-
-function ownerShort(id) {
-  const map = {16: "Askar", 17: "Maxat", 18: "Ramazan", 19: "Temirbek"};
-  return map[id] || "—";
-}
-
-function formatDate(str) {
-  if (!str) return "—";
-  return str.slice(0, 16).replace("T", " ");
-}
-
-function escHtml(str) {
-  if (!str) return "";
-  return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-}
-
-function showToast(msg, error=false) {
-  const t = document.getElementById("toast");
-  t.textContent = msg;
-  t.className = "toast show" + (error ? " error" : "");
-  setTimeout(() => t.className = "toast", 3500);
-}
-
-document.getElementById("senior-filter").addEventListener("change", renderTable);
-
-// Загружаем инженеров при старте
-loadSeniors();
-</script>
-</body>
-</html>
+</dialog>
+<dialog id="telegram-dialog" aria-labelledby="telegram-title">
+  <div class="dialog-header"><h2 id="telegram-title">Сообщение в Telegram</h2><button class="close-button" data-close aria-label="Закрыть предпросмотр"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-close"/></svg></button></div>
+  <p class="demo-warning">Демонстрация: сообщение не будет отправлено в Telegram.</p><p class="recipient" id="telegram-recipient"></p><div class="telegram-preview" id="telegram-preview"></div><p class="microcopy">Уведомление не означает, что инженер прочитал сообщение или принял заявку.</p>
+  <div class="actions"><button class="button button-primary" id="confirm-telegram">Смоделировать отправку</button><button class="button button-secondary" data-close>Отмена</button></div>
+</dialog>
+<dialog id="source-dialog" aria-labelledby="source-title">
+  <div class="dialog-header"><h2 id="source-title">Источник данных</h2><button class="close-button" data-close aria-label="Закрыть настройки"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-close"/></svg></button></div>
+  <p class="dialog-intro">Демонстрация позволяет обсудить работу кабинета. Для просмотра существующих заявок подключите сервер выгрузки.</p>
+  <form id="source-form"><div class="field"><label for="api-address">Адрес сервера</label><input id="api-address" type="url" value="http://localhost:5000" required spellcheck="false" aria-describedby="source-hint"><span class="field-hint" id="source-hint">Доступен только просмотр. Назначение и отправка будут подключены после настройки входа сотрудников.</span></div><p class="source-status" id="source-error" role="alert"></p><div class="source-options"><button class="button button-primary" type="submit" id="connect-server">Загрузить заявки</button><button class="button button-secondary" type="button" id="use-demo">Открыть демонстрацию</button></div></form>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body></html>

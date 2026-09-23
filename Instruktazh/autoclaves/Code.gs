@@ -10,6 +10,7 @@
  *   E  Autoclave(s) requested
  *   F  Language
  *   G  Client Timestamp
+ *   H  ID Card Number (or a new column after existing custom columns)
  */
 
 var SHEET_NAME = "Acknowledgements";
@@ -22,6 +23,7 @@ var HEADERS = [
   "Автоклав(ы)",
   "Язык",
   "Метка времени (клиент)",
+  "Номер ID-карты",
 ];
 
 function doPost(e) {
@@ -46,7 +48,21 @@ function doPost(e) {
       sheet.setFrozenRows(1);
     }
 
+    // Extend existing response sheets without shifting their previous columns.
+    var existingHeaders = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+    var cardColumn = existingHeaders.indexOf("Номер ID-карты") + 1;
+    if (!cardColumn) {
+      cardColumn = Math.max(HEADERS.length, sheet.getLastColumn() + 1);
+      sheet.getRange(1, cardColumn)
+           .setValue("Номер ID-карты")
+           .setFontWeight("bold")
+           .setBackground("#1a365d")
+           .setFontColor("#ffffff");
+    }
+
     var params = e.parameter;
+    // Keep the value as text, including leading zeroes and long card numbers.
+    var cardId = String(params.cardId || "").trim();
 
     sheet.appendRow([
       new Date(),                        // server timestamp
@@ -57,6 +73,10 @@ function doPost(e) {
       params.lang       || "",
       params.clientTime || "",
     ]);
+
+    sheet.getRange(sheet.getLastRow(), cardColumn)
+         .setNumberFormat("@")
+         .setRichTextValue(SpreadsheetApp.newRichTextValue().setText(cardId).build());
 
     return ContentService
       .createTextOutput(JSON.stringify({ result: "ok" }))

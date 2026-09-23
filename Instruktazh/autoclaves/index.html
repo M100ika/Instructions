@@ -569,6 +569,16 @@
                            oninput="checkFormValidity()">
                 </div>
 
+                <!-- ID Card Number -->
+                <div>
+                    <label for="form-card-id" class="block text-sm font-bold text-[var(--text)] mb-1" data-i18n="formCardIdLabel">Номер ID-карты</label>
+                    <input type="text" id="form-card-id" name="cardId" class="form-input" required
+                           autocomplete="off" spellcheck="false"
+                           data-i18n-placeholder="formCardIdPlaceholder"
+                           placeholder="Введите номер с ID-карты"
+                           oninput="checkFormValidity()">
+                </div>
+
                 <!-- Position / Department -->
                 <div>
                     <label for="form-position" class="block text-sm font-bold text-[var(--text)] mb-1" data-i18n="formPositionLabel">Должность / отдел</label>
@@ -711,6 +721,8 @@
                 formTitle:              "Цифровое подтверждение ознакомления и запрос допуска",
                 formNameLabel:          "ФИО",
                 formNamePlaceholder:    "Фамилия Имя Отчество",
+                formCardIdLabel:        "Номер ID-карты",
+                formCardIdPlaceholder:  "Введите номер с ID-карты",
                 formPositionLabel:      "Должность / отдел",
                 formPositionPlaceholder:"Напр.: Научный сотрудник, Лаборатория биологии",
                 formEmailLabel:         "Электронная почта",
@@ -796,6 +808,8 @@
                 formTitle:              "Digital Acknowledgement and Access Request",
                 formNameLabel:          "Full Name",
                 formNamePlaceholder:    "First name Last name",
+                formCardIdLabel:        "ID Card Number",
+                formCardIdPlaceholder:  "Enter the number on your ID card",
                 formPositionLabel:      "Position / Department",
                 formPositionPlaceholder:"e.g., Researcher, Biology Lab",
                 formEmailLabel:         "Email",
@@ -881,6 +895,8 @@
                 formTitle:              "Танысуды электрондық растау және рұқсатқа өтінім", // CHECK
                 formNameLabel:          "Тегі, аты, әкесінің аты",
                 formNamePlaceholder:    "Тегіңіз Атыңыз",
+                formCardIdLabel:        "ID-карта нөмірі",
+                formCardIdPlaceholder:  "ID-картадағы нөмірді енгізіңіз",
                 formPositionLabel:      "Лауазымы / бөлімше",
                 formPositionPlaceholder:"Мысалы: Зерттеуші, Биология зертханасы",
                 formEmailLabel:         "Электрондық пошта",
@@ -957,6 +973,7 @@
         // ─── FORM ────────────────────────────────────────────────────────────────
         function checkFormValidity() {
             const name      = document.getElementById('form-fullname').value.trim();
+            const cardId    = document.getElementById('form-card-id').value.trim();
             const position  = document.getElementById('form-position').value.trim();
             const email     = document.getElementById('form-email').value.trim();
             const consent   = document.getElementById('form-consent').checked;
@@ -964,7 +981,9 @@
             const equipment = document.querySelectorAll('.form-equipment:checked').length > 0;
 
             const btn = document.getElementById('form-submit');
-            btn.disabled = !(name && position && email && emailOk && equipment && consent);
+            const valid = Boolean(name && cardId && position && email && emailOk && equipment && consent);
+            btn.disabled = !valid || currentStatus === 'sending' || currentStatus === 'success';
+            return valid;
         }
 
         function showStatus(id) {
@@ -982,7 +1001,9 @@
         }
 
         async function submitForm() {
+            if (currentStatus === 'sending' || currentStatus === 'success' || !checkFormValidity()) return;
             const fullName   = document.getElementById('form-fullname').value.trim();
+            const cardId     = document.getElementById('form-card-id').value.trim();
             const position   = document.getElementById('form-position').value.trim();
             const email      = document.getElementById('form-email').value.trim();
             const equipment  = Array.from(document.querySelectorAll('.form-equipment:checked')).map(el => el.value).join(', ');
@@ -993,7 +1014,7 @@
             btn.disabled = true;
             showStatus('sending');
 
-            const body = new URLSearchParams({ fullName, position, email, equipment, lang, clientTime });
+            const body = new URLSearchParams({ fullName, cardId, position, email, equipment, lang, clientTime });
 
             try {
                 await fetch(WEB_APP_URL, {
@@ -1007,7 +1028,7 @@
                 document.getElementById('ack-form').querySelectorAll('input').forEach(el => el.disabled = true);
             } catch (err) {
                 showStatus('error');
-                btn.disabled = false;
+                checkFormValidity();
             }
         }
 
